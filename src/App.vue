@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { JMenuBar } from './components/menuBar'
+  import { JMenuBar } from './components/MenuBar'
 </script>
 
 <template>

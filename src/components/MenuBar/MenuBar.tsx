@@ -38,7 +38,7 @@ export default defineComponent({
     return (
       <div class="menu-bar dark:menu-bar-dark">
         <span >
-          <div>Logo</div>
+          <div>Logo111</div>
           <div>{appName}</div>
           {appMenu.map((item) => {
             return (

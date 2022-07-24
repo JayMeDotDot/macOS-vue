@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-  import { ref } from 'vue'
-
-  import { JMenuBar } from './components/menuBar'
+  import { JMenuBar } from './components/MenuBar'
 
   let theme = true
 

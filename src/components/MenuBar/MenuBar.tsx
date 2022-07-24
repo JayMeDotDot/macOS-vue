@@ -36,14 +36,19 @@ export default defineComponent({
     } = this
 
     return (
-      <div>
-        <div>Logo</div>
-        <div>{appName}</div>
-        {appMenu.map((item) => {
-          return (
-            <div>{item}</div>
-          )
-        })}
+      <div class="menu-bar dark:menu-bar-dark">
+        <span >
+          <div>Logo</div>
+          <div>{appName}</div>
+          {appMenu.map((item) => {
+            return (
+              <div>{item}</div>
+            )
+          })}
+        </span>
+        <span>
+          <div>tail</div>
+        </span>
     </div>
     )
   },

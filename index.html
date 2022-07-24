@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>macOS-vue</title>
   </head>
-  <body>
+  <body class="">
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
@@ -20,5 +20,13 @@
   body {
     height: 100vh;
     background-image: linear-gradient(to right top, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68);
+  }
+
+  #app {
+    height: 100%;
+  }
+
+  .dark #app {
+    background: rgba(0, 0, 0, .2);
   }
 </style>

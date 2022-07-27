@@ -2,9 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^0.25.2
+  '@iconify-json/ic': ^1.1.7
   '@rushstack/eslint-patch': ^1.1.0
   '@types/jsdom': ^16.2.14
   '@types/node': ^16.11.45
+  '@unocss/preset-icons': ^0.44.7
   '@vitejs/plugin-vue': ^3.0.1
   '@vitejs/plugin-vue-jsx': ^2.0.0
   '@vue/eslint-config-typescript': ^11.0.0
@@ -28,9 +30,11 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config': 0.25.2_he2ccbldppg44uulnyq4rwocfa
+  '@iconify-json/ic': 1.1.7
   '@rushstack/eslint-patch': 1.1.4
   '@types/jsdom': 16.2.15
   '@types/node': 16.11.45
+  '@unocss/preset-icons': 0.44.7
   '@vitejs/plugin-vue': 3.0.1_vite@3.0.2+vue@3.2.37
   '@vitejs/plugin-vue-jsx': 2.0.0_vite@3.0.2+vue@3.2.37
   '@vue/eslint-config-typescript': 11.0.0_usemwu2orllh6tzptz2hsp6y3e
@@ -486,6 +490,12 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@iconify-json/ic/1.1.7:
+    resolution: {integrity: sha512-CYwkhja02SZoevezNHSqM7d1lpsRJxKt9fzvn3MpRxI8s2v3LNmhGiD/bTq3uFgqQMRPp+OnD+OOjHrMo7ah1g==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
+
   /@iconify/types/1.1.0:
     resolution: {integrity: sha512-Jh0llaK2LRXQoYsorIH8maClebsnzTcve+7U3rQUSnC11X4jtPnFuyatqFLvMxZ8MLG8dB4zfHsbPfuvxluONw==}
     dev: true
@@ -790,6 +800,10 @@ packages:
     resolution: {integrity: sha512-IxFg0b0Exudko5akYLA4kfdv2MNYpQlgrB33N+UcHb8z0eGENBStq/ZKjwneplHV9RiSOM4d7nPYkK7Id1RgPA==}
     dev: true
 
+  /@unocss/core/0.44.7:
+    resolution: {integrity: sha512-EPs3IxvPdzxEkEynAyCqyJX25IPp5RtFK3mFdgmXGvigwpgq9sxJBzQRXmYNtDeZriSyiwjYmc9yclLEJH3IiA==}
+    dev: true
+
   /@unocss/inspector/0.44.5:
     resolution: {integrity: sha512-Yd1adLO5WKQ9HCZGoY4KmV6R9kJl8/HM3bO7bIZbVfmVpfQg0k0f5ZaE2Jy6k1fuLw62EtpYQFWAZmkOF0mw7A==}
     dependencies:
@@ -808,6 +822,16 @@ packages:
     dependencies:
       '@iconify/utils': 1.0.33
       '@unocss/core': 0.44.5
+      ohmyfetch: 0.4.18
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@unocss/preset-icons/0.44.7:
+    resolution: {integrity: sha512-3PC8a1yjm/rV0Sq192OB+yWokccjNZlh8dsmt3NPdz7OTIRTreNvUaFlV5CHk1JSk2/CNus1VWLG1VeDHqdotg==}
+    dependencies:
+      '@iconify/utils': 1.0.33
+      '@unocss/core': 0.44.7
       ohmyfetch: 0.4.18
     transitivePeerDependencies:
       - supports-color

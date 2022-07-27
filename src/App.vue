@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { JMenuBar } from './components/MenuBar'
+  import { JAppBar } from './components/AppBar'
 
   let theme = true
 
@@ -17,7 +18,9 @@
 <template>
 <div>
     <JMenuBar></JMenuBar>
+<button @click="changeTheme"> switch22 </button>
+    <JAppBar class="fixed bottom-2 right-0 left-0 ma"></JAppBar>
 </div>
 
-<button @click="changeTheme"> switch </button>
+
 </template>

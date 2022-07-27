@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
-import { presetAttributify, presetUno } from 'unocss'
+import { presetAttributify, presetIcons, presetUno } from 'unocss'
 
 import theme from './theme'
 
@@ -17,6 +17,7 @@ export default defineConfig({
       presets: [
         presetAttributify(),
         presetUno(),
+        presetIcons(),
       ],
       shortcuts: [
         {...theme}

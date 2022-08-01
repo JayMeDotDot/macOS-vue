@@ -11,18 +11,18 @@ import theme from './theme'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
-    vueJsx(), 
     Unocss({
       presets: [
-        presetAttributify(),
         presetUno(),
+        presetAttributify(),
         presetIcons(),
       ],
       shortcuts: [
         {...theme}
       ]
     }),
+    vue(),
+    vueJsx(), 
   ],
   resolve: {
     alias: {

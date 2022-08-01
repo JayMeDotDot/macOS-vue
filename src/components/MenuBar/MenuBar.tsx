@@ -1,6 +1,10 @@
 import {
-  defineComponent
+  defineComponent,
+  onUnmounted,
+  ref,
 } from 'vue'
+
+import { formatDay } from '../../utils/formateDay'
 
 import type { PropType } from 'vue'
 
@@ -29,13 +33,26 @@ export type MenuBarTypes = typeof menuBarTypes
 export default defineComponent({
   name: 'MenuBar',
   props: menuBarTypes,
-  setup(props) {
+  setup() {
+    const currentTime = ref(formatDay())
 
+    const intervalID = setInterval(() => {
+      currentTime.value = formatDay()
+    }, 60000)
+
+    onUnmounted(() => {
+      clearInterval(intervalID)
+    })
+
+    return {
+      currentTime
+    }
   },
   render() {
     const {
       appName,
       appMenu,
+      currentTime,
       systemState,
     } = this
 
@@ -59,7 +76,7 @@ export default defineComponent({
           })}
           <div
             class="menu-subbar-item"
-          >7月24日 12:00</div>
+          >{currentTime}</div>
         </div>
     </div>
     )

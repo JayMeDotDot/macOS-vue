@@ -48,11 +48,8 @@ export const appBarTypes = {
       },{
         name: 'Final Cut',
         iconLocation: 'FinalCut.webp',
-      },{
-        name: '计算器',
-        iconLocation: 'Caculator.webp',
       },
-    ]
+    ],
   }
 }
 
@@ -64,9 +61,9 @@ export default defineComponent({
   setup(props) {
 
   },
-  render () {
+  render() {
     const {
-      appList
+      appList,
     } = this
 
     return (

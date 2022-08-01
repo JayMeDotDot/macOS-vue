@@ -1,17 +1,33 @@
 export default {
+  'search-bar-container': `bg-white
+                           bg-opacity-50
+                           backdrop-blur-20
+                           p-2 w-40%
+                           text-size-9
+                           text-slate-700
+                           flex justify-center items-center
+                           rounded-3`,
+  'search-bar-container-dark' : `bg-slate-500/50
+                                 text-slate-400`,
+  'search-bar': `text-slate-700
+                 text-size-8
+                 bg-transparent
+                 border-none
+                 w-100%`,
+  'search-bar-dark': `text-slate-400`,
+
   'menu-bar': `flex
                flex-row
                items-center
                justify-between
                bg-slate-700/50
-               text-white
+               color-warmgray-200
                text-size-3.5
                p-1`,
   'menu-subbar': `flex
                   flex-row
                   items-center
-                  justify-between
-                  `,
+                  justify-between`,
   'menu-subbar-item': `ml-2
                        mr-2
                        cursor-default`,
@@ -19,7 +35,6 @@ export default {
   'app-bar': `flex
               flex-row
               items-center
-              space-evenly
               bg-white
               bg-opacity-50
               backdrop-blur-20
@@ -33,11 +48,19 @@ export default {
                    ml-0
                    mr-0`,
 
+  'jbutton': `bg-white
+              bg-opacity-30
+              backdrop-blur-20
+              border-none
+              color-bluegray-900
+              text-size-5
+              `,
 
-  'global-transition': `transition-all
+  'global-transition': `transition-colors
                         duration-700`,
-  'scale-transition': `transition-all
+  'scale-transition': `transition-transform
                        duration-300`,
   'global-scale': `scale-120 
                    -translate-y-2`,
+
 }

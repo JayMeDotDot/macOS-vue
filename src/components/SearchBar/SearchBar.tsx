@@ -25,7 +25,7 @@ export default defineComponent({
   name: 'SearchBar',
   props: searchBarTypes,
   setup(props) {
-    let searchBar : HTMLElement | null = null
+    let searchBar : HTMLElement | null
 
     onMounted(() => {
       searchBar = document.querySelector('#search-bar') as HTMLElement
@@ -43,7 +43,7 @@ export default defineComponent({
     } = this
 
     return (
-      <div id="search-bar" class="search-bar-container dark:search-bar-container-dark global-transition" draggable>
+      <div id="search-bar" class="search-bar-container item-center dark:search-bar-container-dark global-transition" draggable>
         <div class='i-ic-search'></div>
         <input class="search-bar dark:search-bar-dark focus:outline-none"
                type="text"

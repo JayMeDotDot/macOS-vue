@@ -6,26 +6,29 @@ export default function drag(target: HTMLElement) {
     top: target.offsetTop,
     startX: target.offsetLeft,
     startY: target.offsetTop,
+    width: target.offsetWidth,
+    height: target.offsetHeight,
   }
 
   function setPosition(event: MouseEvent) {
     if (state.moving) {
       event.preventDefault()
+
       let driftX = event.clientX - state.startX
       let driftY = event.clientY - state.startY
       let left = state.left + driftX
       let top = state.top + driftY
 
-      if (left < 0) {
-        left = 0
-      } else if (left > window.innerWidth - target.offsetWidth) {
-        left = window.innerWidth - target.offsetWidth
+      if (left < state.width / 2) {
+        left = state.width / 2
+      } else if (left > window.innerWidth - target.offsetWidth + state.width / 2) {
+        left = window.innerWidth - target.offsetWidth + state.width / 2
       }
 
-      if (top < 0) {
-        top = 0
-      } else if (top > window.innerHeight - target.offsetHeight) {
-        top = window.innerHeight - target.offsetHeight
+      if (top < state.height / 2) {
+        top = state.height / 2
+      } else if (top > window.innerHeight - target.offsetHeight + state.height / 2) {
+        top = window.innerHeight - target.offsetHeight + state.height / 2
       }
 
       target.style.left = left + 'px'
@@ -33,8 +36,16 @@ export default function drag(target: HTMLElement) {
     }
   }
 
-  function setTrue() { state.moving = true }
-  function setFalse() { state.moving = false }
+  function setTrue(event: MouseEvent) {
+    state.moving = true
+    state.startX = event.clientX
+    state.startY = event.clientY
+  }
+  function setFalse() { 
+    state.moving = false
+    state.left = target.offsetLeft
+    state.top = target.offsetTop
+  }
 
   function install() {
     target.addEventListener('mousedown', setTrue )

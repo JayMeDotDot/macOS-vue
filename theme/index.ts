@@ -1,4 +1,19 @@
 export default {
+  'window': `min-w-50 min-h-50
+             bg-white
+             bg-opacity-50
+             backdrop-blur-20
+             text-slate-700
+             rounded-2
+             p-2`,
+  'window-dark': `bg-slate-500/50
+                  text-slate-400`,
+  'window-bar': `relative`,
+  'window-title': `inline-block
+                   absolute
+                   left-50%`,
+  'window-content': `width-100%`,
+
   'search-bar-container': `bg-white
                            bg-opacity-50
                            backdrop-blur-20
@@ -7,7 +22,7 @@ export default {
                            text-slate-700
                            flex justify-center items-center
                            rounded-3`,
-  'search-bar-container-dark' : `bg-slate-500/50
+  'search-bar-container-dark': `bg-slate-500/50
                                  text-slate-400`,
   'search-bar': `text-slate-700
                  text-size-8
@@ -63,4 +78,7 @@ export default {
   'global-scale': `scale-120 
                    -translate-y-2`,
 
+  'item-center': `absolute
+                  top-50% left-50%
+                  translate-x--50% translate-y--50%`,
 }

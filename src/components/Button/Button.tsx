@@ -1,9 +1,13 @@
 import {
   computed,
   defineComponent,
+  h,
 } from 'vue'
 
-import type { PropType } from 'vue'
+import type { 
+  PropType,
+  SetupContext,
+} from 'vue'
 
 export const buttonTypes = {
   circle: {
@@ -30,11 +34,13 @@ export default defineComponent({
     })
 
     const IsIcon = computed(() => {
-      return (icon, ctx) => {
+      return (icon: String|undefined, ctx: SetupContext) => {
         if (icon) {
           return <div class={icon}></div>
         }
-        return <span>{ctx.slots.default && ctx.slots.default()[0].children}</span>
+        if (ctx.slots.default) {
+          return h('div', {class: 'flex'}, ctx.slots.default())
+        }
       }
     })
     
@@ -42,7 +48,6 @@ export default defineComponent({
       buttonStyle,
       ctx,
       IsIcon,
-      ctx,
     }
   },
   render() {

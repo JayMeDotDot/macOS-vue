@@ -13,6 +13,8 @@
   import { JAppBar } from './components/AppBar'
   import { JButton } from './components/Button'
   import { JSearchBar } from './components/SearchBar'
+  import { JWindow } from './components/Window'
+  import { JCalculator } from './components/Calculator'
 
   let gSCInstance : gSCTypes
   let appIntance : HTMLElement
@@ -69,6 +71,10 @@
       class="fixed bottom-10 right-10"
     ></JButton>
 
-    <JSearchBar v-if="state.searchBar" class="absolute top-50% left-30%"></JSearchBar>
+    <JWindow>
+      
+    </JWindow>
+
+    <JSearchBar v-if="state.searchBar"></JSearchBar>
 </div>
 </template>

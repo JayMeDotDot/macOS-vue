@@ -1,18 +1,39 @@
 export default {
-  'window': `min-w-50 min-h-50
+  'calculator': `w-100% h-100%
+                 flex flex-col `,
+  'calculator-result': `w-100% h-100% min-h-12 
+                        text-xl leading-12 text-end`,
+  'calculator-keys': `grid gap-1px
+                      grid-cols-4
+                      min-w-15 min-h-15
+                      w-100% h-100%`,
+  'calculator-key': `min-w-15 min-h-15
+                     w-100% h-100%
+                     border-none
+                     bg-white
+                     bg-opacity-10
+                     backdrop-blur-20
+                     text-slate-700
+                     text-xl`,
+  'calculator-key-dark': `text-white`,
+  'calculator-key-active': `bg-slate-100`,
+  'calculator-key-dark-active': `bg-slate-800`,
+
+  'window': `min-w-50 min-h-50 w-fit
              bg-white
              bg-opacity-50
              backdrop-blur-20
              text-slate-700
              rounded-2
-             p-2`,
+             p-4px
+             flex flex-col`,
   'window-dark': `bg-slate-500/50
-                  text-slate-400`,
-  'window-bar': `relative`,
-  'window-title': `inline-block
-                   absolute
-                   left-50%`,
-  'window-content': `width-100%`,
+                  text-white`,
+  'window-bar': `relative
+                 m-1`,
+  'window-title': `inline-block cursor-default`,
+  'window-content': `width-100% height-100%
+                     flex justify-center items-center flex-grow`,
 
   'search-bar-container': `bg-white
                            bg-opacity-50
@@ -71,12 +92,14 @@ export default {
               text-size-5
               `,
 
-  'global-transition': `transition-colors
+  'theme-transition': `transition-colors
                         duration-700`,
   'scale-transition': `transition-transform
                        duration-300`,
-  'global-scale': `scale-120 
-                   -translate-y-2`,
+  'app-scale': `scale-120 
+                -translate-y-2`,
+  'filp-transition': `transition-transform
+                      duration-1000`,
 
   'item-center': `absolute
                   top-50% left-50%

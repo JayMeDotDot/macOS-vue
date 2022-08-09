@@ -57,7 +57,7 @@ export default defineComponent({
     } = this
 
     return (
-      <div class="menu-bar">
+      <div id="menu-bar" class="menu-bar">
         <div class="menu-subbar">
           <div class="menu-subbar-item i-ic-baseline-apple text-size-5"></div>
           <div class="menu-subbar-item">{appName}</div>

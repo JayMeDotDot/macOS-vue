@@ -9,7 +9,7 @@ export default function animationInterval(ms, signal, callback) {
 
   function scheduleFrame(time) {
     const elapsed = time - start
-    const roundElapsed = Math.round(elapsed / ms) * ms
+    const roundedElapsed = Math.round(elapsed / ms) * ms
     const targetNext = start + roundedElapsed + ms
     const delay = targetNext - performance.now()
     setTimeout(() => {

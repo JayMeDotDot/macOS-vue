@@ -23,6 +23,10 @@
   let themeIcon = ref('i-ic-baseline-light-mode')
   let state = reactive({
     searchBar: false,
+    calculator: {
+      display: false,
+      fullScreen: false,
+    }
   })
 
   function switchTheme() {
@@ -39,6 +43,35 @@
 
   function toggleSearchBar() {
     state.searchBar = !state.searchBar
+  }
+
+  function handleAppEvent(event: string) {
+    state.calculator.display = true
+  }
+
+  function handleWinEvent(event: {windowID:string, type:string}) {
+    const target = document.querySelector(`#${event.windowID}`) as HTMLElement
+    if (event.type === 'fullWin') {
+      if (state.calculator.fullScreen) {
+        target.style.transformOrigin = ''
+        target.style.transform = ''
+        target.style.top = ''
+      } else {
+        const appbar = document.querySelector('#app-bar') as HTMLElement
+        const menubar = document.querySelector('#menu-bar') as HTMLElement
+        const scale = (appbar.offsetTop - menubar.offsetHeight) / target.offsetHeight
+
+        target.style.transformOrigin = 'left top'
+        target.style.transform = `scale(${scale}) translate(-50%)`
+        target.style.top = `${menubar.offsetHeight}px`
+        target.style.transitionDuration = '1s'
+      }
+      state.calculator.fullScreen = !state.calculator.fullScreen
+    }
+    if (event.type === 'closeWin') {
+      state.calculator.display = false
+    }
+    if (event.type === 'minWin') { console.log('min') }
   }
 
   onMounted(() => {
@@ -62,7 +95,7 @@
 <div>
     <JMenuBar></JMenuBar>
 
-    <JAppBar class="fixed bottom-2 right-0 left-0 ma"></JAppBar>
+    <JAppBar class="fixed bottom-2 right-0 left-0 ma" @open-app="handleAppEvent"></JAppBar>
 
     <JButton 
       circle
@@ -71,8 +104,13 @@
       class="fixed bottom-10 right-10"
     ></JButton>
 
-    <JWindow>
-      
+    <JWindow 
+      v-if="state.calculator.display"
+      id="Calculator" 
+      title="计算器"
+      @window="handleWinEvent"
+    >
+      <JCalculator></JCalculator>
     </JWindow>
 
     <JSearchBar v-if="state.searchBar"></JSearchBar>

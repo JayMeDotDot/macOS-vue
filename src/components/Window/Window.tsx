@@ -44,7 +44,6 @@ export default defineComponent({
     // let resizeWin : resizeType
 
     onMounted(() => {
-      console.log('mounted')
       window = document.querySelector(`#${id}Win`) as HTMLElement
       excludeElement = document.querySelector(`#${id}Content`) as HTMLElement
 
@@ -56,7 +55,6 @@ export default defineComponent({
     })
 
     onUnmounted(() => {
-      console.log('unmounted')
       dragWin.uninstall()
       // resizeWin.uninstall()
     })

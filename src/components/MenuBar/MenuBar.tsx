@@ -4,7 +4,7 @@ import {
   ref,
 } from 'vue'
 
-import { formatDay } from '../../utils/formateDay'
+import { formatDay } from '../../utils'
 
 import type { PropType } from 'vue'
 

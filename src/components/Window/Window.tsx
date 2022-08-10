@@ -10,8 +10,8 @@ import type {
   SetupContext,
 } from 'vue'
 
-import drag from '../../utils/drag'
-import type { dragType } from '../../utils/drag'
+import { drag } from '../../utils'
+import type { dragType } from '../../utils'
 // import resize from '../../utils/resize'
 // import type { resizeType } from '../../utils/resize'
 

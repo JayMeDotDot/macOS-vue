@@ -6,8 +6,13 @@
     onUnmounted,
   } from 'vue'
 
-  import gSC from './utils/globalShortCuts'
-  import type { gSCTypes } from './utils/globalShortCuts'
+  import {
+    gSC,
+  } from './utils'
+
+  import type {
+    gSCTypes,
+  } from './utils'
 
   import { JMenuBar } from './components/MenuBar'
   import { JAppBar } from './components/AppBar'
@@ -53,19 +58,41 @@
     const target = document.querySelector(`#${event.windowID}`) as HTMLElement
     if (event.type === 'fullWin') {
       if (state.calculator.fullScreen) {
-        target.style.transformOrigin = ''
-        target.style.transform = ''
+        target.style.width = ''
+        target.style.height = ''
         target.style.top = ''
       } else {
         const appbar = document.querySelector('#app-bar') as HTMLElement
         const menubar = document.querySelector('#menu-bar') as HTMLElement
-        const scale = (appbar.offsetTop - menubar.offsetHeight) / target.offsetHeight
 
-        target.style.transformOrigin = 'left top'
-        target.style.transform = `scale(${scale}) translate(-50%)`
-        target.style.top = `${menubar.offsetHeight}px`
-        target.style.transitionDuration = '1s'
+        // const first = target.getBoundingClientRect()
+        // const scale = (appbar.offsetTop - menubar.offsetHeight) / first.height
+
+        // target.style.width = `${first.width * scale}px`
+        // target.style.height = `${first.height * scale}px`
+        // target.style.top = `${target.offsetTop - menubar.offsetHeight/2 - (window.innerHeight - appbar.offsetTop - appbar.offsetHeight) + 2}px`
+
+        // const second = target.getBoundingClientRect()
+
+        // const deltaX = first.left - second.left - second.width / 2
+        // const deltaY = first.top - second.top - second.height / 2
+
+        // target.animate([
+        //   {
+        //     transformOrigin: 'left top',
+        //     transform:`translate(${deltaX}px, ${deltaY}px) scale(${1/scale})`
+        //   },
+        //   {
+        //     transformOrigin: 'left top',
+        //     transform: `translate(-50%, -50%) scale(1)`
+        //   },
+        // ],
+        // {
+        //   duration: 600,
+        //   easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        // })
       }
+
       state.calculator.fullScreen = !state.calculator.fullScreen
     }
     if (event.type === 'closeWin') {

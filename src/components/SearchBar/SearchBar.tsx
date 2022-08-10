@@ -4,7 +4,7 @@ import {
   onUnmounted,
 } from 'vue'
 
-import drag from '../../utils/drag'
+import { drag } from '../../utils'
 
 import type { PropType } from 'vue'
 

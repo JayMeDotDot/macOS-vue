@@ -24,7 +24,7 @@ export default defineComponent({
     const initFlag = ref(true)
     const stack: Ref<string[]> = ref([])
     const StdOp = ['/', '*', '-', '+']
-    const keyNum = ['0', '1', '2' ,'3', '4', '5', '6', '7', '8', '9', '.']
+    const keyNum = ['0', '1', '2' ,'3', '4', '5', '6', '7', '8', '9']
 
     const ACOrC = computed(() => {
       return initFlag.value && initVal.value === '0' ? 'AC' : 'C'
@@ -45,6 +45,11 @@ export default defineComponent({
             : initVal.value = '' + (-num)
           initFlag.value = false
           return
+        }
+        if (key.value === '.') {
+          initVal.value = initVal.value + key.value
+          initFlag.value = false
+          return 
         }
         if (keyNum.includes(key.value)) {
           initFlag.value || initVal.value === '0'

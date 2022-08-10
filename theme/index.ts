@@ -1,12 +1,14 @@
 export default {
   'calculator': `w-100% h-100%
-                 flex flex-col `,
+                 flex flex-col`,
   'calculator-result': `w-100% h-100% min-h-12 
-                        text-xl leading-12 text-end`,
+                        text-xl leading-12 text-end
+                        flex-grow-1 flex-shrink-1 flex-basis-0/1`,
   'calculator-keys': `grid gap-1px
                       grid-cols-4
                       min-w-15 min-h-15
-                      w-100% h-100%`,
+                      w-100% h-100%
+                      flex-grow-6.25 flex-shrink-1 flex-basis-0/1`,
   'calculator-key': `min-w-15 min-h-15
                      w-100% h-100%
                      border-none
@@ -25,7 +27,7 @@ export default {
              backdrop-blur-20
              text-slate-700
              rounded-2
-             p-4px
+             p-4px box-border
              flex flex-col`,
   'window-dark': `bg-slate-500/50
                   text-white`,

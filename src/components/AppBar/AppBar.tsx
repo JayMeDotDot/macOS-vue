@@ -95,6 +95,7 @@ export default defineComponent({
           return (
             <div class="app-bar-item scale-transition hover:app-scale">
               <img 
+                id={item.comp}
                 comp={item.comp}
                 class="w-13"
                 src={"/appicon/" + item.iconLocation} alt={item.name} 

@@ -28,18 +28,6 @@ export default function drag(target: HTMLElement, exclude?: HTMLElement[]): drag
       let left = state.left + driftX
       let top = state.top + driftY
 
-      // if (left < state.width / 2) {
-      //   left = state.width / 2
-      // } else if (left > window.innerWidth - state.width + state.width / 2) {
-      //   left = window.innerWidth - state.width + state.width / 2
-      // }
-
-      // if (top < state.height / 2) {
-      //   top = state.height / 2
-      // } else if (top > window.innerHeight - state.height + state.height / 2) {
-      //   top = window.innerHeight - state.height + state.height / 2
-      // }
-
       target.style.left = left + 'px'
       target.style.top = top + 'px'
     }

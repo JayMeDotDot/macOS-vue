@@ -22,6 +22,7 @@
 
   import { JMenuBar } from './components/MenuBar'
   import { JAppBar } from './components/AppBar'
+  import type { AppBarTypes } from './components/AppBar'
   import { JButton } from './components/Button'
   import { JSearchBar } from './components/SearchBar'
   import { JWindow } from './components/Window'
@@ -57,6 +58,18 @@
 
   function switchTheme() {
     if (themeMedia.matches) {
+      document.documentElement.classList.add('dark')
+      themeIcon.value = 'i-ic-baseline-dark-mode color-warmgray-200'
+      theme = false
+    } else {
+      document.documentElement.classList.remove('dark')
+      themeIcon.value = 'i-ic-baseline-light-mode'
+      theme = true
+    }
+  }
+
+  function toggleTheme() {
+    if (theme) {
       document.documentElement.classList.add('dark')
       themeIcon.value = 'i-ic-baseline-dark-mode color-warmgray-200'
       theme = false
@@ -120,7 +133,10 @@
   }
 
   onMounted(() => {
-    switchTheme()
+    if (themeMedia.matches) {
+      theme = true
+      switchTheme()
+    }
 
     appIntance = document.querySelector('#app') as HTMLElement
     gSCInstance = gSC(appIntance)
@@ -151,7 +167,7 @@
     <JButton 
       circle
       :icon="themeIcon"
-      @click="switchTheme"
+      @click="toggleTheme"
       class="fixed bottom-10 right-10"
     ></JButton>
 

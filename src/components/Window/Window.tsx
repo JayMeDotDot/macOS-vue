@@ -38,20 +38,25 @@ export default defineComponent({
       title,
     } = props
 
-    let window : HTMLElement | null
+    let winElement : HTMLElement | null
     let excludeElement : HTMLElement | null
     let dragWin : dragType
     // let resizeWin : resizeType
 
     onMounted(() => {
-      window = document.querySelector(`#${id}Win`) as HTMLElement
+      winElement = document.querySelector(`#${id}Win`) as HTMLElement
       excludeElement = document.querySelector(`#${id}Content`) as HTMLElement
 
-      excludeElement ? dragWin = drag(window, [excludeElement]) : dragWin = drag(window)
+      excludeElement ? dragWin = drag(winElement, [excludeElement]) : dragWin = drag(winElement)
       // resizeWin = resize(window)
 
       dragWin.install()
       // resizeWin.install()
+
+      const winRect = winElement.getBoundingClientRect()
+      winElement.style.position = 'absolute'
+      winElement.style.left = `${(window.innerWidth - winRect.width) / 2}px`
+      winElement.style.top = `${(window.innerHeight - winRect.height) / 2}px`
     })
 
     onUnmounted(() => {
@@ -96,7 +101,7 @@ export default defineComponent({
     }
 
     return (
-      <div id={id + 'Win'} class="window dark:window-dark item-center theme-transition">
+      <div id={id + 'Win'} class="window dark:window-dark theme-transition">
         <div class="window-bar">
           <span class="children:children:hover:opacity-100">
             <button

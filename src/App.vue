@@ -6,7 +6,12 @@
     onUnmounted,
   } from 'vue'
 
+  import type {
+    StyleValue,
+  } from 'vue'
+
   import {
+    flip,
     gSC,
   } from './utils'
 
@@ -58,39 +63,26 @@
     const target = document.querySelector(`#${event.windowID}`) as HTMLElement
     if (event.type === 'fullWin') {
       if (state.calculator.fullScreen) {
-        target.style.width = ''
-        target.style.height = ''
-        target.style.top = ''
+        const options = { width: '', height: '', top: '' , left: '' }
+
+        flip(target, options)
       } else {
         const appbar = document.querySelector('#app-bar') as HTMLElement
         const menubar = document.querySelector('#menu-bar') as HTMLElement
 
-        // const first = target.getBoundingClientRect()
-        // const scale = (appbar.offsetTop - menubar.offsetHeight) / first.height
+        const winRect = target.getBoundingClientRect()
+        const appbarRect = appbar.getBoundingClientRect()
+        const menubarRect = menubar.getBoundingClientRect()
 
-        // target.style.width = `${first.width * scale}px`
-        // target.style.height = `${first.height * scale}px`
-        // target.style.top = `${target.offsetTop - menubar.offsetHeight/2 - (window.innerHeight - appbar.offsetTop - appbar.offsetHeight) + 2}px`
+        const options: StyleValue = {}
+        const scale = (appbarRect.top - menubarRect.height) / winRect.height
 
-        // const second = target.getBoundingClientRect()
+        options.width = `${winRect.width * scale}px`
+        options.height = `${winRect.height * scale}px`
+        options.top = `${menubarRect.height}px`
+        options.left = `${(window.innerWidth - winRect.width * scale) / 2}px`
 
-        // const deltaX = first.left - second.left - second.width / 2
-        // const deltaY = first.top - second.top - second.height / 2
-
-        // target.animate([
-        //   {
-        //     transformOrigin: 'left top',
-        //     transform:`translate(${deltaX}px, ${deltaY}px) scale(${1/scale})`
-        //   },
-        //   {
-        //     transformOrigin: 'left top',
-        //     transform: `translate(-50%, -50%) scale(1)`
-        //   },
-        // ],
-        // {
-        //   duration: 600,
-        //   easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
-        // })
+        flip(target, options)
       }
 
       state.calculator.fullScreen = !state.calculator.fullScreen

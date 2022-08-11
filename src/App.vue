@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import {
+    defineAsyncComponent,
     onMounted,
     reactive,
     ref,
@@ -24,23 +25,38 @@
   import { JButton } from './components/Button'
   import { JSearchBar } from './components/SearchBar'
   import { JWindow } from './components/Window'
-  import { JCalculator } from './components/Calculator'
+  // import { JCalculator } from './components/Calculator'
+
+  const JCalculator = defineAsyncComponent(() => 
+    import('./components/Calculator').then(({ JCalculator }) => JCalculator)
+  )
 
   let gSCInstance : gSCTypes
   let appIntance : HTMLElement
 
-  let theme = window.matchMedia('(prefers-color-scheme: dark)').matches
-  let themeIcon = ref('i-ic-baseline-light-mode')
-  let state = reactive({
-    searchBar: false,
-    calculator: {
+  interface CompInfoType {
+    id: string
+    display: boolean
+    fullScreen?: boolean
+    position?: [number, number, number, number]
+  }
+
+  let theme = true
+  const themeMedia = window.matchMedia('(prefers-color-scheme: dark)')
+  const themeIcon = ref('i-ic-baseline-light-mode')
+
+  const state: { [key: string]: CompInfoType } = reactive({
+    SearchBar: {
+      id: 'SearchBar',
       display: false,
-      fullScreen: false,
-    }
+    },
   })
+  let appList = reactive([
+    { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
+  ])
 
   function switchTheme() {
-    if (theme) {
+    if (themeMedia.matches) {
       document.documentElement.classList.add('dark')
       themeIcon.value = 'i-ic-baseline-dark-mode color-warmgray-200'
       theme = false
@@ -52,17 +68,27 @@
   }
 
   function toggleSearchBar() {
-    state.searchBar = !state.searchBar
+    state.SearchBar.display = !state.SearchBar.display
   }
 
-  function handleAppEvent(event: string) {
-    state.calculator.display = true
+  function initComp(comp: string) {
+    state[comp] = {
+      id: comp,
+      display: true,
+      fullScreen: false,
+      position: [0,0,0,0],
+    }
+  }
+
+  function handleAppEvent(comp: keyof Object) {
+    state[comp] ? state[comp].display = true : initComp(comp)
   }
 
   function handleWinEvent(event: {windowID:string, type:string}) {
-    const target = document.querySelector(`#${event.windowID}`) as HTMLElement
-    if (event.type === 'fullWin') {
-      if (state.calculator.fullScreen) {
+    const { windowID, type } = event
+    const target = document.querySelector(`#${windowID}`) as HTMLElement
+    if (type === 'fullWin') {
+      if (state.Calculator.fullScreen) {
         const options = { width: '', height: '', top: '' , left: '' }
 
         flip(target, options)
@@ -85,12 +111,12 @@
         flip(target, options)
       }
 
-      state.calculator.fullScreen = !state.calculator.fullScreen
+      state.Calculator.fullScreen = !state.Calculator.fullScreen
     }
-    if (event.type === 'closeWin') {
-      state.calculator.display = false
+    if (type === 'closeWin') {
+      state.Calculator.display = false
     }
-    if (event.type === 'minWin') { console.log('min') }
+    if (type === 'minWin') { console.log('min') }
   }
 
   onMounted(() => {
@@ -99,6 +125,7 @@
     appIntance = document.querySelector('#app') as HTMLElement
     gSCInstance = gSC(appIntance)
     appIntance.addEventListener('search-bar-toggle', toggleSearchBar)
+    themeMedia.addEventListener('change', switchTheme)
     gSCInstance.install()
 
   })
@@ -106,6 +133,7 @@
   onUnmounted(() => {
     gSCInstance.uninstall()
     appIntance.removeEventListener('search-bar-toggle', toggleSearchBar)
+    themeMedia.removeEventListener('change', switchTheme)
   })
 
 </script>
@@ -114,7 +142,11 @@
 <div>
     <JMenuBar></JMenuBar>
 
-    <JAppBar class="fixed bottom-2 right-0 left-0 ma" @open-app="handleAppEvent"></JAppBar>
+    <JAppBar
+      class="fixed bottom-2 right-0 left-0 ma" 
+      :app-list = "appList"
+      @open-app="handleAppEvent"
+    ></JAppBar>
 
     <JButton 
       circle
@@ -123,15 +155,17 @@
       class="fixed bottom-10 right-10"
     ></JButton>
 
-    <JWindow 
-      v-if="state.calculator.display"
+
+
+    <!-- <JWindow 
+      v-if="state.Calculator.display"
       id="Calculator" 
       title="计算器"
       @window="handleWinEvent"
     >
       <JCalculator></JCalculator>
-    </JWindow>
+    </JWindow> -->
 
-    <JSearchBar v-if="state.searchBar"></JSearchBar>
+    <JSearchBar v-if="state.SearchBar.display"></JSearchBar>
 </div>
 </template>

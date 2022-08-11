@@ -46,7 +46,7 @@ export const appBarTypes = {
         comp: 'Safari',
       },{
         name: '计算器',
-        iconLocation: 'Caculator.webp',
+        iconLocation: 'Calculator.webp',
         comp: 'Calculator',
       },{
         name: 'App Store',

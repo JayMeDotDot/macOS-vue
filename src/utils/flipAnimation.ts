@@ -28,7 +28,7 @@ export default function flip(element: HTMLElement, options: StyleValue) {
       transformOrigin: 'left top',
     },
   ],{
-    duration: 300,
+    duration: 600,
     easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
   })
 }

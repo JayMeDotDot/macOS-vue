@@ -1,18 +1,15 @@
-import {
-  defineComponent
-} from 'vue'
+import { defineComponent } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
-import type { PropType } from 'vue'
-
-interface AppList {
+interface AppPorps {
   name: string
   iconLocation: string
   comp: string
 }
 
-export const appBarTypes = {
+export const appBarProps = {
   appList: {
-    type: Array as PropType<Array<AppList>>,
+    type: Array as PropType<Array<AppPorps>>,
     default: () => [
       {
         name: '访达',
@@ -65,11 +62,11 @@ export const appBarTypes = {
   }
 }
 
-export type AppBarTypes = typeof appBarTypes
+export type AppBarProps = ExtractPropTypes<typeof appBarProps>
 
 export default defineComponent({
   name: 'AppBar',
-  props: appBarTypes,
+  props: appBarProps,
   emits: ['openApp'],
   setup(props, ctx) {
 
@@ -86,7 +83,8 @@ export default defineComponent({
     function renderApp(event: MouseEvent) {
       const element = event.target as HTMLElement
       const comp = element.getAttribute('comp')
-      ctx.emit('openApp', comp)
+      const name = element.getAttribute('alt')
+      ctx.emit('openApp', comp, name)
     }
 
     return (
@@ -95,7 +93,7 @@ export default defineComponent({
           return (
             <div class="app-bar-item scale-transition hover:app-scale">
               <img 
-                id={item.comp}
+                id={item.comp + 'Appbar'}
                 comp={item.comp}
                 class="w-13"
                 src={"/appicon/" + item.iconLocation} alt={item.name} 

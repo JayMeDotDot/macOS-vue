@@ -1,17 +1,14 @@
-import {
-  defineComponent
-} from 'vue'
-
-import type { PropType } from 'vue'
+import { defineComponent } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 interface MenuList {
   title: string
   disabled: boolean
   link: string
-  children: Array<ItemList>
+  children: Array<MenuList>
 }
 
-export const menuTypes = {
+export const menuProps = {
   menuList: {
     type: Array as PropType<Array<MenuList>>,
     default: () => [
@@ -61,6 +58,6 @@ export const menuTypes = {
   }
 }
 
-export type menuTypes = typeof menuTypes
+export type MenuProps = ExtractPropTypes<typeof menuProps>
 
 export default defineComponent({})

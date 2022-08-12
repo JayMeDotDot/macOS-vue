@@ -1,32 +1,16 @@
 <script lang="ts" setup>
-  import {
-    defineAsyncComponent,
-    onMounted,
-    reactive,
-    ref,
-    onUnmounted,
-  } from 'vue'
+  import { defineAsyncComponent, onMounted, reactive, ref, onUnmounted } from 'vue'
+  import type { StyleValue } from 'vue'
 
-  import type {
-    StyleValue,
-  } from 'vue'
-
-  import {
-    flip,
-    gSC,
-  } from './utils'
-
-  import type {
-    gSCTypes,
-  } from './utils'
+  import { flip, gSC } from './utils'
+  import type { gSCTypes } from './utils'
 
   import { JMenuBar } from './components/MenuBar'
   import { JAppBar } from './components/AppBar'
-  import type { AppBarTypes } from './components/AppBar'
+  import type { AppBarProps } from './components/AppBar'
   import { JButton } from './components/Button'
   import { JSearchBar } from './components/SearchBar'
   import { JWindow } from './components/Window'
-  // import { JCalculator } from './components/Calculator'
 
   const JCalculator = defineAsyncComponent(() => 
     import('./components/Calculator').then(({ JCalculator }) => JCalculator)
@@ -37,22 +21,22 @@
 
   interface CompInfoType {
     id: string
+    title?: string
     display: boolean
     fullScreen?: boolean
-    position?: [number, number, number, number]
+    position: { top: number, left: number, width: number, height: number}
+    minPosition: { top: number, left: number, width: number, height: number}
   }
 
   let theme = true
   const themeMedia = window.matchMedia('(prefers-color-scheme: dark)')
   const themeIcon = ref('i-ic-baseline-light-mode')
 
-  const state: { [key: string]: CompInfoType } = reactive({
-    SearchBar: {
-      id: 'SearchBar',
-      display: false,
-    },
+  const searchbar = reactive({
+    display: false,
   })
-  let appList = reactive([
+  const compState: { [key: string]: CompInfoType } = reactive({})
+  let appList: AppBarProps['appList'] = reactive([
     { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
   ])
 
@@ -81,28 +65,45 @@
   }
 
   function toggleSearchBar() {
-    state.SearchBar.display = !state.SearchBar.display
+    compState.SearchBar.display = !compState.SearchBar.display
   }
 
-  function initComp(comp: string) {
-    state[comp] = {
+  function initComp(comp: string, name?: string) {
+    compState[comp] = {
       id: comp,
+      title: name,
       display: true,
       fullScreen: false,
-      position: [0,0,0,0],
+      position: {width: 0, height: 0, left: 0, top: 0},
+      minPosition: {width: 0, height: 0, left: 0, top: 0},
     }
   }
 
-  function handleAppEvent(comp: keyof Object) {
-    state[comp] ? state[comp].display = true : initComp(comp)
+  function handleAppEvent(comp: keyof Object, name: string) {
+    compState[comp] ? compState[comp].display = true : initComp(comp, name)
+
+    const icon = document.querySelector(`#${comp}Appbar`) as HTMLElement
+    const iconRect = icon.getBoundingClientRect()
+    compState[comp].minPosition = {
+      width: iconRect.width,
+      height: iconRect.height,
+      top: iconRect.top,
+      left: iconRect.left,
+    }
+
   }
 
-  function handleWinEvent(event: {windowID:string, type:string}) {
+  function handleWinEvent(event:{windowID: string, type: string }) {
     const { windowID, type } = event
-    const target = document.querySelector(`#${windowID}`) as HTMLElement
+    const target = document.querySelector(`#${windowID}Win`) as HTMLElement
     if (type === 'fullWin') {
-      if (state.Calculator.fullScreen) {
-        const options = { width: '', height: '', top: '' , left: '' }
+      if (compState[windowID].fullScreen) {
+        const options: StyleValue = {
+          width: compState[windowID].position.width + 'px',
+          height: compState[windowID].position.height + 'px',
+          left: compState[windowID].position.left + 'px',
+          top: compState[windowID].position.top + 'px',
+        }
 
         flip(target, options)
       } else {
@@ -113,23 +114,35 @@
         const appbarRect = appbar.getBoundingClientRect()
         const menubarRect = menubar.getBoundingClientRect()
 
-        const options: StyleValue = {}
         const scale = (appbarRect.top - menubarRect.height) / winRect.height
 
-        options.width = `${winRect.width * scale}px`
-        options.height = `${winRect.height * scale}px`
-        options.top = `${menubarRect.height}px`
-        options.left = `${(window.innerWidth - winRect.width * scale) / 2}px`
+        const options: StyleValue = {
+          width: `${winRect.width * scale}px`,
+          height: `${winRect.height * scale}px`,
+          top: `${menubarRect.height}px`,
+          left: `${(window.innerWidth - winRect.width * scale) / 2}px`,
+        }
+
+        compState[windowID].position = {
+          width: winRect.width,
+          height: winRect.height,
+          left: winRect.left,
+          top: winRect.top,
+        }
 
         flip(target, options)
       }
 
-      state.Calculator.fullScreen = !state.Calculator.fullScreen
+      compState.Calculator.fullScreen = !compState.Calculator.fullScreen
     }
     if (type === 'closeWin') {
-      state.Calculator.display = false
+      compState[windowID].display = false
     }
-    if (type === 'minWin') { console.log('min') }
+    if (type === 'minWin') {
+      const options = {
+
+      }
+    }
   }
 
   onMounted(() => {
@@ -171,17 +184,19 @@
       class="fixed bottom-10 right-10"
     ></JButton>
 
+    <JSearchBar v-if="searchbar.display"></JSearchBar>
 
 
-    <!-- <JWindow 
-      v-if="state.Calculator.display"
-      id="Calculator" 
-      title="计算器"
-      @window="handleWinEvent"
-    >
-      <JCalculator></JCalculator>
-    </JWindow> -->
+    <div v-for="comp of compState">
+      <JWindow
+        v-if="comp.display"
+        :id="comp.id"
+        :title="comp.title"
+        @window="handleWinEvent"
+      >
+        <JCalculator></JCalculator>
+      </JWindow>
+    </div>
 
-    <JSearchBar v-if="state.SearchBar.display"></JSearchBar>
 </div>
 </template>

@@ -1,15 +1,7 @@
-import {
-  computed,
-  defineComponent,
-  h,
-} from 'vue'
+import { computed, defineComponent, h } from 'vue'
+import type { ExtractPropTypes, PropType, SetupContext } from 'vue'
 
-import type { 
-  PropType,
-  SetupContext,
-} from 'vue'
-
-export const buttonTypes = {
+export const buttonProps = {
   circle: {
     type: Boolean as PropType<boolean>,
   },
@@ -18,11 +10,11 @@ export const buttonTypes = {
   }
 }
 
-export type ButtonTypes = typeof buttonTypes
+export type ButtonProps = ExtractPropTypes<typeof buttonProps>
 
 export default defineComponent({
   name: 'Button',
-  props: buttonTypes,
+  props: buttonProps,
   setup(props, ctx) {
     const {
       circle,

@@ -1,14 +1,9 @@
-import {
-  defineComponent,
-  onUnmounted,
-  ref,
-} from 'vue'
+import { defineComponent, onUnmounted, ref } from 'vue'
+import type {  ExtractPropTypes, PropType } from 'vue'
 
 import { formatDay } from '../../utils'
 
-import type { PropType } from 'vue'
-
-export const menuBarTypes = {
+export const menuBarProps = {
   appName: {
     type: String as PropType<string>,
     default: '访达',
@@ -28,11 +23,11 @@ export const menuBarTypes = {
   }
 } as const
 
-export type MenuBarTypes = typeof menuBarTypes
+export type MenuBarProps = ExtractPropTypes<typeof menuBarProps>
 
 export default defineComponent({
   name: 'MenuBar',
-  props: menuBarTypes,
+  props: menuBarProps,
   setup() {
     const currentTime = ref(formatDay())
 

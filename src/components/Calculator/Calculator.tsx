@@ -1,24 +1,18 @@
-import {
-  computed,
-  defineComponent,
-  ref,
-} from 'vue'
+import { computed, defineComponent, ref } from 'vue'
+import type { ExtractPropTypes, PropType, Ref } from 'vue'
 
-import type {
-  PropType,
-  Ref,
-} from 'vue'
-
-export const calculatorTypes = {
+export const calculatorProps = {
   calType: {
     type: String as PropType<'standard' | 'scientific' | 'coder'>,
     default: 'standard',
   }
 }
 
+export type CalculatorProps = ExtractPropTypes<typeof calculatorProps>
+
 export default defineComponent({
   name: 'Calculator',
-  props: calculatorTypes,
+  props: calculatorProps,
   setup() {
     const initVal = ref('0')
     const initFlag = ref(true)

@@ -1,14 +1,9 @@
-import {
-  onMounted,
-  defineComponent,
-  onUnmounted,
-} from 'vue'
+import { onMounted, defineComponent, onUnmounted } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 import { drag } from '../../utils'
 
-import type { PropType } from 'vue'
-
-export const searchBarTypes = {
+export const searchBarProps = {
   placeholder: {
     type: String as PropType<string>,
     default: '搜索',
@@ -19,11 +14,11 @@ export const searchBarTypes = {
   }
 } as const
 
-export type SearchBarTypes = typeof searchBarTypes
+export type SearchBarProps = ExtractPropTypes<typeof searchBarProps>
 
 export default defineComponent({
   name: 'SearchBar',
-  props: searchBarTypes,
+  props: searchBarProps,
   setup(props) {
     let searchBar : HTMLElement | null
 

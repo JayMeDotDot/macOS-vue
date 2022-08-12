@@ -1,21 +1,12 @@
-import {
-  defineComponent,
-  h,
-  onMounted,
-  onUnmounted,
-} from 'vue'
-
-import type { 
-  PropType,
-  SetupContext,
-} from 'vue'
+import { defineComponent, h, onMounted, onUnmounted } from 'vue'
+import type { ExtractPropTypes, PropType, SetupContext } from 'vue'
 
 import { drag } from '../../utils'
 import type { dragType } from '../../utils'
 // import resize from '../../utils/resize'
 // import type { resizeType } from '../../utils/resize'
 
-export const windowTypes = {
+export const windowProps = {
   id: {
     type: String as PropType<string>,
     default: 'window',
@@ -26,11 +17,11 @@ export const windowTypes = {
   },
 } as const
 
-export type WindowTypes = typeof windowTypes
+export type WindowProps = ExtractPropTypes<typeof windowProps>
 
 export default defineComponent({
   name: 'Window',
-  props: windowTypes,
+  props: windowProps,
   emit: ['window'],
   setup(props, ctx) {
     const {
@@ -77,18 +68,16 @@ export default defineComponent({
       title,
     } = this
 
-    const windowID = `${id}Win`
-
     function fullWin() {
-      ctx.emit('window', {windowID, type: 'fullWin'})
+      ctx.emit('window', {windowID: id, type: 'fullWin'})
     }
 
     function closeWin() {
-      ctx.emit('window', {windowID, type: 'closeWin'})
+      ctx.emit('window', {windowID : id, type: 'closeWin'})
     }
 
     function minWin() {
-      ctx.emit('window', {windowID, type: 'minWin'})
+      ctx.emit('window', {windowID: id, type: 'minWin'})
     }
 
     function renderComp(ctx: SetupContext) {

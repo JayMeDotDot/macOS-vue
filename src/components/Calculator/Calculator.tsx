@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, onMounted, ref } from 'vue'
 import type { ExtractPropTypes, PropType, Ref } from 'vue'
 
 export const calculatorProps = {
@@ -13,7 +13,8 @@ export type CalculatorProps = ExtractPropTypes<typeof calculatorProps>
 export default defineComponent({
   name: 'Calculator',
   props: calculatorProps,
-  setup() {
+  emit: ['comp'],
+  setup(props, ctx) {
     const initVal = ref('0')
     const initFlag = ref(true)
     const stack: Ref<string[]> = ref([])
@@ -99,10 +100,19 @@ export default defineComponent({
       return Number(result.reduce((a,b) => a + b)).toString()
     }
 
+    onMounted(() => {
+      const winElement = document.querySelector('#CalculatorWin') as HTMLElement
+      const winRect = winElement.getBoundingClientRect()
+      winElement.style.position = 'absolute'
+      winElement.style.left = `${(window.innerWidth - winRect.width) / 2}px`
+      winElement.style.top = `${(window.innerHeight - winRect.height) / 2}px`
+    })
+
     return {
       ACOrC,
       initVal,
       standardCal,
+      ctx
     }
   },
   render() {
@@ -111,6 +121,7 @@ export default defineComponent({
       calType,
       initVal,
       standardCal,
+      ctx
     } = this
 
     const CalUI = {
@@ -121,7 +132,7 @@ export default defineComponent({
 
     function standardUI() {
       return (
-        <div class='calculator-keys' onClick={standardCal}>
+        <div class='calculator-keys' onClick={standardCal} >
           {CalUI.standard.map((item) => {
             if (item === 0) {
               return <button

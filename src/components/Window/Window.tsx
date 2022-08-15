@@ -3,8 +3,6 @@ import type { ExtractPropTypes, PropType, SetupContext } from 'vue'
 
 import { drag } from '../../utils'
 import type { dragType } from '../../utils'
-// import resize from '../../utils/resize'
-// import type { resizeType } from '../../utils/resize'
 
 export const windowProps = {
   id: {
@@ -32,27 +30,19 @@ export default defineComponent({
     let winElement : HTMLElement | null
     let excludeElement : HTMLElement | null
     let dragWin : dragType
-    // let resizeWin : resizeType
 
     onMounted(() => {
       winElement = document.querySelector(`#${id}Win`) as HTMLElement
       excludeElement = document.querySelector(`#${id}Content`) as HTMLElement
 
       excludeElement ? dragWin = drag(winElement, [excludeElement]) : dragWin = drag(winElement)
-      // resizeWin = resize(window)
 
       dragWin.install()
-      // resizeWin.install()
 
-      const winRect = winElement.getBoundingClientRect()
-      winElement.style.position = 'absolute'
-      winElement.style.left = `${(window.innerWidth - winRect.width) / 2}px`
-      winElement.style.top = `${(window.innerHeight - winRect.height) / 2}px`
     })
 
     onUnmounted(() => {
       dragWin.uninstall()
-      // resizeWin.uninstall()
     })
 
     return {
@@ -69,15 +59,15 @@ export default defineComponent({
     } = this
 
     function fullWin() {
-      ctx.emit('window', {windowID: id, type: 'fullWin'})
+      ctx.emit('window', { type: 'fullWin', winProps: {id, title} })
     }
 
     function closeWin() {
-      ctx.emit('window', {windowID : id, type: 'closeWin'})
+      ctx.emit('window', { type: 'closeWin', winProps: {id, title} })
     }
 
     function minWin() {
-      ctx.emit('window', {windowID: id, type: 'minWin'})
+      ctx.emit('window', { type: 'minWin', winProps: {id, title} })
     }
 
     function renderComp(ctx: SetupContext) {

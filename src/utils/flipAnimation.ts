@@ -1,6 +1,6 @@
 import type { StyleValue } from "vue"
 
-export default function flip(element: HTMLElement, options: StyleValue) {
+export default function flip(element: HTMLElement, options: StyleValue, duration: number = 600) {
   const first = element.getBoundingClientRect()
 
   // This function is mainly for passing type check.
@@ -13,6 +13,7 @@ export default function flip(element: HTMLElement, options: StyleValue) {
   }
 
   const second = element.getBoundingClientRect()
+  const secondOpacity = window.getComputedStyle(element).opacity
 
   const deltaX = first.left - second.left
   const deltaY = first.top - second.top
@@ -22,13 +23,14 @@ export default function flip(element: HTMLElement, options: StyleValue) {
   element.animate([
     {
       transformOrigin: 'left top',
-      transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
+      transform: `translate(${deltaX}px, ${deltaY}px) 
+                  scale(${scaleX}, ${scaleY})`,
     },
     {
       transformOrigin: 'left top',
     },
   ],{
-    duration: 600,
+    duration: duration,
     easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
   })
 }

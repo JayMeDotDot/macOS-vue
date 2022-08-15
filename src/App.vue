@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { defineAsyncComponent, onMounted, reactive, ref, onUnmounted } from 'vue'
+  import { defineAsyncComponent, onMounted, reactive, ref, onUnmounted, type CSSProperties } from 'vue'
   import type { StyleValue } from 'vue'
 
   import { flip, gSC } from './utils'
@@ -11,6 +11,8 @@
   import { JButton } from './components/Button'
   import { JSearchBar } from './components/SearchBar'
   import { JWindow } from './components/Window'
+  import type { WindowProps } from './components/Window'
+  import { JMenu } from './components/Menu'
 
   const JCalculator = defineAsyncComponent(() => 
     import('./components/Calculator').then(({ JCalculator }) => JCalculator)
@@ -23,9 +25,11 @@
     id: string
     title?: string
     display: boolean
-    fullScreen?: boolean
-    position: { top: number, left: number, width: number, height: number}
-    minPosition: { top: number, left: number, width: number, height: number}
+    fullScreen: boolean
+    minScreen: boolean
+    position?: CSSProperties
+    minPosition?: CSSProperties
+    fullPosition?: CSSProperties
   }
 
   let theme = true
@@ -35,6 +39,8 @@
   const searchbar = reactive({
     display: false,
   })
+
+
   const compState: { [key: string]: CompInfoType } = reactive({})
   let appList: AppBarProps['appList'] = reactive([
     { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
@@ -72,62 +78,69 @@
     compState[comp] = {
       id: comp,
       title: name,
-      display: true,
+      display: false,
       fullScreen: false,
-      position: {width: 0, height: 0, left: 0, top: 0},
-      minPosition: {width: 0, height: 0, left: 0, top: 0},
+      minScreen: false,
     }
   }
 
   function handleAppEvent(comp: keyof Object, name: string) {
-    compState[comp] ? compState[comp].display = true : initComp(comp, name)
-
-    const icon = document.querySelector(`#${comp}Appbar`) as HTMLElement
-    const iconRect = icon.getBoundingClientRect()
-    compState[comp].minPosition = {
-      width: iconRect.width,
-      height: iconRect.height,
-      top: iconRect.top,
-      left: iconRect.left,
+    if (compState[comp]) {
+      if (compState[comp].minScreen) {
+        handleWinEvent({type: 'minWin', winProps: {id:comp, title:name}})
+      }
+    } else {
+      initComp(comp, name)
     }
-
+    compState[comp].display = true
   }
 
-  function handleWinEvent(event:{windowID: string, type: string }) {
-    const { windowID, type } = event
-    const target = document.querySelector(`#${windowID}Win`) as HTMLElement
+  function handleWinEvent(event:{ type: string, winProps: WindowProps }) {
+    const { type, winProps } = event
+    const target = document.querySelector(`#${winProps.id}Win`) as HTMLElement
+
+    if (!compState[winProps.id].position) {
+      const winRect = target.getBoundingClientRect()
+
+      compState[winProps.id].position = {
+            width: winRect.width + 'px',
+            height: winRect.height + 'px',
+            left: winRect.left + 'px',
+            top: winRect.top + 'px',
+          }
+    }
+
     if (type === 'fullWin') {
-      if (compState[windowID].fullScreen) {
+      if (compState[winProps.id].fullScreen) {
         const options: StyleValue = {
-          width: compState[windowID].position.width + 'px',
-          height: compState[windowID].position.height + 'px',
-          left: compState[windowID].position.left + 'px',
-          top: compState[windowID].position.top + 'px',
+          width: compState[winProps.id].position?.width,
+          height: compState[winProps.id].position?.height,
+          left: compState[winProps.id].position?.left,
+          top: compState[winProps.id].position?.top,
         }
 
         flip(target, options)
       } else {
-        const appbar = document.querySelector('#app-bar') as HTMLElement
-        const menubar = document.querySelector('#menu-bar') as HTMLElement
-
-        const winRect = target.getBoundingClientRect()
-        const appbarRect = appbar.getBoundingClientRect()
-        const menubarRect = menubar.getBoundingClientRect()
-
-        const scale = (appbarRect.top - menubarRect.height) / winRect.height
-
-        const options: StyleValue = {
-          width: `${winRect.width * scale}px`,
-          height: `${winRect.height * scale}px`,
-          top: `${menubarRect.height}px`,
-          left: `${(window.innerWidth - winRect.width * scale) / 2}px`,
+        if (!compState[winProps.id].fullScreen) {
+          const appbar = document.querySelector('#app-bar') as HTMLElement
+          const menubar = document.querySelector('#menu-bar') as HTMLElement
+          const appbarRect = appbar.getBoundingClientRect()
+          const menubarRect = menubar.getBoundingClientRect()
+          const winRect = target.getBoundingClientRect()
+          const scale = (appbarRect.top - menubarRect.height) / winRect.height
+          compState[winProps.id].fullPosition = {
+            width: winRect.width * scale + 'px',
+            height: winRect.height * scale + 'px',
+            top: menubarRect.height + 'px',
+            left: (window.innerWidth - winRect.width * scale) / 2  + 'px',
+          }
         }
 
-        compState[windowID].position = {
-          width: winRect.width,
-          height: winRect.height,
-          left: winRect.left,
-          top: winRect.top,
+        const options: StyleValue = {
+          width: compState[winProps.id].fullPosition?.width,
+          height: compState[winProps.id].fullPosition?.height,
+          left: compState[winProps.id].fullPosition?.left,
+          top: compState[winProps.id].fullPosition?.top,
         }
 
         flip(target, options)
@@ -136,12 +149,32 @@
       compState.Calculator.fullScreen = !compState.Calculator.fullScreen
     }
     if (type === 'closeWin') {
-      compState[windowID].display = false
+      initComp(winProps.id, winProps.title)
     }
     if (type === 'minWin') {
-      const options = {
+      if (compState[winProps.id].minScreen) {
+        const options: StyleValue = {}
+        if (compState[winProps.id].fullScreen) {
+          options.top = compState[winProps.id].fullPosition?.top
+        } else {
+          options.top = compState[winProps.id].position?.top
+        }
 
+        flip(target, options)
+      } else {
+        if (!compState[winProps.id].minPosition) {
+          compState[winProps.id].minPosition = {
+            top: window.innerHeight + 10 + 'px'
+          }
+        }
+
+        const options: StyleValue = {
+          top: compState[winProps.id].minPosition?.top
+        }
+
+        flip(target, options)
       }
+      compState[winProps.id].minScreen = !compState[winProps.id].minScreen
     }
   }
 
@@ -198,5 +231,7 @@
       </JWindow>
     </div>
 
+
+    <JMenu></JMenu>
 </div>
 </template>

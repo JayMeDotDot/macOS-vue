@@ -9,7 +9,7 @@ interface MenuList {
 }
 
 export const menuProps = {
-  menuList: {
+  menuLists: {
     type: Array as PropType<Array<MenuList>>,
     default: () => [
       {
@@ -20,25 +20,7 @@ export const menuProps = {
       },
       {
         title: '系统偏好',
-        disabled: false,
-        link: '',
-        children: [],
-      },
-      {
-        title: '最近使用',
-        disabled: false,
-        link: '',
-        children: [],
-      },
-      {
-        title: '重新启动',
-        disabled: false,
-        link: '',
-        children: [],
-      },
-      {
-        title: '关机',
-        disabled: false,
+        disabled: true,
         link: '',
         children: [],
       },
@@ -52,12 +34,45 @@ export const menuProps = {
         title: '退出登录',
         disabled: false,
         link: '',
-        children: [],
+        children: [{
+          title: '退出登录1',
+          disabled: false,
+          link: '',
+          children: [],
+        }],
       },
     ]
   }
-}
+} as const
 
 export type MenuProps = ExtractPropTypes<typeof menuProps>
 
-export default defineComponent({})
+export default defineComponent({
+  name: 'Menu',
+  props: menuProps,
+  setup() {},
+  render() {
+    const {
+      menuLists,
+    }  = this
+
+    function renderMenu(items: MenuList[]) {
+      return (
+        items.map((item) => {
+          return (
+            <div>
+              <div class="siblings:hover:text-red">{item.title}</div>
+              {item.children.length ? renderMenu(item.children) : null}
+            </div>
+          )
+        })
+      )
+    }
+
+    return (
+      <div class="text-white">
+        {renderMenu(menuLists)}
+      </div>
+    )
+  },
+})

@@ -21,7 +21,7 @@ export default {
   'calculator-key-active': `bg-slate-100`,
   'calculator-key-dark-active': `bg-slate-800`,
 
-  'window': `min-w-50 min-h-50 w-fit
+  'window': `w-fit
              bg-white
              bg-opacity-50
              backdrop-blur-20

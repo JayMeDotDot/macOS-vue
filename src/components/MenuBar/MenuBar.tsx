@@ -1,16 +1,23 @@
-import { defineComponent, onUnmounted, ref } from 'vue'
+import { defineComponent, onUnmounted, reactive, ref } from 'vue'
 import type {  ExtractPropTypes, PropType } from 'vue'
 
-import { formatDay } from '../../utils'
+import JAppMenu from '../Menu/Menu'
+import type { AppMenu } from '../Menu/Menu'
+
+import { formatDay } from '@/utils'
 
 export const menuBarProps = {
-  appName: {
-    type: String as PropType<string>,
-    default: '访达',
-  },
   appMenu: {
-    type: Array as PropType<Array<string>>,
-    default: () => ['文件', '编辑', '显示', '前往', '窗口', '帮助'],
+    type: Array as PropType<Array<AppMenu>>,
+    default: () => [
+      { title: '访达', disabled: false, },
+      { title: '文件', disabled: false, }, 
+      { title: '编辑', disabled: false, }, 
+      { title: '显示', disabled: false, }, 
+      { title: '前往', disabled: false, }, 
+      { title: '窗口', disabled: false, }, 
+      { title: '帮助', disabled: false, },
+    ],
   },
   systemState: {
     type: Array as PropType<Array<string>>,
@@ -30,6 +37,32 @@ export default defineComponent({
   props: menuBarProps,
   setup() {
     const currentTime = ref(formatDay())
+    const trigger = ref('click')
+    const showMenu: { [key: string]: boolean } = reactive({})
+    const position: {x: number, y: number} = reactive({x: 0, y: 0})
+    let preActiveMenu = ''
+
+    function handleClick(e: MouseEvent) {
+      if (trigger.value === 'hover') {
+        trigger.value = 'click'
+        showMenu[preActiveMenu] = false
+        return 
+      }
+      trigger.value = 'hover'
+      handleMouseEnter(e)
+    }
+
+    function handleMouseEnter(e: MouseEvent) {
+      const target = e.target as HTMLElement
+      if (trigger.value === 'hover') {
+        const activeMenu = target.getAttribute('data-key')!
+        const { left } = target.getBoundingClientRect()
+        position.x = left
+        showMenu[preActiveMenu] = false
+        showMenu[activeMenu] = true
+        preActiveMenu = activeMenu
+      }
+    }
 
     const intervalID = setInterval(() => {
       currentTime.value = formatDay()
@@ -40,25 +73,68 @@ export default defineComponent({
     })
 
     return {
-      currentTime
+      currentTime,
+      position,
+      showMenu,
+      handleClick,
+      handleMouseEnter,
     }
   },
   render() {
     const {
-      appName,
       appMenu,
       currentTime,
+      position,
+      showMenu,
       systemState,
+      handleClick,
+      handleMouseEnter,
     } = this
 
     return (
       <div id="menu-bar" class="menu-bar">
-        <div class="menu-subbar">
-          <div class="menu-subbar-item i-ic-baseline-apple text-size-5"></div>
-          <div class="menu-subbar-item">{appName}</div>
+        <div 
+          class="menu-subbar"
+          onClick={handleClick}
+        >
+          <div 
+            class="menu-subbar-item i-ic-baseline-apple"
+            onMouseenter={handleMouseEnter}
+          ></div>
           {appMenu.map((item) => {
+            if (item.options) {
+              if (showMenu[item.title]) {
+                return (
+                  <div>
+                    <div 
+                      class="menu-subbar-item"
+                      data-key={item.title}
+                      onMouseenter={handleMouseEnter}
+                    >
+                      {item.title}
+                    </div>
+                    <JAppMenu
+                      menu-lists={item.options}
+                      x={position.x}
+                      y={position.y}
+                    ></JAppMenu>
+                  </div>
+                )
+              }
+              return (
+                <div
+                  data-key={item.title}
+                  onMouseenter={handleMouseEnter}
+                >
+                  <div 
+                    class="menu-subbar-item" 
+                    data-key={item.title}
+                  >{item.title}</div>
+                </div>
+              )
+            }
             return (
-              <div class="menu-subbar-item">{item}</div>
+              <div class="menu-subbar-item">{item.title}</div>
             )
           })}
         </div>
@@ -66,7 +142,7 @@ export default defineComponent({
         <div class="menu-subbar">
           {systemState.map((item) => {
             return (
-              <div class={item + " menu-subbar-item text-size-5"}></div>
+              <div class={item + " menu-subbar-item"}></div>
             )
           })}
           <div

@@ -1,4 +1,23 @@
 export default {
+  'menu': `min-w-10rem w-fit
+           bg-white
+           bg-opacity-70
+           backdrop-blur-20
+           text-slate-900
+           rounded-2
+           p-4px box-border
+           flex flex-col`,
+  'menu-dark': `bg-slate-500/50
+                text-white`,
+  'menu-item': `text-size-3.5
+                pl-2 pr-2 mt-1
+                rounded-1
+                cursor-default
+                flex justify-between`,
+  'item-hover': `bg-[rgba(255,160,0,.6)]
+                 text-white`,
+
+
   'calculator': `w-100% h-100%
                  flex flex-col`,
   'calculator-result': `w-100% h-100% min-h-12 
@@ -60,14 +79,12 @@ export default {
                justify-between
                bg-slate-700/50
                color-warmgray-200
-               text-size-3.5
-               p-1`,
+               text-size-3.5`,
   'menu-subbar': `flex
                   flex-row
                   items-center
                   justify-between`,
-  'menu-subbar-item': `ml-2
-                       mr-2
+  'menu-subbar-item': `pl-3 pr-3 pt-1 pb-1
                        cursor-default`,
 
   'app-bar': `flex
@@ -106,4 +123,5 @@ export default {
   'item-center': `absolute
                   top-50% left-50%
                   translate-x--50% translate-y--50%`,
+  'text-disabled': `opacity-50`,
 }

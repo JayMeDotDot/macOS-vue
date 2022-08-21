@@ -1,7 +1,9 @@
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import type { ExtractPropTypes, PropType } from 'vue'
 
-interface AppPorps {
+import { appStore } from '@/store/appStore'
+
+export interface AppProps {
   name: string
   iconLocation: string
   comp: string
@@ -9,7 +11,7 @@ interface AppPorps {
 
 export const appBarProps = {
   appList: {
-    type: Array as PropType<Array<AppPorps>>,
+    type: Array as PropType<Array<AppProps>>,
     default: () => [
       {
         name: '访达',

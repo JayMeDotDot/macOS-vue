@@ -1,2 +1,2 @@
-import { default as JPopOver } from './PopOver'
-import type { PopProps } from './PopOver'
+export { default as JPopOver } from './PopOver'
+export type { PopProps } from './PopOver'

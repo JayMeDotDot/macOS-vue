@@ -1,2 +1,5 @@
 export { default as JMenu } from "./Menu"
-export type { MenuProps } from './Menu'
+export type {
+  MenuProps,
+  AppMenu,
+} from './Menu'

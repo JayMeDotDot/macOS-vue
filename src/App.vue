@@ -2,21 +2,23 @@
   import { defineAsyncComponent, onMounted, reactive, ref, onUnmounted, type CSSProperties } from 'vue'
   import type { StyleValue } from 'vue'
 
+  import { storeToRefs } from 'pinia'
+  import { appStore } from './store/appStore'
+
   import { flip, gSC } from './utils'
   import type { gSCTypes } from './utils'
 
   import { JMenuBar } from './components/MenuBar'
   import { JAppBar } from './components/AppBar'
-  import type { AppBarProps } from './components/AppBar'
   import { JButton } from './components/Button'
   import { JSearchBar } from './components/SearchBar'
   import { JWindow } from './components/Window'
   import type { WindowProps } from './components/Window'
-  import { JMenu } from './components/Menu'
 
   const JCalculator = defineAsyncComponent(() => 
-    import('./components/Calculator').then(({ JCalculator }) => JCalculator)
+    import('./app/Calculator').then(({ JCalculator }) => JCalculator)
   )
+
 
   let gSCInstance : gSCTypes
   let appIntance : HTMLElement
@@ -40,11 +42,9 @@
     display: false,
   })
 
-
+  const apps = appStore()
   const compState: { [key: string]: CompInfoType } = reactive({})
-  let appList: AppBarProps['appList'] = reactive([
-    { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
-  ])
+  const { getAppBar, getActiveAppMenu } = storeToRefs(apps)
 
   function switchTheme() {
     if (themeMedia.matches) {
@@ -71,7 +71,7 @@
   }
 
   function toggleSearchBar() {
-    compState.SearchBar.display = !compState.SearchBar.display
+    searchbar.display = !searchbar.display
   }
 
   function initComp(comp: string, name?: string) {
@@ -202,11 +202,13 @@
 
 <template>
 <div>
-    <JMenuBar></JMenuBar>
+    <JMenuBar
+     :app-menu="getActiveAppMenu"
+    ></JMenuBar>
 
     <JAppBar
       class="fixed bottom-2 right-0 left-0 ma" 
-      :app-list = "appList"
+      :app-list = "getAppBar"
       @open-app="handleAppEvent"
     ></JAppBar>
 
@@ -231,7 +233,5 @@
       </JWindow>
     </div>
 
-
-    <JMenu></JMenu>
 </div>
 </template>

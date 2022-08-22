@@ -1,7 +1,7 @@
 import { defineComponent, onUnmounted, reactive, ref } from 'vue'
 import type {  ExtractPropTypes, PropType } from 'vue'
 
-import JAppMenu from '../Menu/Menu'
+import JMenu from '../Menu/Menu'
 import type { AppMenu } from '../Menu/Menu'
 
 import { formatDay } from '@/utils'
@@ -10,13 +10,13 @@ export const menuBarProps = {
   appMenu: {
     type: Array as PropType<Array<AppMenu>>,
     default: () => [
-      { title: '访达', disabled: false, },
-      { title: '文件', disabled: false, }, 
-      { title: '编辑', disabled: false, }, 
-      { title: '显示', disabled: false, }, 
-      { title: '前往', disabled: false, }, 
-      { title: '窗口', disabled: false, }, 
-      { title: '帮助', disabled: false, },
+      { title: '访达', },
+      { title: '文件', }, 
+      { title: '编辑', }, 
+      { title: '显示', }, 
+      { title: '前往', }, 
+      { title: '窗口', }, 
+      { title: '帮助', },
     ],
   },
   systemState: {
@@ -42,6 +42,16 @@ export default defineComponent({
     const position: {x: number, y: number} = reactive({x: 0, y: 0})
     let preActiveMenu = ''
 
+    const logoMenu: AppMenu[] = [
+      { title: '关于本机' },
+      { title: '系统偏好' },
+      { title: '最近使用' },
+      { title: '锁定屏幕' },
+      { title: '升级系统' },
+      { title: '退出登录' },
+    ]
+
+
     function handleClick(e: MouseEvent) {
       if (trigger.value === 'hover') {
         trigger.value = 'click'
@@ -56,8 +66,9 @@ export default defineComponent({
       const target = e.target as HTMLElement
       if (trigger.value === 'hover') {
         const activeMenu = target.getAttribute('data-key')!
-        const { left } = target.getBoundingClientRect()
+        const { left, top } = target.getBoundingClientRect()
         position.x = left
+        position.y = top
         showMenu[preActiveMenu] = false
         showMenu[activeMenu] = true
         preActiveMenu = activeMenu
@@ -74,6 +85,7 @@ export default defineComponent({
 
     return {
       currentTime,
+      logoMenu,
       position,
       showMenu,
       handleClick,
@@ -84,6 +96,7 @@ export default defineComponent({
     const {
       appMenu,
       currentTime,
+      logoMenu,
       position,
       showMenu,
       systemState,
@@ -97,10 +110,20 @@ export default defineComponent({
           class="menu-subbar"
           onClick={handleClick}
         >
-          <div 
-            class="menu-subbar-item i-ic-baseline-apple"
-            onMouseenter={handleMouseEnter}
-          ></div>
+          <div>
+            <div 
+              class="menu-subbar-item i-ic-baseline-apple"
+              onMouseenter={handleMouseEnter}
+              data-key='logo'
+            ></div>
+            {showMenu.logo 
+              ? <JMenu
+                  menuLists={logoMenu}
+                  x={position.x}
+                  y={position.y}
+                ></JMenu> 
+              : null}
+          </div>
           {appMenu.map((item) => {
             if (item.options) {
               if (showMenu[item.title]) {
@@ -113,22 +136,20 @@ export default defineComponent({
                     >
                       {item.title}
                     </div>
-                    <JAppMenu
+                    <JMenu
                       menu-lists={item.options}
                       x={position.x}
                       y={position.y}
-                    ></JAppMenu>
+                    ></JMenu>
                   </div>
                 )
               }
               return (
-                <div
-                  data-key={item.title}
-                  onMouseenter={handleMouseEnter}
-                >
+                <div>
                   <div 
                     class="menu-subbar-item" 
                     data-key={item.title}
+                    onMouseenter={handleMouseEnter}
                   >{item.title}</div>
                 </div>
               )

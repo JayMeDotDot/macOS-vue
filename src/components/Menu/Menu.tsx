@@ -7,39 +7,14 @@ import type { ExtractPropTypes, PropType } from 'vue'
 
 export interface AppMenu {
   title: string
-  disabled: boolean
+  disabled?: boolean
   options?: Array<AppMenu>
 }
 
 export const menuProps = {
   menuLists: {
     type: Array as PropType<Array<AppMenu>>,
-    default: () => [
-      {
-        title: '关于本机',
-        disabled: false,
-        options: [],
-      },
-      {
-        title: '系统偏好',
-        disabled: true,
-        options: [],
-      },
-      {
-        title: '锁定屏幕',
-        disabled: false,
-        options: [],
-      },
-      {
-        title: '退出登录',
-        disabled: false,
-        options: [{
-          title: '退出登录1',
-          disabled: false,
-          options: [],
-        }],
-      },
-    ]
+    default: () => []
   },
   x: { 
     type: Number as PropType<number>, 

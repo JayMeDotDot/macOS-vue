@@ -1,4 +1,7 @@
 export default {
+  'right-menu-layer': `absolute top-0 left-0
+                       w-100vw h-100vh`,
+
   'menu': `min-w-10rem w-fit
            bg-white
            bg-opacity-70
@@ -10,7 +13,7 @@ export default {
   'menu-dark': `bg-slate-500/50
                 text-white`,
   'menu-item': `text-size-3.5
-                pl-2 pr-2 mt-1
+                pl-2 pr-2 mt-1 mb-1
                 rounded-1
                 cursor-default
                 flex justify-between`,
@@ -77,6 +80,7 @@ export default {
                flex-row
                items-center
                justify-between
+               absolute left-0 right-0 top-0
                bg-slate-700/50
                color-warmgray-200
                text-size-3.5`,

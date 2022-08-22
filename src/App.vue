@@ -14,6 +14,7 @@
   import { JSearchBar } from './components/SearchBar'
   import { JWindow } from './components/Window'
   import type { WindowProps } from './components/Window'
+  import { JRightMenu } from './components/RightMenu'
 
   const JCalculator = defineAsyncComponent(() => 
     import('./app/Calculator').then(({ JCalculator }) => JCalculator)
@@ -202,9 +203,13 @@
 
 <template>
 <div>
+    <JRightMenu></JRightMenu>
+
     <JMenuBar
      :app-menu="getActiveAppMenu"
     ></JMenuBar>
+
+    
 
     <JAppBar
       class="fixed bottom-2 right-0 left-0 ma" 

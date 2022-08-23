@@ -125,7 +125,7 @@ export default defineComponent({
     }
 
     return (
-      <div class="absolute left-0 w-100% h-100%">
+      <div class="menu-layer">
         {renderMenu(menuLists, x, y)}
       </div>
     )

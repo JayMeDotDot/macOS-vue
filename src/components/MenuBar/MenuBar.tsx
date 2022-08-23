@@ -1,4 +1,4 @@
-import { defineComponent, onUnmounted, reactive, ref } from 'vue'
+import { defineComponent, onUnmounted, reactive, ref, render } from 'vue'
 import type {  ExtractPropTypes, PropType } from 'vue'
 
 import JMenu from '../Menu/Menu'
@@ -104,6 +104,18 @@ export default defineComponent({
       handleMouseEnter,
     } = this
 
+    function renderMenu(menulist: AppMenu[], position: {x: number, y: number}) {
+      return(
+        <div class="absolute left-0">
+          <JMenu
+            menu-lists={menulist}
+            x={position.x}
+            y={position.y}
+          ></JMenu>
+        </div>
+      )
+    }
+
     return (
       <div id="menu-bar" class="menu-bar">
         <div 
@@ -116,13 +128,7 @@ export default defineComponent({
               onMouseenter={handleMouseEnter}
               data-key='logo'
             ></div>
-            {showMenu.logo 
-              ? <JMenu
-                  menuLists={logoMenu}
-                  x={position.x}
-                  y={position.y}
-                ></JMenu> 
-              : null}
+            {showMenu.logo ? renderMenu(logoMenu, position) : null}
           </div>
           {appMenu.map((item) => {
             if (item.options) {
@@ -136,11 +142,7 @@ export default defineComponent({
                     >
                       {item.title}
                     </div>
-                    <JMenu
-                      menu-lists={item.options}
-                      x={position.x}
-                      y={position.y}
-                    ></JMenu>
+                    {renderMenu(item.options, position)}
                   </div>
                 )
               }

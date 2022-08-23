@@ -29,23 +29,17 @@ export default defineComponent({
         title: '计算机',
         disabled: false,
         options: [
-          { title: '关于计算机', disabled: false, },
-          { title: '退出计算机', disabled: false, }
+          { title: '关于计算机', },
+          { title: '退出计算机', }
         ],
       },
       {
         title: '显示',
         disabled: false,
         options: [
-          { title: '标准型', disabled: false, },
-          { title: '科学型', disabled: true, },
-          { title: '程序员型', disabled: false, options: [
-            {title: 'test1', disabled: false, options: [
-              {title: 'test1', disabled: true},
-              {title: 'test2', disabled: false},
-            ]},
-            {title: 'test2', disabled: false},
-          ]},
+          { title: '标准型', },
+          { title: '科学型', disabled: false, },
+          { title: '程序员型', disabled: false, },
         ],
       }
     ]

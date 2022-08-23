@@ -28,14 +28,6 @@ export const appBarProps = {
         iconLocation: 'FaceTime.webp',
         comp: 'FaceTime',
       },{
-        name: '邮件',
-        iconLocation: 'Email.webp',
-        comp: 'Email',
-      },{
-        name: '地图',
-        iconLocation: 'Map.webp',
-        comp: 'Map',
-      },{
         name: '音乐',
         iconLocation: 'Music.webp',
         comp: 'Music',
@@ -51,14 +43,6 @@ export const appBarProps = {
         name: 'App Store',
         iconLocation: 'AppStore.webp',
         comp: 'AppStore',
-      },{
-        name: 'Siri',
-        iconLocation: 'Siri.webp',
-        comp: 'Siri',
-      },{
-        name: 'Final Cut',
-        iconLocation: 'FinalCut.webp',
-        comp: 'FinalCut',
       },
     ],
   }

@@ -1,6 +1,4 @@
 export default {
-  'right-menu-layer': `absolute top-0 left-0
-                       w-100vw h-100vh`,
 
   'menu': `min-w-10rem w-fit
            bg-white
@@ -10,6 +8,10 @@ export default {
            rounded-2
            p-4px box-border
            flex flex-col`,
+  'menu-layer': `absolute top-0 left-0
+                 z-1 w-100vw h-100vh`,
+  'right-menu-layer': `absolute top-0 left-0
+                       w-100vw h-100vh`,
   'menu-dark': `bg-slate-500/50
                 text-white`,
   'menu-item': `text-size-3.5

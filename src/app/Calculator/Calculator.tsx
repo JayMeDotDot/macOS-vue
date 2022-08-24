@@ -122,6 +122,7 @@ export default defineComponent({
         }
       }
 
+      if (!result.length) return '0'
       return Number(result.reduce((a,b) => a + b)).toString()
     }
 

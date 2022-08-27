@@ -15,7 +15,8 @@
   "dependencies": {
     "dayjs": "^1.11.4",
     "pinia": "^2.0.20",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",

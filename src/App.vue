@@ -16,6 +16,9 @@
   import type { WindowProps } from './components/Window'
   import { JRightMenu } from './components/RightMenu'
 
+  const JFinder = defineAsyncComponent(() => 
+    import('./app/Finder').then(({ JFinder }) => JFinder)
+  )
   const JCalculator = defineAsyncComponent(() => 
     import('./app/Calculator').then(({ JCalculator }) => JCalculator)
   )

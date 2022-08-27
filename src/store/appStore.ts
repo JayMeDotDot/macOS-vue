@@ -29,6 +29,13 @@ export const appStore = defineStore('appStore', {
         ]
       },
       appBar: [
+        { name: '访达', iconLocation: 'Finder.webp', comp: 'Finder' },
+        { name: 'FaceTime', iconLocation: 'FaceTime.webp', comp: 'FaceTime' },
+        { name: '音乐', iconLocation: 'Music.webp', comp: 'Music' },
+        { name: 'AppleTV', iconLocation: 'AppTV.webp', comp: 'AppleTV' },
+        { name: 'Safari', iconLocation: 'Safari.webp', comp: 'Safari'},
+        { name: 'AppStore', iconLocation: 'AppStore.webp', comp: 'AppleStore' },
+        { name: '地图', iconLocation: 'Map.webp', comp: 'Map' },
         { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
       ],
       activeComp: 'desktop'

@@ -2,6 +2,7 @@ import { onMounted, defineComponent, onUnmounted } from 'vue'
 import type { ExtractPropTypes, PropType } from 'vue'
 
 import { drag } from '../../utils'
+import type { dragType } from '../../utils'
 
 export const searchBarProps = {
   placeholder: {
@@ -20,15 +21,20 @@ export default defineComponent({
   name: 'SearchBar',
   props: searchBarProps,
   setup(props) {
-    let searchBar : HTMLElement | null
+    let searchBar : HTMLElement
+    let inputEL : HTMLElement
+    let dragSbar : dragType
 
     onMounted(() => {
       searchBar = document.querySelector('#search-bar') as HTMLElement
-      searchBar ? drag(searchBar).install() : null
+      inputEL = document.querySelector('#search-bar input') as HTMLElement
+      console.log(inputEL)
+      dragSbar = drag(searchBar, [inputEL])
+      dragSbar.install()
     })
 
     onUnmounted(() => {
-      searchBar ? drag(searchBar).uninstall() : null
+      dragSbar.uninstall()
     })
   },
   render() {
@@ -38,7 +44,7 @@ export default defineComponent({
     } = this
 
     return (
-      <div id="search-bar" class="search-bar-container item-center dark:search-bar-container-dark theme-transition" draggable>
+      <div id="search-bar" class="search-bar-container item-center dark:search-bar-container-dark theme-transition search-bar-shadow">
         <div class='i-ic-search'></div>
         <input class="search-bar dark:search-bar-dark focus:outline-none"
                type="text"

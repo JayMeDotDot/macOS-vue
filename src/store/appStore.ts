@@ -3,18 +3,17 @@ import { defineStore } from "pinia"
 import type { AppMenu } from "@/components/Menu"
 import type { AppProps } from "@/components/AppBar"
 
-interface AppMenus {
+export interface AppMenus {
   [comp: string]: AppMenu[]
 }
 
-interface AppStore {
+export interface AppStore {
   appMenus: AppMenus
   appBar: AppProps[],
   activeComp: string,
 }
 
-
-export const appStore = defineStore('appStore', {
+export const useAppStore = defineStore('appStore', {
   state: (): AppStore => {
     return {
       appMenus: {
@@ -38,7 +37,7 @@ export const appStore = defineStore('appStore', {
         { name: '地图', iconLocation: 'Map.webp', comp: 'Map' },
         { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
       ],
-      activeComp: 'desktop'
+      activeComp: 'desktop',
     }
   },
 
@@ -52,6 +51,7 @@ export const appStore = defineStore('appStore', {
     getActiveComp(): string {
       return this.activeComp
     },
+
   },
 
   actions: {
@@ -65,6 +65,7 @@ export const appStore = defineStore('appStore', {
 
     mountAppBar(applist: AppProps[]) {
       this.appBar.push(...applist)
-    }
+    },
+
   },
 })

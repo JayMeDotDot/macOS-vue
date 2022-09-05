@@ -4,17 +4,17 @@ export default defineComponent({
   name: 'Update',
   setup() {
     const time = ref(16)
-    let interval: number
+    let intervalID: number
 
     onMounted(() => {
       time.value = 10 + Math.floor(Math.random() * 20)
-      interval = setInterval(() => {
+      intervalID = setInterval(() => {
         time.value = 10 + Math.floor(Math.random() * 20)
       }, 60000)
     })
 
     onUnmounted(() => {
-      clearInterval(interval)
+      clearInterval(intervalID)
     })
 
     return { time }

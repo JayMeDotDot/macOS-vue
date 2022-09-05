@@ -1,8 +1,6 @@
 import { defineComponent, onMounted } from 'vue'
 import type { ExtractPropTypes, PropType } from 'vue'
 
-import { appStore } from '@/store/appStore'
-
 export interface AppProps {
   name: string
   iconLocation: string

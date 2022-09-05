@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import { presetAttributify, presetIcons, presetUno } from 'unocss'
 
-import theme from './theme'
+import { shortcuts } from './theme'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,7 +18,10 @@ export default defineConfig({
         presetIcons(),
       ],
       shortcuts: [
-        {...theme}
+        {...shortcuts}
+      ],
+      rules: [
+        ['search-bar-shadow', { 'box-shadow': '18px 18px 30px rgba(0, 0, 0, 0.2), -18px 18px 30px rgba(0, 0, 0, 0.2)'}]
       ]
     }),
     vue(),

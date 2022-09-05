@@ -3,7 +3,7 @@ import type { ExtractPropTypes, PropType, Ref } from 'vue'
 
 import type { AppMenu } from '@/components/Menu'
 
-import { appStore } from '@/store/appStore'
+import { useAppStore } from '@/store/appStore'
 
 export const calculatorProps = {
   calType: {
@@ -43,8 +43,8 @@ export default defineComponent({
         ],
       }
     ]
-    const apps = appStore()
-    apps.mountApp('Calculator', menuList)
+    const appStore = useAppStore()
+    appStore.mountApp('Calculator', menuList)
 
     const ACOrC = computed(() => {
       return initFlag.value && initVal.value === '0' ? 'AC' : 'C'
@@ -135,7 +135,7 @@ export default defineComponent({
     })
 
     onUnmounted(() => {
-      apps.unmountApp()
+      appStore.unmountApp()
     })
 
     return {

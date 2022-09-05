@@ -74,10 +74,9 @@ export default {
   'search-bar-container-dark': `bg-slate-800
                                  text-slate-400`,
   'search-bar': `text-slate-700
-                 text-size-8
+                 text-size-6
                  bg-transparent
-                 border-none
-                 w-fit`,
+                 border-none`,
   'search-bar-dark': `text-slate-100`,
 
   'menu-bar': `flex

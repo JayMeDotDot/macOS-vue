@@ -1,4 +1,4 @@
-import { onMounted, defineComponent, onUnmounted } from 'vue'
+import { onMounted, defineComponent, onUnmounted, ref, computed } from 'vue'
 import type { ExtractPropTypes, PropType } from 'vue'
 
 import { drag } from '../../utils'
@@ -9,10 +9,6 @@ export const searchBarProps = {
     type: String as PropType<string>,
     default: '搜索',
   },
-  targetItem: {
-    type: String as PropType<string>,
-    default: '',
-  }
 } as const
 
 export type SearchBarProps = ExtractPropTypes<typeof searchBarProps>
@@ -21,14 +17,23 @@ export default defineComponent({
   name: 'SearchBar',
   props: searchBarProps,
   setup(props) {
+    console.log(props.placeholder.length)
     let searchBar : HTMLElement
     let inputEL : HTMLElement
     let dragSbar : dragType
 
+    const inputVal = ref('')
+    const inputLen = computed(() => {
+      const len = inputVal.value ? inputVal.value.length : props.placeholder.length
+      return `width: ${len}em`
+    })
+    function handleInput(e: Event) {
+      inputVal.value = (e.target! as HTMLInputElement).value
+    }
+
     onMounted(() => {
       searchBar = document.querySelector('#search-bar') as HTMLElement
       inputEL = document.querySelector('#search-bar input') as HTMLElement
-      console.log(inputEL)
       dragSbar = drag(searchBar, [inputEL])
       dragSbar.install()
     })
@@ -36,11 +41,17 @@ export default defineComponent({
     onUnmounted(() => {
       dragSbar.uninstall()
     })
+
+    return {
+      inputLen,
+      handleInput,
+    }
   },
   render() {
     const {
       placeholder,
-      targetItem,
+      inputLen,
+      handleInput,
     } = this
 
     return (
@@ -50,6 +61,8 @@ export default defineComponent({
                type="text"
                placeholder={placeholder}
                autofocus
+               style={inputLen}
+               onInput={handleInput}
         />
       </div>
     )

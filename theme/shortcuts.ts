@@ -11,8 +11,6 @@ export default {
            p-4px box-border
            flex flex-col
            select-none`,
-  // 'menu-layer': `absolute top-0 left-0
-  //                z-1 w-100vw h-100vh`,
   'right-menu-layer': `absolute top-0 left-0
                        w-100vw h-100vh`,
   'menu-dark': `bg-slate-500/50

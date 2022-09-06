@@ -6,7 +6,8 @@ import Home from '@/pages/Home'
 import Update from '@/pages/Update'
 
 const routes = [
-  { path: '/',
+  { 
+    path: '/',
     name: 'Home',
     component: Home,
     // beforeEnter: () => {
@@ -14,15 +15,20 @@ const routes = [
     //   if (!sysState.isLogged) { return { name: 'Login'}}
     // }
   },
-  { path: '/login',
+  { 
+    path: '/login',
     name: 'Login',
     component: Login,
   },
-  { path: '/update', 
+  { 
+    path: '/update', 
     name: 'Update',
     component: Update 
   },
-  { path: '/:pathMatch(.*)*', redirect: '/' }
+  { 
+    path: '/:pathMatch(.*)*',
+    redirect: '/' 
+  }
 ]
 
 const router = createRouter({

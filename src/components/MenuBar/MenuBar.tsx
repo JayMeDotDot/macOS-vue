@@ -1,6 +1,9 @@
 import { defineComponent, onUnmounted, reactive, ref, render } from 'vue'
 import type {  ExtractPropTypes, PropType } from 'vue'
 
+import router from '@/router'
+import { useSysState } from '@/store/sysState'
+
 import JMenu from '../Menu/Menu'
 import type { AppMenu } from '../Menu/Menu'
 
@@ -36,6 +39,7 @@ export default defineComponent({
   name: 'MenuBar',
   props: menuBarProps,
   setup() {
+    const sysState = useSysState()
     const currentTime = ref(formatDay())
     const trigger = ref('click')
     const showMenu: { [key: string]: boolean } = reactive({})
@@ -43,14 +47,18 @@ export default defineComponent({
     let preActiveMenu = ''
 
     const logoMenu: AppMenu[] = [
-      { title: '关于本机' },
-      { title: '系统偏好' },
-      { title: '最近使用' },
-      { title: '锁定屏幕' },
-      { title: '升级系统' },
-      { title: '退出登录' },
+      { title: '关于本机', fn: () => {}, },
+      { title: '系统偏好', fn: () => {}, },
+      { title: '最近使用', fn: () => {}, },
+      { title: '锁定屏幕', fn: () => { logoutAndRoutTo('login') }, },
+      { title: '升级系统', fn: () => { logoutAndRoutTo('update') }, },
+      { title: '退出登录', fn: () => { logoutAndRoutTo('login') }, },
     ]
 
+    function logoutAndRoutTo(target: string) {
+      sysState.logout
+      router.replace({ path: `/${target}`})
+    }
 
     function handleClick(e: MouseEvent) {
       if (trigger.value === 'hover') {

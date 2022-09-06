@@ -54,22 +54,22 @@ export default defineComponent({
   emits: ['openApp'],
   setup(props, ctx) {
 
+    function openApp(e: MouseEvent) {
+      const element = e.target as HTMLElement
+      const comp = element.getAttribute('comp')
+      const name = element.getAttribute('alt')
+      ctx.emit('openApp', comp, name)
+    }
+
     return {
-      ctx,
+      openApp,
     }
   },
   render() {
     const {
       appList,
-      ctx,
+      openApp,
     } = this
-
-    function renderApp(event: MouseEvent) {
-      const element = event.target as HTMLElement
-      const comp = element.getAttribute('comp')
-      const name = element.getAttribute('alt')
-      ctx.emit('openApp', comp, name)
-    }
 
     return (
       <div id='app-bar' class="app-bar dark:app-bar-dark theme-transition">
@@ -81,7 +81,7 @@ export default defineComponent({
                 comp={item.comp}
                 class="w-13"
                 src={"/appicon/" + item.iconLocation} alt={item.name} 
-                onClick={renderApp}
+                onClick={openApp}
               />
             </div>
           )

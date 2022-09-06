@@ -44,10 +44,10 @@ export default defineComponent({
     })
 
     const appStore = useAppStore()
-    const { getAppBar, getActiveAppMenu } = storeToRefs(appStore)
+    const { getAppBar, getActiveAppMenu, } = storeToRefs(appStore)
 
     const compState: { [key: string]: CompInfoType } = reactive({})
-    provide('compState', { compState })
+    provide('compState', { compState, handleCloseWin })
     const rightMenu = reactive({ show: false, x: 0, y: 0 })
     function toggleRightMenu(): void { rightMenu.show = false }
     function updatePosition(x: number, y: number): void {
@@ -98,7 +98,7 @@ export default defineComponent({
 
     function handleClick(e: MouseEvent) {
       if (e.button === 0) {
-
+        appStore.setActiveComp('desktop')
       }
       if (e.button === 2) {
         rightMenu.show = true

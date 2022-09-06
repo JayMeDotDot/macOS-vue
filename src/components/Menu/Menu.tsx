@@ -1,5 +1,4 @@
 import { 
-  computed,
   defineComponent, 
   reactive, 
 } from 'vue'
@@ -8,6 +7,7 @@ import type { ExtractPropTypes, PropType } from 'vue'
 export interface AppMenu {
   title: string
   disabled?: boolean
+  fn?: (e?: MouseEvent) => void
   options?: Array<AppMenu>
 }
 
@@ -106,6 +106,7 @@ export default defineComponent({
                     data-key={item.title}
                     onMouseenter={handleMouseEnter}
                     onMouseleave={handleMouseLeave}
+                    onClick={item.fn}
                     >
                       <span>{item.title}</span>
                       <div class="i-ic-round-keyboard-arrow-right text-size-5"></div>
@@ -114,7 +115,7 @@ export default defineComponent({
                 )
               }
               return (
-                <div class="menu-item hover:item-hover">
+                <div class="menu-item hover:item-hover" onClick={item.fn}>
                   <span>{item.title}</span>
                 </div>
               )

@@ -1,8 +1,10 @@
-import { defineComponent, getCurrentInstance, h, inject, onMounted, onUnmounted, reactive, } from 'vue'
+import { defineComponent, getCurrentInstance, h, inject, nextTick, onMounted, onUnmounted, onUpdated, provide, reactive, } from 'vue'
 import type { ExtractPropTypes, PropType, SetupContext, StyleValue } from 'vue'
 
 import { drag, flip } from '../../utils'
 import type { dragType } from '../../utils'
+
+import { useAppStore } from "@/store/appStore"
 
 export const windowProps = {
   id: {
@@ -20,6 +22,7 @@ export type WindowProps = ExtractPropTypes<typeof windowProps>
 export interface WinInfoType {
   id: string
   title: string
+  opacity: boolean
   fullScreen: boolean
   minScreen: boolean
   position?: {left: number, top: number, width: number, height: number}
@@ -38,17 +41,33 @@ export default defineComponent({
     } = props
 
     const { compState } = inject('compState')!
+    const appStore = useAppStore()
 
     let winElement : HTMLElement | null
     let excludeElement : HTMLElement | null
     let dragWin : dragType
     let winInstance :HTMLElement
+    
     const winState: WinInfoType = reactive({
       id,
       title,
+      opacity: true,
       fullScreen: false,
       minScreen: false,
     })
+    function updateOpacity(val: boolean) { 
+      centerWin()
+      winState.opacity = val
+    }
+    provide('winState', { updateOpacity })
+
+    function centerWin() {
+      const winElement = document.querySelector(`#${winState.id}Win`) as HTMLElement
+      const winRect = winElement.getBoundingClientRect()
+      winElement.style.position = 'absolute'
+      winElement.style.left = `${(window.innerWidth - winRect.width) / 2}px`
+      winElement.style.top = `${(window.innerHeight - winRect.height) / 2}px`
+    }
 
     function setWinPosition() {
       if (!winState.position || !(winState.fullScreen || winState.minScreen)) {
@@ -110,41 +129,47 @@ export default defineComponent({
       winState.fullScreen = !winState.fullScreen
     }
 
-    function minWin() {
+    function minWin(e: MouseEvent) {
       setWinPosition()
       if (winState.minScreen) {
         flip(winInstance, { transform: '', opacity: '' })
       } else {
+        let options: StyleValue = {}
         if (winState.fullScreen) {
           const scaleX = compState[id].iconPosition.width / winState.fullPosition!.width
           const scaleY = compState[id].iconPosition.height / winState.fullPosition!.height
           
           const deltaX = compState[id].iconPosition.left + compState[id].iconPosition.width / 2 - (winState.fullPosition!.left + winState.fullPosition!.width / 2)
           const deltaY = compState[id].iconPosition.top + compState[id].iconPosition.height / 2 - (winState.fullPosition!.top + winState.fullPosition!.height / 2)
-          const options = {
+          options = {
             transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
             opacity: 0,
-            
           }
-          flip(winInstance, options)
         } else {
           const scaleX = compState[id].iconPosition.width / winState.position!.width
           const scaleY = compState[id].iconPosition.height / winState.position!.height
           
           const deltaX = compState[id].iconPosition.left + compState[id].iconPosition.width / 2 - (winState.position!.left + winState.position!.width / 2)
           const deltaY = compState[id].iconPosition.top + compState[id].iconPosition.height / 2 - (winState.position!.top + winState.position!.height / 2)
-          const options = {
+          options = {
             transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
             opacity: 0,
           }
-          flip(winInstance, options)
         }
+        flip(winInstance, options)
+        appStore.setActiveComp('desktop')
+        e.stopPropagation()
       }
       winState.minScreen = !winState.minScreen
     }
 
-    function closeWin() {
+    function closeWin(e: MouseEvent) {
       ctx.emit('closeWin', id )
+      e.stopPropagation()
+    }
+
+    function handleClick() {
+      appStore.setActiveComp(id)
     }
 
     function handleDbClick() {
@@ -174,6 +199,7 @@ export default defineComponent({
       fullWin,
       minWin,
       closeWin,
+      handleClick,
       handleDbClick,
     }
   },
@@ -186,6 +212,7 @@ export default defineComponent({
       closeWin,
       fullWin,
       minWin,
+      handleClick,
       handleDbClick,
     } = this
 
@@ -206,7 +233,12 @@ export default defineComponent({
     }
 
     return (
-      <div id={id + 'Win'} class="window dark:window-dark theme-transition">
+      <div 
+        id={id + 'Win'} 
+        class="window dark:window-dark theme-transition"
+        style={ winState.opacity ? 'opacity: 0' : ''}
+        onClick={handleClick}
+      >
         <div class="window-bar" onDblclick={handleDbClick}>
           <span class="children:children:hover:opacity-100">
             <button

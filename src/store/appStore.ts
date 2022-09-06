@@ -55,6 +55,10 @@ export const useAppStore = defineStore('appStore', {
   },
 
   actions: {
+    setActiveComp(comp: string) {
+      this.activeComp = comp
+    },
+
     mountApp(comp: string, appmenu: AppMenu[]) {
       this.appMenus[comp] = appmenu
       this.activeComp = comp

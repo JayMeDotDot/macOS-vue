@@ -89,7 +89,7 @@ export default defineComponent({
       const menuPosition = calPositionClass(x, y)
 
       return (
-        <div class="absolute" style={menuPosition}>
+        <div class="back-layer" style={menuPosition}>
           <div class="menu dark:menu-dark theme-transition">
             {items.map((item) => {
               if (item.disabled) {

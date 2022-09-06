@@ -3,6 +3,8 @@ export default {
              bg-white rounded-50%`,
 
   'desktop': `absolute w-100% h-100%`,
+  'back-layer': `absolute top-0 left-0
+                 w-100vw h-100vh z-1`,
 
   'menu': `min-w-10rem w-fit
            bg-white
@@ -13,8 +15,6 @@ export default {
            p-4px box-border
            flex flex-col
            select-none`,
-  'right-menu-layer': `absolute top-0 left-0
-                       w-100vw h-100vh`,
   'menu-dark': `bg-slate-500/50
                 text-white`,
   'menu-item': `text-size-3.5

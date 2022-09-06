@@ -50,11 +50,11 @@ export default defineComponent({
     provide('compState', { compState, handleCloseWin })
     const rightMenu = reactive({ show: false, x: 0, y: 0 })
     function toggleRightMenu(): void { rightMenu.show = false }
-    function updatePosition(x: number, y: number): void {
+    function updateRMPosition(x: number, y: number): void {
       rightMenu.x = x
       rightMenu.y = y
     }
-    provide('rightMenu', { toggleRightMenu, updatePosition } )
+    provide('rightMenu', { toggleRightMenu, updateRMPosition } )
 
     function toggleTheme() {
       if (!darkTheme) {
@@ -164,9 +164,11 @@ export default defineComponent({
     return (
       <div>
         <div class="desktop" onMouseup={handleClick}></div>
-        {rightMenu.show 
-          ? <JRightMenu x={rightMenu.x} y={rightMenu.y}></JRightMenu> 
-          : null}
+        {
+          rightMenu.show 
+            ? <JRightMenu x={rightMenu.x} y={rightMenu.y}></JRightMenu> 
+            : null
+        }
 
         <JMenuBar app-menu={getActiveAppMenu}></JMenuBar>
 

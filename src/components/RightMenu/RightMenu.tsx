@@ -2,7 +2,8 @@ import {
   defineComponent, 
   inject, 
   reactive,
-  ref } from 'vue'
+  ref 
+} from 'vue'
 import type { ExtractPropTypes, PropType, Ref } from 'vue'
 
 import { JMenu } from '../Menu'
@@ -54,7 +55,7 @@ export default defineComponent({
 
     return (
       <div
-      class="right-menu-layer"
+      class="back-layer"
       onMouseup={handleClickOutSider}
       >
         <JMenu

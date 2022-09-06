@@ -30,7 +30,7 @@ export const menuBarProps = {
       'i-ic-outline-battery-charging-90 rotate-90',
       'i-ic-baseline-wifi',
     ],
-  }
+  },
 } as const
 
 export type MenuBarProps = ExtractPropTypes<typeof menuBarProps>
@@ -38,7 +38,7 @@ export type MenuBarProps = ExtractPropTypes<typeof menuBarProps>
 export default defineComponent({
   name: 'MenuBar',
   props: menuBarProps,
-  setup() {
+  setup(props) {
     const sysState = useSysState()
     const currentTime = ref(formatDay())
     const trigger = ref('click')
@@ -130,6 +130,7 @@ export default defineComponent({
           class="menu-subbar"
           onClick={handleClick}
         >
+
           <div>
             <div 
               class="menu-subbar-item i-ic-baseline-apple"
@@ -138,6 +139,7 @@ export default defineComponent({
             ></div>
             {showMenu.logo ? renderMenu(logoMenu, position) : null}
           </div>
+
           {appMenu.map((item) => {
             if (item.options) {
               if (showMenu[item.title]) {
@@ -180,7 +182,7 @@ export default defineComponent({
             class="menu-subbar-item"
           >{currentTime}</div>
         </div>
-    </div>
+      </div>
     )
   },
 })

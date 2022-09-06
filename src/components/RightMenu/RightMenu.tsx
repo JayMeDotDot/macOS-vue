@@ -1,5 +1,6 @@
 import { 
   defineComponent, 
+  inject, 
   reactive,
   ref } from 'vue'
 import type { ExtractPropTypes, PropType, Ref } from 'vue'
@@ -28,52 +29,39 @@ export default defineComponent({
   name: 'RightMenu',
   props: rightMenuProps,
   setup(props) {
-    const position: {x: number, y: number} = reactive({x: 0, y: 0})
-    const show = ref(false)
+    const { toggleRightMenu, updateRMPosition } = inject('rightMenu') as {[key: string]: Function}
     const desktopRightMenu: AppMenu[] =
       props.menuLists.length 
         ? props.menuLists
         : [ { title: '更换桌面背景', } ]
 
-    function handleClick(e: MouseEvent) {
-      if (e.button === 0) {
-        show.value = false
-      }
-      if (e.button === 2) {
-        show.value = true
-        position.x = e.x
-        position.y = e.y
-      }
+    function handleClickOutSider(e: MouseEvent) {
+      if (e.button === 0) { toggleRightMenu() }
+      if (e.button === 2) { updateRMPosition(e.x, e.y) }
     }
 
     return {
       desktopRightMenu,
-      position,
-      show,
-      handleClick,
+      handleClickOutSider,
     }
   },
   render() {
     const {
       desktopRightMenu,
-      position,
-      show,
-      handleClick,
+      x, y,
+      handleClickOutSider,
     } = this
 
     return (
       <div
-        class="right-menu-layer"
-        onMouseup={handleClick}
+      class="right-menu-layer"
+      onMouseup={handleClickOutSider}
       >
-        { show 
-            ? <JMenu
-                menuLists={desktopRightMenu}
-                x={position.x}
-                y={position.y}
-              ></JMenu>
-            : null
-        }
+        <JMenu
+          menuLists={desktopRightMenu}
+          x={x}
+          y={y}
+        ></JMenu>
       </div>
     )
   },

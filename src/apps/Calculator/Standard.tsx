@@ -110,7 +110,7 @@ export default defineComponent({
     }
 
     return (
-      <div>
+      <div class='calculator'>
         <div class="calculator-result">{initVal}</div>
         <div class='calculator-keys' onClick={standardCal} >
         {CalUI.standard.map((item) => {

@@ -2,6 +2,8 @@ export default {
   'avatar': `w-25 h-25
              bg-white rounded-50%`,
 
+  'desktop': `absolute w-100% h-100%`,
+
   'menu': `min-w-10rem w-fit
            bg-white
            bg-opacity-70

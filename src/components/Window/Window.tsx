@@ -1,4 +1,4 @@
-import { compile, computed, defineComponent, getCurrentInstance, h, inject, onMounted, onUnmounted, provide, reactive, } from 'vue'
+import { computed, defineComponent, getCurrentInstance, h, inject, onMounted, onUnmounted, provide, reactive, } from 'vue'
 import type { ExtractPropTypes, PropType, SetupContext, StyleValue } from 'vue'
 
 import { drag, flip } from '../../utils'
@@ -241,8 +241,6 @@ export default defineComponent({
       <div 
         id={id + 'Win'} 
         class={classList.join(' ')}
-        // class="window dark:window-dark theme-transition"
-        // style={ winState.opacity ? 'opacity: 0' : ''}
         onMousedown={handleMouseDown}
       >
         <div class="window-bar" onDblclick={handleDbClick}>

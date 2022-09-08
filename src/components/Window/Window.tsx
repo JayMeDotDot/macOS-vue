@@ -1,10 +1,11 @@
-import { defineComponent, getCurrentInstance, h, inject, nextTick, onMounted, onUnmounted, onUpdated, provide, reactive, } from 'vue'
+import { compile, computed, defineComponent, getCurrentInstance, h, inject, onMounted, onUnmounted, provide, reactive, } from 'vue'
 import type { ExtractPropTypes, PropType, SetupContext, StyleValue } from 'vue'
 
 import { drag, flip } from '../../utils'
 import type { dragType } from '../../utils'
 
 import { useAppStore } from "@/store/appStore"
+import { storeToRefs } from 'pinia'
 
 export const windowProps = {
   id: {
@@ -22,7 +23,6 @@ export type WindowProps = ExtractPropTypes<typeof windowProps>
 export interface WinInfoType {
   id: string
   title: string
-  opacity: boolean
   fullScreen: boolean
   minScreen: boolean
   position?: {left: number, top: number, width: number, height: number}
@@ -42,6 +42,7 @@ export default defineComponent({
 
     const { compState } = inject('compState')!
     const appStore = useAppStore()
+    const { getActiveComp } = storeToRefs(appStore)
 
     let winElement : HTMLElement | null
     let excludeElement : HTMLElement | null
@@ -51,15 +52,17 @@ export default defineComponent({
     const winState: WinInfoType = reactive({
       id,
       title,
-      opacity: true,
       fullScreen: false,
       minScreen: false,
     })
-    function updateOpacity(val: boolean) { 
-      centerWin()
-      winState.opacity = val
-    }
-    provide('winState', { updateOpacity })
+    provide('winState', { centerWin })
+
+    const classList = computed(() => {
+      return [
+        'window dark:window-dark theme-transition',
+         getActiveComp.value === id ? 'z-1' : '',
+        ]
+    })
 
     function centerWin() {
       const winElement = document.querySelector(`#${winState.id}Win`) as HTMLElement
@@ -168,7 +171,7 @@ export default defineComponent({
       e.stopPropagation()
     }
 
-    function handleClick() {
+    function handleMouseDown() {
       appStore.setActiveComp(id)
     }
 
@@ -193,26 +196,28 @@ export default defineComponent({
 
     return {
       ctx,
+      classList,
       id,
       title,
       winState,
       fullWin,
       minWin,
       closeWin,
-      handleClick,
+      handleMouseDown,
       handleDbClick,
     }
   },
   render() {
     const {
       ctx,
+      classList,
       id,
       title,
       winState,
       closeWin,
       fullWin,
       minWin,
-      handleClick,
+      handleMouseDown,
       handleDbClick,
     } = this
 
@@ -235,9 +240,10 @@ export default defineComponent({
     return (
       <div 
         id={id + 'Win'} 
-        class="window dark:window-dark theme-transition"
-        style={ winState.opacity ? 'opacity: 0' : ''}
-        onClick={handleClick}
+        class={classList.join(' ')}
+        // class="window dark:window-dark theme-transition"
+        // style={ winState.opacity ? 'opacity: 0' : ''}
+        onMousedown={handleMouseDown}
       >
         <div class="window-bar" onDblclick={handleDbClick}>
           <span class="children:children:hover:opacity-100">

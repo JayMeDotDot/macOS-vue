@@ -20,7 +20,7 @@ export default defineComponent({
   props: calculatorProps,
   setup(props) {
     const calType = ref(props.calType)
-    const { updateOpacity } = inject('winState') as { [key: string]: Function }
+    const { centerWin } = inject('winState') as { [key: string]: Function }
     const { handleCloseWin } = inject('compState') as { [key: string]: Function }
 
     const menuList: AppMenu[] = [
@@ -46,7 +46,7 @@ export default defineComponent({
     appStore.mountApp('Calculator', menuList)
 
     onMounted(() => {
-      updateOpacity(false)
+      centerWin()
     })
 
     onUnmounted(() => {

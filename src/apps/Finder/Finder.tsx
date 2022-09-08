@@ -13,7 +13,7 @@ import { useAppStore } from '@/store/appStore'
 export default defineComponent({
   name: 'Finder',
   setup() {
-    const { updateOpacity } = inject('winState') as { [key: string]: Function }
+    const { centerWin } = inject('winState') as { [key: string]: Function }
 
     const menuList: AppMenu[] = [
       {
@@ -34,7 +34,7 @@ export default defineComponent({
     appStore.mountApp('Finder', menuList)
 
     onMounted(() => {
-      updateOpacity(false)
+      centerWin()
     })
 
     onUnmounted(() => {

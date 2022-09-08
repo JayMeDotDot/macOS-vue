@@ -4,7 +4,7 @@ export default {
 
   'desktop': `absolute w-100% h-100%`,
   'back-layer': `absolute top-0 left-0
-                 w-100vw h-100vh z-1`,
+                 w-100vw h-100vh z-2`,
 
   'menu': `min-w-10rem w-fit
            bg-white

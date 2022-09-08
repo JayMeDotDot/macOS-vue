@@ -4,9 +4,9 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
-import { presetAttributify, presetIcons, presetUno } from 'unocss'
+import { presetAttributify, presetIcons, presetUno, type Rule } from 'unocss'
 
-import { shortcuts } from './theme'
+import { shortcuts, rules } from './theme'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,7 +21,7 @@ export default defineConfig({
         {...shortcuts}
       ],
       rules: [
-        ['search-bar-shadow', { 'box-shadow': '18px 18px 30px rgba(0, 0, 0, 0.2), -18px 18px 30px rgba(0, 0, 0, 0.2)'}]
+        ...rules as Rule<{}>[]
       ]
     }),
     vue(),

@@ -17,7 +17,6 @@ export default defineComponent({
   name: 'SearchBar',
   props: searchBarProps,
   setup(props) {
-    console.log(props.placeholder.length)
     let searchBar : HTMLElement
     let inputEL : HTMLElement
     let dragSbar : dragType

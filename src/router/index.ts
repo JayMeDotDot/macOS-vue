@@ -10,10 +10,10 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    // beforeEnter: () => {
-    //   const sysState = useSysState()
-    //   if (!sysState.isLogged) { return { name: 'Login'}}
-    // }
+    beforeEnter: () => {
+      const sysState = useSysState()
+      if (!sysState.isLogged) { return { name: 'Login'}}
+    }
   },
   { 
     path: '/login',

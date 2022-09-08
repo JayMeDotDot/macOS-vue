@@ -25,6 +25,11 @@ export default {
   'item-hover': `bg-[rgba(255,160,0,.6)]
                  text-white`,
 
+  'finder': `w-fit text-center`,
+
+  'profile': `flex justify-evenly
+              w-100 m-6
+              text-6`,
 
   'calculator': `w-100% h-100%
                  flex flex-col`,

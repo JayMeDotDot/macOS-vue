@@ -25,7 +25,13 @@ export default {
   'item-hover': `bg-[rgba(255,160,0,.6)]
                  text-white`,
 
+  'apptv': `w-fit text-center`,
+  'appstore': `w-fit text-center`,
+  'book': `w-fit text-center`,
+  'facetime': `w-fit text-center`,
   'finder': `w-fit text-center`,
+  'music': `w-fit text-center`,
+  'map': `w-fit text-center`,
 
   'profile': `flex justify-evenly
               w-100 m-6

@@ -33,9 +33,10 @@ export const useAppStore = defineStore('appStore', {
         { name: '音乐', iconLocation: 'Music.webp', comp: 'Music' },
         { name: 'AppleTV', iconLocation: 'AppTV.webp', comp: 'AppleTV' },
         { name: 'Safari', iconLocation: 'Safari.webp', comp: 'Safari'},
-        { name: 'AppStore', iconLocation: 'AppStore.webp', comp: 'AppleStore' },
+        { name: 'AppStore', iconLocation: 'AppStore.webp', comp: 'AppStore' },
         { name: '地图', iconLocation: 'Map.webp', comp: 'Map' },
         { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
+        { name: '天气', iconLocation: 'Weather.webp', comp: 'Weather'},
       ],
       activeComp: 'desktop',
     }

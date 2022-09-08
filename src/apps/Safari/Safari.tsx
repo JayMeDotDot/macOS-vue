@@ -6,13 +6,13 @@ import { JProfile } from '@/components/Profile'
 
 // import { useAppStore } from '@/store/appStore'
 
-export const musicProps = {}
+export const safariProps = {}
 
-export type MusicProps = ExtractPropTypes<typeof musicProps>
+export type SafariProps = ExtractPropTypes<typeof safariProps>
 
 export default defineComponent({
-  name: 'Music',
-  props: musicProps,
+  name: 'Safari',
+  props: safariProps,
   setup() {
     const { updateOpacity } = inject('winState') as { [key: string]: Function }
 
@@ -23,7 +23,7 @@ export default defineComponent({
   render() {
 
     return (
-      <div class="music">
+      <div class="safari">
         <div class="m-6">我还没想好这里面放些啥东西</div>
         <JProfile></JProfile>
       </div>

@@ -4,6 +4,8 @@ import type { ExtractPropTypes, PropType, } from 'vue'
 import type { AppMenu } from '@/components/Menu'
 import { JCoder, JScientific, JStandard } from './index'
 
+import type { CompStateProvideType } from '@/pages/Home'
+
 import { useAppStore } from '@/store/appStore'
 
 export const calculatorProps = {
@@ -21,7 +23,7 @@ export default defineComponent({
   setup(props) {
     const calType = ref(props.calType)
     const { centerWin } = inject('winState') as { [key: string]: () => void }
-    const { handleCloseWin } = inject('compState') as { [key: string]: (id: string) => void }
+    const { handleCloseWin } = inject('compState') as CompStateProvideType
 
     const menuList: AppMenu[] = [
       {

@@ -30,6 +30,16 @@ export interface CompInfoType {
   iconPosition?: {left: number, top: number, width: number, height: number}
 }
 
+export interface CompStateProvideType {
+  compState: { [key: string]: CompInfoType }
+  handleCloseWin: (id: string) => void
+}
+
+export interface RightMenuProvideType {
+  toggleRightMenu: () => void
+  updateRMPosition: (x: number, y: number) => void
+}
+
 export default defineComponent({
   name: 'JHome',
   setup() {

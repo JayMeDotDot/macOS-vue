@@ -1,7 +1,8 @@
 // Invoked on the commit-msg git hook by yorkie.
 
 const chalk = require('chalk')
-const msgPath = process.env.GIT_PARAMS
+const msgPath = '.git/COMMIT_EDITMSG'
+console.log(msgPath)
 const msg = require('fs')
   .readFileSync(msgPath, 'utf-8')
   .trim()

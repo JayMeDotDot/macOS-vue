@@ -1,4 +1,4 @@
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import type { ExtractPropTypes, PropType } from 'vue'
 
 export interface AppProps {
@@ -49,10 +49,10 @@ export const appBarProps = {
 export type AppBarProps = ExtractPropTypes<typeof appBarProps>
 
 export default defineComponent({
-  name: 'AppBar',
+  name: 'JAppBar',
   props: appBarProps,
   emits: ['openApp'],
-  setup(props, ctx) {
+  setup(_, ctx) {
 
     function openApp(e: MouseEvent) {
       const element = e.target as HTMLElement

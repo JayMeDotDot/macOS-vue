@@ -2,7 +2,7 @@ import { computed, defineComponent, ref } from "vue"
 import type { Ref } from 'vue'
 
 export default defineComponent({
-  name: "Standard",
+  name: "JStandard",
   setup() {
     const initVal = ref('0')
     const initFlag = ref(true)
@@ -65,10 +65,10 @@ export default defineComponent({
     }
 
     function calResult(arr: Array<string>): string {
-      let result = []
+      const result = []
       let op = '+'
 
-      for (let a of arr) {
+      for (const a of arr) {
         if (a === '+') { op = '+'; continue }
         if (a === '-') { op = '-'; continue }
         if (a === '*') { op = '*'; continue }

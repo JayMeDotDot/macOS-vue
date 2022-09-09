@@ -1,6 +1,6 @@
 import type { CSSProperties, StyleValue } from "vue"
 
-export default function flip(element: HTMLElement, options: StyleValue, duration: number = 600) {
+export default function flip(element: HTMLElement, options: StyleValue, duration = 600) {
   const hasTransform = (options as CSSProperties).transform
 
   const first = element.getBoundingClientRect()
@@ -9,7 +9,7 @@ export default function flip(element: HTMLElement, options: StyleValue, duration
   function keys<T extends HTMLElement | StyleValue>(obj: T) {
     return Object.keys(obj) as (keyof T)[]
   }
-  for (let key of keys(options)) {
+  for (const key of keys(options)) {
     element.style[key] = options[key]
   }
 

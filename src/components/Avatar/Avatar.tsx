@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import type { ExtractPropTypes, PropType, SetupContext } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 export const avatarProps = {
   src: {
@@ -11,11 +11,9 @@ export const avatarProps = {
 export type AvatarProps = ExtractPropTypes<typeof avatarProps>
 
 export default defineComponent({
-  name: 'Avatar',
+  name: 'JAvatar',
   props: avatarProps,
-  setup() {
 
-  },
   render() {
     const {
       src,

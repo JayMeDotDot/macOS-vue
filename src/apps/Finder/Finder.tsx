@@ -11,15 +11,15 @@ import { JProfile } from '@/components/Profile'
 import { useAppStore } from '@/store/appStore'
 
 export default defineComponent({
-  name: 'Finder',
+  name: 'JFinder',
   setup() {
-    const { centerWin } = inject('winState') as { [key: string]: Function }
+    const { centerWin } = inject('winState') as { [key: string]: () => void }
 
     const menuList: AppMenu[] = [
       {
         title: '访达',
         options: [
-          { title: '关于访达', fn: () => {}, },
+          { title: '关于访达', },
         ]
       },
       { title: '文件', }, 

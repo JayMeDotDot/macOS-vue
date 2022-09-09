@@ -14,7 +14,7 @@ export default function areaDetective(target: HTMLElement, setEdge?: number) {
 
   let { left, top, width, height } = target.getBoundingClientRect()
 
-  let edge = setEdge ? Math.abs(setEdge) : 0
+  const edge = setEdge ? Math.abs(setEdge) : 0
 
   let leftEdge = left + edge
   let rightEdge = left + width - edge

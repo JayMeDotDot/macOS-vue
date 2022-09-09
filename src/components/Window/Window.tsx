@@ -1,4 +1,4 @@
-import { computed, defineComponent, getCurrentInstance, h, inject, onMounted, onUnmounted, provide, reactive, } from 'vue'
+import { computed, defineComponent, getCurrentInstance, h, inject, onMounted, onUnmounted, provide, reactive, toRefs, } from 'vue'
 import type { ExtractPropTypes, PropType, SetupContext, StyleValue } from 'vue'
 
 import { drag, flip } from '../../utils'
@@ -25,22 +25,22 @@ export interface WinInfoType {
   title: string
   fullScreen: boolean
   minScreen: boolean
-  position?: {left: number, top: number, width: number, height: number}
-  miniPosition?: {left: number, top: number, width: number, height: number}
-  fullPosition?: {left: number, top: number, width: number, height: number}
+  position: {left: number, top: number, width: number, height: number}
+  miniPosition: {left: number, top: number, width: number, height: number}
+  fullPosition: {left: number, top: number, width: number, height: number}
 }
 
 export default defineComponent({
-  name: 'Window',
+  name: 'JWindow',
   props: windowProps,
   emit: ['closeWin'],
   setup(props, ctx) {
     const {
       id,
       title,
-    } = props
+    } = toRefs(props)
 
-    const { compState } = inject('compState')!
+    const { compState } = inject('compState') || {}
     const appStore = useAppStore()
     const { getActiveComp } = storeToRefs(appStore)
 
@@ -54,13 +54,16 @@ export default defineComponent({
       title,
       fullScreen: false,
       minScreen: false,
+      position: {left: 0, top: 0, width: 0, height: 0},
+      miniPosition: {left: 0, top: 0, width: 0, height: 0},
+      fullPosition: {left: 0, top: 0, width: 0, height: 0},
     })
     provide('winState', { centerWin })
 
     const classList = computed(() => {
       return [
         'window dark:window-dark theme-transition',
-         getActiveComp.value === id ? 'z-1' : '',
+         getActiveComp.value === id.value ? 'z-1' : '',
         ]
     })
 
@@ -112,20 +115,20 @@ export default defineComponent({
       setWinPosition()
       if (winState.fullScreen) {
         const options: StyleValue = {
-          width: winState.position!.width + 'px',
-          height: winState.position!.height + 'px',
-          left: winState.position!.left + 'px',
-          top: winState.position!.top + 'px',
+          width: winState.position.width + 'px',
+          height: winState.position.height + 'px',
+          left: winState.position.left + 'px',
+          top: winState.position.top + 'px',
         }
         flip(winInstance, options)
       } else {
         if (!winState.fullPosition) { reSetFullPosition() }
 
         const options: StyleValue = {
-          width: winState.fullPosition!.width + 'px',
-          height: winState.fullPosition!.height + 'px',
-          left: winState.fullPosition!.left + 'px',
-          top: winState.fullPosition!.top  + 'px',
+          width: winState.fullPosition.width + 'px',
+          height: winState.fullPosition.height + 'px',
+          left: winState.fullPosition.left + 'px',
+          top: winState.fullPosition.top  + 'px',
         }
         flip(winInstance, options)
       }
@@ -139,21 +142,21 @@ export default defineComponent({
       } else {
         let options: StyleValue = {}
         if (winState.fullScreen) {
-          const scaleX = compState[id].iconPosition.width / winState.fullPosition!.width
-          const scaleY = compState[id].iconPosition.height / winState.fullPosition!.height
+          const scaleX = compState[id.value].iconPosition.width / winState.fullPosition.width
+          const scaleY = compState[id.value].iconPosition.height / winState.fullPosition.height
           
-          const deltaX = compState[id].iconPosition.left + compState[id].iconPosition.width / 2 - (winState.fullPosition!.left + winState.fullPosition!.width / 2)
-          const deltaY = compState[id].iconPosition.top + compState[id].iconPosition.height / 2 - (winState.fullPosition!.top + winState.fullPosition!.height / 2)
+          const deltaX = compState[id.value].iconPosition.left + compState[id.value].iconPosition.width / 2 - (winState.fullPosition.left + winState.fullPosition.width / 2)
+          const deltaY = compState[id.value].iconPosition.top + compState[id.value].iconPosition.height / 2 - (winState.fullPosition.top + winState.fullPosition.height / 2)
           options = {
             transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
             opacity: 0,
           }
         } else {
-          const scaleX = compState[id].iconPosition.width / winState.position!.width
-          const scaleY = compState[id].iconPosition.height / winState.position!.height
+          const scaleX = compState[id.value].iconPosition.width / winState.position.width
+          const scaleY = compState[id.value].iconPosition.height / winState.position.height
           
-          const deltaX = compState[id].iconPosition.left + compState[id].iconPosition.width / 2 - (winState.position!.left + winState.position!.width / 2)
-          const deltaY = compState[id].iconPosition.top + compState[id].iconPosition.height / 2 - (winState.position!.top + winState.position!.height / 2)
+          const deltaX = compState[id.value].iconPosition.left + compState[id.value].iconPosition.width / 2 - (winState.position.left + winState.position.width / 2)
+          const deltaY = compState[id.value].iconPosition.top + compState[id.value].iconPosition.height / 2 - (winState.position.top + winState.position.height / 2)
           options = {
             transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
             opacity: 0,
@@ -172,7 +175,7 @@ export default defineComponent({
     }
 
     function handleMouseDown() {
-      appStore.setActiveComp(id)
+      appStore.setActiveComp(id.value)
     }
 
     function handleDbClick() {
@@ -181,7 +184,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      winInstance = getCurrentInstance()!.vnode.el as HTMLElement
+      winInstance = getCurrentInstance()?.vnode.el as HTMLElement
       winElement = document.querySelector(`#${id}Win`) as HTMLElement
       excludeElement = document.querySelector(`#${id}Content`) as HTMLElement
 

@@ -31,7 +31,7 @@ export interface CompInfoType {
 }
 
 export default defineComponent({
-  name: 'Home',
+  name: 'JHome',
   setup() {
     let gSCInstance : gSCTypes
     let appIntance : HTMLElement
@@ -73,21 +73,21 @@ export default defineComponent({
     }
 
     function initComp(comp: string, name: string) {
-      const iconRect = document.querySelector(`#${comp}Appbar`)!.getBoundingClientRect()
+      const iconRect = document.querySelector(`#${comp}Appbar`)?.getBoundingClientRect()
       compState[comp] = {
         id: comp,
         title: name,
         display: false,
         iconPosition: {
-          left: iconRect.left,
-          top: iconRect.top,
-          width: iconRect.width,
-          height: iconRect.height,
+          left: iconRect?.left || 0,
+          top: iconRect?.top || 0,
+          width: iconRect?.width || 0,
+          height: iconRect?.height || 0,
         }
       }
     }
 
-    function handleOpenApp(comp: keyof Object, name: string) {
+    function handleOpenApp(comp: keyof CompInfoType, name: string) {
       initComp(comp, name)
       compState[comp].display = true
     }

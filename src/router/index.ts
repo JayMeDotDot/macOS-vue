@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useSysState } from '@/store/sysState'
 
-import Login from '@/pages/Login'
-import Home from '@/pages/Home'
-import Update from '@/pages/Update'
+import JLogin from '@/pages/Login'
+import JHome from '@/pages/Home'
+import JUpdate from '@/pages/Update'
 
 const routes = [
   { 
     path: '/',
     name: 'Home',
-    component: Home,
+    component: JHome,
     beforeEnter: () => {
       const sysState = useSysState()
       if (!sysState.isLogged) { return { name: 'Login'}}
@@ -18,12 +18,12 @@ const routes = [
   { 
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: JLogin,
   },
   { 
     path: '/update', 
     name: 'Update',
-    component: Update 
+    component: JUpdate 
   },
   { 
     path: '/:pathMatch(.*)*',

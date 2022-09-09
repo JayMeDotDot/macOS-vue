@@ -11,7 +11,7 @@ import { JButton } from "@/components/Button"
 import { formatDay } from '@/utils'
 
 export default defineComponent({
-  name: 'Login',
+  name: 'JLogin',
   setup() {
     const currentTime = ref(formatDay())
     const systemState = [
@@ -46,12 +46,12 @@ export default defineComponent({
         router.push({path: '/'})
       }
       input.select()
-      input.parentElement!.classList.add('animate__animated', 'animate__shakeX', 'animate__fast')
-      input.parentElement!.addEventListener('animationend', () => { input.parentElement?.classList.remove('animate__shakeX')})
+      input.parentElement?.classList.add('animate__animated', 'animate__shakeX', 'animate__fast')
+      input.parentElement?.addEventListener('animationend', () => { input.parentElement?.classList.remove('animate__shakeX')})
     }
 
     function handleInputBlur(e: FocusEvent) {
-      ;(e.target as HTMLInputElement).select()
+      (e.target as HTMLInputElement).select()
     }
 
     async function handleKeyPressed(e: KeyboardEvent) {

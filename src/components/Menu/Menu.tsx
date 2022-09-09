@@ -29,7 +29,7 @@ export const menuProps = {
 export type MenuProps = ExtractPropTypes<typeof menuProps>
 
 export default defineComponent({
-  name: 'Menu',
+  name: 'JMenu',
   props: menuProps,
   setup() {
     const showSubMenu: {
@@ -42,12 +42,12 @@ export default defineComponent({
       const target = e.target as HTMLElement
       const { width } = target.getBoundingClientRect()
       subMenuPosition.x = width + 4
-      showSubMenu[target.getAttribute('data-key')!] = true
+      showSubMenu[target.getAttribute('data-key') || ''] = true
     }
 
     function handleMouseLeave(e: MouseEvent) {
       const target = e.target as HTMLElement
-      showSubMenu[target.getAttribute('data-key')!] = false
+      showSubMenu[target.getAttribute('data-key') || ''] = false
     }
 
     return {
@@ -79,7 +79,7 @@ export default defineComponent({
       if (showSubMenu[item.title]) {
         return (
           <div class="absolute left-0">
-            {renderMenu(item.options!, x, y)}
+            {renderMenu(item.options || [], x, y)}
           </div>
         )
       }

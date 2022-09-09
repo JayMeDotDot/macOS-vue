@@ -1,4 +1,4 @@
-import { defineComponent, onUnmounted, reactive, ref, render } from 'vue'
+import { defineComponent, onUnmounted, reactive, ref, } from 'vue'
 import type {  ExtractPropTypes, PropType } from 'vue'
 
 import router from '@/router'
@@ -36,9 +36,9 @@ export const menuBarProps = {
 export type MenuBarProps = ExtractPropTypes<typeof menuBarProps>
 
 export default defineComponent({
-  name: 'MenuBar',
+  name: 'JMenuBar',
   props: menuBarProps,
-  setup(props) {
+  setup() {
     const sysState = useSysState()
     const currentTime = ref(formatDay())
     const trigger = ref('click')
@@ -47,9 +47,9 @@ export default defineComponent({
     let preActiveMenu = ''
 
     const logoMenu: AppMenu[] = [
-      { title: '关于本机', fn: () => {}, },
-      { title: '系统偏好', fn: () => {}, },
-      { title: '最近使用', fn: () => {}, },
+      { title: '关于本机', },
+      { title: '系统偏好', },
+      { title: '最近使用', },
       { title: '锁定屏幕', fn: () => { logoutAndRoutTo('login') }, },
       { title: '升级系统', fn: () => { logoutAndRoutTo('update') }, },
       { title: '退出登录', fn: () => { logoutAndRoutTo('login') }, },
@@ -73,7 +73,7 @@ export default defineComponent({
     function handleMouseEnter(e: MouseEvent) {
       const target = e.target as HTMLElement
       if (trigger.value === 'hover') {
-        const activeMenu = target.getAttribute('data-key')!
+        const activeMenu = target.getAttribute('data-key') || ''
         const { left, top } = target.getBoundingClientRect()
         position.x = left
         position.y = top

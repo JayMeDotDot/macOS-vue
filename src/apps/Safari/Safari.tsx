@@ -1,7 +1,7 @@
-import { computed, defineComponent, inject, onMounted, onUnmounted, ref } from 'vue'
-import type { ExtractPropTypes, PropType, Ref } from 'vue'
+import { defineComponent, inject, onMounted, } from 'vue'
+import type { ExtractPropTypes, } from 'vue'
 
-import type { AppMenu } from '@/components/Menu'
+// import type { AppMenu } from '@/components/Menu'
 import { JProfile } from '@/components/Profile'
 
 // import { useAppStore } from '@/store/appStore'
@@ -11,13 +11,13 @@ export const safariProps = {}
 export type SafariProps = ExtractPropTypes<typeof safariProps>
 
 export default defineComponent({
-  name: 'Safari',
+  name: 'JSafari',
   props: safariProps,
   setup() {
-    const { centerWin } = inject('winState') as { [key: string]: Function }
+    const { centerWin } = inject('winState') as { [key: string]: () => void }
 
     onMounted(() => {
-      centerWin(false)
+      centerWin()
     })
   },
   render() {

@@ -14,7 +14,7 @@ export const searchBarProps = {
 export type SearchBarProps = ExtractPropTypes<typeof searchBarProps>
 
 export default defineComponent({
-  name: 'SearchBar',
+  name: 'JSearchBar',
   props: searchBarProps,
   setup(props) {
     let searchBar : HTMLElement
@@ -27,7 +27,7 @@ export default defineComponent({
       return `width: ${len}em`
     })
     function handleInput(e: Event) {
-      inputVal.value = (e.target! as HTMLInputElement).value
+      inputVal.value = (e.target as HTMLInputElement).value
     }
 
     onMounted(() => {

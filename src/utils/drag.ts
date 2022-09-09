@@ -23,10 +23,10 @@ export default function drag(target: HTMLElement, exclude?: HTMLElement[]): drag
   function setPosition(event: MouseEvent) {
     if (state.moving) {
 
-      let driftX = event.clientX - state.startX
-      let driftY = event.clientY - state.startY
-      let left = state.left + driftX
-      let top = state.top + driftY
+      const driftX = event.clientX - state.startX
+      const driftY = event.clientY - state.startY
+      const left = state.left + driftX
+      const top = state.top + driftY
 
       target.style.left = left + 'px'
       target.style.top = top + 'px'

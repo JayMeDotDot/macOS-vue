@@ -1,10 +1,8 @@
 import { 
   defineComponent, 
   inject, 
-  reactive,
-  ref 
 } from 'vue'
-import type { ExtractPropTypes, PropType, Ref } from 'vue'
+import type { ExtractPropTypes, PropType, } from 'vue'
 
 import { JMenu } from '../Menu'
 import type { AppMenu } from '../Menu'
@@ -27,10 +25,10 @@ export const rightMenuProps = {
 export type RightMenuProps = ExtractPropTypes<typeof rightMenuProps>
 
 export default defineComponent({
-  name: 'RightMenu',
+  name: 'JRightMenu',
   props: rightMenuProps,
   setup(props) {
-    const { toggleRightMenu, updateRMPosition } = inject('rightMenu') as {[key: string]: Function}
+    const { toggleRightMenu, updateRMPosition } = inject('rightMenu') as {[key: string]: (x?: number, y?: number) => void}
     const desktopRightMenu: AppMenu[] =
       props.menuLists.length 
         ? props.menuLists

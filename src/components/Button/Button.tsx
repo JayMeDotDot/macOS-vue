@@ -13,20 +13,17 @@ export const buttonProps = {
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>
 
 export default defineComponent({
-  name: 'Button',
+  name: 'JButton',
   props: buttonProps,
   setup(props, ctx) {
-    const {
-      circle,
-    } = props
 
     const buttonStyle = computed(() => {
-      let isCircle = circle ? 'rounded-1/2' : ''
+      const isCircle = props.circle ? 'rounded-1/2' : ''
       return `jbutton ${isCircle} p-1`
     })
 
     const IsIcon = computed(() => {
-      return (icon: String|undefined, ctx: SetupContext) => {
+      return (icon: string|undefined, ctx: SetupContext) => {
         if (icon) {
           return <div class={icon}></div>
         }

@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, onUnmounted, ref } from "vue"
 
 export default defineComponent({
-  name: 'Update',
+  name: 'JUpdate',
   setup() {
     const time = ref(16)
     let intervalID: number

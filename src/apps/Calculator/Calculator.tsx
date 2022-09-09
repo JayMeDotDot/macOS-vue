@@ -16,19 +16,19 @@ export const calculatorProps = {
 export type CalculatorProps = ExtractPropTypes<typeof calculatorProps>
 
 export default defineComponent({
-  name: 'Calculator',
+  name: 'JCalculator',
   props: calculatorProps,
   setup(props) {
     const calType = ref(props.calType)
-    const { centerWin } = inject('winState') as { [key: string]: Function }
-    const { handleCloseWin } = inject('compState') as { [key: string]: Function }
+    const { centerWin } = inject('winState') as { [key: string]: () => void }
+    const { handleCloseWin } = inject('compState') as { [key: string]: (id: string) => void }
 
     const menuList: AppMenu[] = [
       {
         title: '计算机',
         disabled: false,
         options: [
-          { title: '关于计算机', fn: () => {}, },
+          { title: '关于计算机', },
           { title: '退出计算机', fn: () => handleCloseWin('Calculator'), },
         ],
       },

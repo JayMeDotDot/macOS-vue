@@ -1,5 +1,5 @@
-export default function animationInterval(ms: number, signal: AbortSignal, callback: Function) {
-  const start = document.timeline ? document.timeline.currentTime! : performance.now()
+export default function animationInterval(ms: number, signal: AbortSignal, callback: (time: number) => void) {
+  const start = document.timeline ? document.timeline.currentTime || performance.now() : performance.now()
 
   function frame(time: number) {
     if (signal.aborted) return 

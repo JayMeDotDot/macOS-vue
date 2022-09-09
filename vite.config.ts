@@ -21,7 +21,7 @@ export default defineConfig({
         {...shortcuts}
       ],
       rules: [
-        ...rules as Rule<{}>[]
+        ...rules as Rule<Record<string, unknown>>[]
       ]
     }),
     vue(),

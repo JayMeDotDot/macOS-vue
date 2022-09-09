@@ -1,7 +1,7 @@
-import { computed, defineComponent, inject, onMounted, onUnmounted, ref } from 'vue'
-import type { ExtractPropTypes, PropType, Ref } from 'vue'
+import { defineComponent, inject, onMounted, } from 'vue'
+import type { ExtractPropTypes, } from 'vue'
 
-import type { AppMenu } from '@/components/Menu'
+// import type { AppMenu } from '@/components/Menu'
 import { JProfile } from '@/components/Profile'
 
 // import { useAppStore } from '@/store/appStore'
@@ -11,13 +11,13 @@ export const appStoreProps = {}
 export type AppStoreProps = ExtractPropTypes<typeof appStoreProps>
 
 export default defineComponent({
-  name: 'AppStore',
+  name: 'JAppStore',
   props: appStoreProps,
   setup() {
-    const { centerWin } = inject('winState') as { [key: string]: Function }
+    const { centerWin } = inject('winState') as { [key: string]: () => void }
 
     onMounted(() => {
-      centerWin(false)
+      centerWin()
     })
   },
   render() {

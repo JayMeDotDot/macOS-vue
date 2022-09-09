@@ -9,12 +9,12 @@ export default function resize(target: HTMLElement): resizeType {
 
   let resize = false
   let position = ''
-  let left = target.offsetLeft
-  let top = target.offsetTop
-  let startX = target.offsetLeft
+  // const left = target.offsetLeft
+  // const top = target.offsetTop
+  // let startX = target.offsetLeft
   let startY = target.offsetTop
-  let width = target.offsetWidth
-  let height = target.offsetHeight
+  // const width = target.offsetWidth
+  const height = target.offsetHeight
 
   const targetDetective = areaDetective(target, 4)
 
@@ -58,11 +58,12 @@ export default function resize(target: HTMLElement): resizeType {
     if (resize) {
       //event.preventDefault()
 
-      let driftX = event.clientX - startX
-      let driftY = event.clientY - startY
+      // const driftX = event.clientX - startX
+      const driftY = event.clientY - startY
       
       if (position === 'top') {
-        
+        // remain to refactor
+        target.style.height = height + driftY + 'px'
       }
       if (position === 'bottom') {
         target.style.height = height + driftY + 'px'
@@ -72,7 +73,7 @@ export default function resize(target: HTMLElement): resizeType {
 
   function setTrue(event: MouseEvent) {
     resize = true
-    startX = event.clientX
+    // startX = event.clientX
     startY = event.clientY
   }
 

@@ -4,6 +4,7 @@ export default defineComponent({
   name: 'Profile',
   setup() {},
   render() {
+
     return (
       <div class="profile">
         <a class="text-current" href="https://github.com/JayMeDotDot" target="_blank"><div class="i-ant-design-github"></div></a>

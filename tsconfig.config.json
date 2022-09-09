@@ -3,8 +3,7 @@
   "include": [
     "vite.config.*", 
     "vitest.config.*", 
-    "cypress.config.*",
-    "theme/*"
+    "cypress.config.*"
   ],
   "compilerOptions": {
     "composite": true,

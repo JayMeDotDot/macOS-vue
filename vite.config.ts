@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import { presetAttributify, presetIcons, presetUno, type Rule } from 'unocss'
 
-import { shortcuts, rules } from './theme'
+import { shortcuts, rules } from './src/theme'
 
 // https://vitejs.dev/config/
 export default defineConfig({

@@ -8,7 +8,7 @@ export default defineComponent({
 
     onMounted(() => {
       time.value = 10 + Math.floor(Math.random() * 20)
-      intervalID = setInterval(() => {
+      intervalID = window.setInterval(() => {
         time.value = 10 + Math.floor(Math.random() * 20)
       }, 60000)
     })

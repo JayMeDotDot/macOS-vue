@@ -25,9 +25,7 @@ export default defineComponent({
   },
   render() {
     return (
-      <div>
-        <RouterView></RouterView>
-      </div>
+      <RouterView></RouterView>
     )
   },
 })

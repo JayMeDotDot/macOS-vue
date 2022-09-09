@@ -14,10 +14,10 @@ export default defineComponent({
   name: 'AppStore',
   props: appStoreProps,
   setup() {
-    const { updateOpacity } = inject('winState') as { [key: string]: Function }
+    const { centerWin } = inject('winState') as { [key: string]: Function }
 
     onMounted(() => {
-      updateOpacity(false)
+      centerWin(false)
     })
   },
   render() {

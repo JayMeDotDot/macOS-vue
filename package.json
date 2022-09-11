@@ -50,7 +50,7 @@
   },
   "lint-staged": {
     "**/*": [
-      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+      "lint",
       "prettier . --write --ignore-unknown --ignore-path .gitignore"
     ]
   }

@@ -1,4 +1,5 @@
 import areaDetective from './areaDetective'
+import throttle from './throttle'
 
 export interface dragType {
   install: () => void
@@ -55,16 +56,18 @@ export default function drag(
     state.top = target.offsetTop
   }
 
+  const setPositionWithThrottle = throttle(setPosition)
+
   function install() {
     target.addEventListener('mousedown', setTrue)
     document.addEventListener('mouseup', setFalse)
-    document.addEventListener('mousemove', setPosition)
+    document.addEventListener('mousemove', setPositionWithThrottle)
   }
 
   function uninstall() {
     target.removeEventListener('mousedown', setTrue)
     document.removeEventListener('mouseup', setFalse)
-    document.removeEventListener('mousemove', setPosition)
+    document.removeEventListener('mousemove', setPositionWithThrottle)
   }
 
   return {

@@ -1,12 +1,12 @@
 name: 'ci'
-on: 
+on:
   push:
-    branches: 
+    branches:
       - '**'
   pull_request:
-    branches: 
+    branches:
       - main
-jobs: 
+jobs:
   lint-typecheck:
     runs-on: ubuntu-latest
     steps:
@@ -18,11 +18,11 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 7
-      
+
       - run: pnpm install
 
       - name: Run eslint
         run: pnpm run lint
-      
+
       - name: Run typecheck
         run: pnpm run typecheck

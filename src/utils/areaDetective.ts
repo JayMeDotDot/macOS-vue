@@ -11,7 +11,6 @@ export interface areaDetectiveType {
 }
 
 export default function areaDetective(target: HTMLElement, setEdge?: number) {
-
   let { left, top, width, height } = target.getBoundingClientRect()
 
   const edge = setEdge ? Math.abs(setEdge) : 0
@@ -22,7 +21,7 @@ export default function areaDetective(target: HTMLElement, setEdge?: number) {
   let bottomEdge = top + height - edge
 
   function getArea() {
-    ({ left, top, width, height } = target.getBoundingClientRect())
+    ;({ left, top, width, height } = target.getBoundingClientRect())
 
     leftEdge = left + edge
     rightEdge = left + width - edge
@@ -32,47 +31,92 @@ export default function areaDetective(target: HTMLElement, setEdge?: number) {
 
   function include(event: MouseEvent) {
     getArea()
-    return (event.clientX > leftEdge) && (event.clientX < rightEdge) && (event.clientY > topEdge) && (event.clientY < bottomEdge)
+    return (
+      event.clientX > leftEdge &&
+      event.clientX < rightEdge &&
+      event.clientY > topEdge &&
+      event.clientY < bottomEdge
+    )
   }
 
   function atTop(event: MouseEvent) {
     getArea()
-    return (event.clientY >= top) && (event.clientY <= topEdge) && (event.clientX >= leftEdge) && (event.clientX <= rightEdge)
+    return (
+      event.clientY >= top &&
+      event.clientY <= topEdge &&
+      event.clientX >= leftEdge &&
+      event.clientX <= rightEdge
+    )
   }
 
   function atBottom(event: MouseEvent) {
     getArea()
-    return (event.clientY >= bottomEdge) && (event.clientY <= top + height) && (event.clientX >= leftEdge) && (event.clientX <= rightEdge)
+    return (
+      event.clientY >= bottomEdge &&
+      event.clientY <= top + height &&
+      event.clientX >= leftEdge &&
+      event.clientX <= rightEdge
+    )
   }
 
   function atLeft(event: MouseEvent) {
     getArea()
-    return (event.clientX >= left) && (event.clientX <= leftEdge) && (event.clientY >= topEdge) && (event.clientY <= bottomEdge)
+    return (
+      event.clientX >= left &&
+      event.clientX <= leftEdge &&
+      event.clientY >= topEdge &&
+      event.clientY <= bottomEdge
+    )
   }
 
   function atRight(event: MouseEvent) {
     getArea()
-    return (event.clientX >= rightEdge) && (event.clientX <= left + width) && (event.clientY >= topEdge) && (event.clientY <= bottomEdge)
+    return (
+      event.clientX >= rightEdge &&
+      event.clientX <= left + width &&
+      event.clientY >= topEdge &&
+      event.clientY <= bottomEdge
+    )
   }
 
   function atTopLeft(event: MouseEvent) {
     getArea()
-    return (event.clientX >= left) && (event.clientX <= leftEdge) && (event.clientY >= top) && (event.clientY <= topEdge)
+    return (
+      event.clientX >= left &&
+      event.clientX <= leftEdge &&
+      event.clientY >= top &&
+      event.clientY <= topEdge
+    )
   }
 
   function atBottomLeft(event: MouseEvent) {
     getArea()
-    return (event.clientX >= left) && (event.clientX <= leftEdge) && (event.clientY >= bottomEdge) && (event.clientY <= top + height)
+    return (
+      event.clientX >= left &&
+      event.clientX <= leftEdge &&
+      event.clientY >= bottomEdge &&
+      event.clientY <= top + height
+    )
   }
 
   function atTopRight(event: MouseEvent) {
     getArea()
-    return (event.clientX >= rightEdge) && (event.clientX <= left + width) && (event.clientY >= top) && (event.clientY <= topEdge)
+    return (
+      event.clientX >= rightEdge &&
+      event.clientX <= left + width &&
+      event.clientY >= top &&
+      event.clientY <= topEdge
+    )
   }
 
   function atBottomRight(event: MouseEvent) {
     getArea()
-    return (event.clientX >= rightEdge) && (event.clientX <= left + width) && (event.clientY >= bottomEdge) && (event.clientY <= top + height)
+    return (
+      event.clientX >= rightEdge &&
+      event.clientX <= left + width &&
+      event.clientY >= bottomEdge &&
+      event.clientY <= top + height
+    )
   }
 
   return {
@@ -84,6 +128,6 @@ export default function areaDetective(target: HTMLElement, setEdge?: number) {
     atTopLeft,
     atBottomLeft,
     atTopRight,
-    atBottomRight,
+    atBottomRight
   }
 }

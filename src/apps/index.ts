@@ -1,19 +1,19 @@
 import { defineAsyncComponent } from 'vue'
 import type { Component } from 'vue'
 
-const JAppleTV = defineAsyncComponent(() => 
+const JAppleTV = defineAsyncComponent(() =>
   import('./AppleTV').then(({ JAppleTV }) => JAppleTV)
 )
 
-const JAppStore = defineAsyncComponent(() => 
+const JAppStore = defineAsyncComponent(() =>
   import('./AppStore').then(({ JAppStore }) => JAppStore)
 )
 
-const JBook = defineAsyncComponent(() => 
+const JBook = defineAsyncComponent(() =>
   import('./Book').then(({ JBook }) => JBook)
 )
 
-const JCalculator = defineAsyncComponent(() => 
+const JCalculator = defineAsyncComponent(() =>
   import('./Calculator').then(({ JCalculator }) => JCalculator)
 )
 
@@ -51,5 +51,5 @@ export default {
   JMap,
   JMusic,
   JSafari,
-  JWeather,
+  JWeather
 } as { [key: string]: Component }

@@ -1,7 +1,4 @@
-import { 
-  defineComponent, 
-  reactive, 
-} from 'vue'
+import { defineComponent, reactive } from 'vue'
 import type { ExtractPropTypes, PropType } from 'vue'
 
 export interface AppMenu {
@@ -16,14 +13,14 @@ export const menuProps = {
     type: Array as PropType<Array<AppMenu>>,
     default: () => []
   },
-  x: { 
-    type: Number as PropType<number>, 
+  x: {
+    type: Number as PropType<number>,
     default: 0
   },
-  y: { 
-    type: Number as PropType<number>, 
+  y: {
+    type: Number as PropType<number>,
     default: 0
-  },
+  }
 } as const
 
 export type MenuProps = ExtractPropTypes<typeof menuProps>
@@ -36,7 +33,7 @@ export default defineComponent({
       [key: string]: boolean
     } = reactive({})
 
-    const subMenuPosition: {x: number, y: number} = reactive({x: 0, y: 0})
+    const subMenuPosition: { x: number; y: number } = reactive({ x: 0, y: 0 })
 
     function handleMouseEnter(e: MouseEvent) {
       const target = e.target as HTMLElement
@@ -54,7 +51,7 @@ export default defineComponent({
       showSubMenu,
       subMenuPosition,
       handleMouseEnter,
-      handleMouseLeave,
+      handleMouseLeave
     }
   },
   render() {
@@ -65,8 +62,8 @@ export default defineComponent({
       showSubMenu,
       subMenuPosition,
       handleMouseLeave,
-      handleMouseEnter,
-    }  = this
+      handleMouseEnter
+    } = this
 
     function calPositionClass(x?: number, y?: number): string {
       if (x && y) return `left:${x}px; top:${y}px`
@@ -91,7 +88,7 @@ export default defineComponent({
       return (
         <div class="back-layer" style={menuPosition}>
           <div class="menu dark:menu-dark theme-transition">
-            {items.map((item) => {
+            {items.map(item => {
               if (item.disabled) {
                 return (
                   <div class="menu-item">
@@ -101,17 +98,17 @@ export default defineComponent({
               }
               if (item.options?.length) {
                 return (
-                    <div 
-                    class="menu-item hover:item-hover" 
+                  <div
+                    class="menu-item hover:item-hover"
                     data-key={item.title}
                     onMouseenter={handleMouseEnter}
                     onMouseleave={handleMouseLeave}
                     onClick={item.fn}
-                    >
-                      <span>{item.title}</span>
-                      <div class="i-ic-round-keyboard-arrow-right text-size-5"></div>
-                      {renderSubMenu(item, subMenuPosition.x, subMenuPosition.y)}
-                    </div>
+                  >
+                    <span>{item.title}</span>
+                    <div class="i-ic-round-keyboard-arrow-right text-size-5"></div>
+                    {renderSubMenu(item, subMenuPosition.x, subMenuPosition.y)}
+                  </div>
                 )
               }
               return (
@@ -125,10 +122,6 @@ export default defineComponent({
       )
     }
 
-    return (
-      <div class="menu-layer">
-        {renderMenu(menuLists, x, y)}
-      </div>
-    )
-  },
+    return <div class="menu-layer">{renderMenu(menuLists, x, y)}</div>
+  }
 })

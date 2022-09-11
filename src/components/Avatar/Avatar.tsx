@@ -15,14 +15,12 @@ export default defineComponent({
   props: avatarProps,
 
   render() {
-    const {
-      src,
-    } = this
+    const { src } = this
 
     return (
       <div class="avatar">
         <img src={src} alt="avatar" />
       </div>
     )
-  },
+  }
 })

@@ -11,16 +11,6 @@ import { formatDay } from './formateDay'
 import gSC from './globalShortCuts'
 import type { gSCTypes } from './globalShortCuts'
 
-export {
-  areaDetective,
-  drag,
-  flip,
-  formatDay,
-  gSC,
-}
+export { areaDetective, drag, flip, formatDay, gSC }
 
-export type {
-  areaDetectiveType,
-  dragType,
-  gSCTypes,
-}
+export type { areaDetectiveType, dragType, gSCTypes }

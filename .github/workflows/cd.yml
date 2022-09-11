@@ -1,12 +1,12 @@
 name: Deploy Website
 
-on: 
+on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 jobs:
-  build: 
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

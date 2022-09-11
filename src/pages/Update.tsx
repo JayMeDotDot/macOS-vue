@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, onUnmounted, ref } from "vue"
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
 
 export default defineComponent({
   name: 'JUpdate',
@@ -30,5 +30,5 @@ export default defineComponent({
         <div class="text-white text-0.8 font-bold">剩余大约 {time} 分钟</div>
       </div>
     )
-  },
+  }
 })

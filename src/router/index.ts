@@ -6,34 +6,36 @@ import JHome from '@/pages/Home'
 import JUpdate from '@/pages/Update'
 
 const routes = [
-  { 
+  {
     path: '/',
     name: 'Home',
     component: JHome,
     beforeEnter: () => {
       const sysState = useSysState()
-      if (!sysState.isLogged) { return { name: 'Login'}}
+      if (!sysState.isLogged) {
+        return { name: 'Login' }
+      }
     }
   },
-  { 
+  {
     path: '/login',
     name: 'Login',
-    component: JLogin,
+    component: JLogin
   },
-  { 
-    path: '/update', 
+  {
+    path: '/update',
     name: 'Update',
-    component: JUpdate 
+    component: JUpdate
   },
-  { 
+  {
     path: '/:pathMatch(.*)*',
-    redirect: '/' 
+    redirect: '/'
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 })
 
 export default router

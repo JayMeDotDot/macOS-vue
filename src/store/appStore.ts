@@ -1,7 +1,7 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 
-import type { AppMenu } from "@/components/Menu"
-import type { AppProps } from "@/components/AppBar"
+import type { AppMenu } from '@/components/Menu'
+import type { AppProps } from '@/components/AppBar'
 
 export interface AppMenus {
   [comp: string]: AppMenu[]
@@ -9,8 +9,8 @@ export interface AppMenus {
 
 export interface AppStore {
   appMenus: AppMenus
-  appBar: AppProps[],
-  activeComp: string,
+  appBar: AppProps[]
+  activeComp: string
 }
 
 export const useAppStore = defineStore('appStore', {
@@ -18,13 +18,13 @@ export const useAppStore = defineStore('appStore', {
     return {
       appMenus: {
         desktop: [
-          { title: '访达', disabled: false, },
-          { title: '文件', disabled: false, }, 
-          { title: '编辑', disabled: false, }, 
-          { title: '显示', disabled: false, }, 
-          { title: '前往', disabled: false, }, 
-          { title: '窗口', disabled: false, }, 
-          { title: '帮助', disabled: false, },
+          { title: '访达', disabled: false },
+          { title: '文件', disabled: false },
+          { title: '编辑', disabled: false },
+          { title: '显示', disabled: false },
+          { title: '前往', disabled: false },
+          { title: '窗口', disabled: false },
+          { title: '帮助', disabled: false }
         ]
       },
       appBar: [
@@ -32,13 +32,13 @@ export const useAppStore = defineStore('appStore', {
         { name: 'FaceTime', iconLocation: 'FaceTime.webp', comp: 'FaceTime' },
         { name: '音乐', iconLocation: 'Music.webp', comp: 'Music' },
         { name: 'AppleTV', iconLocation: 'AppTV.webp', comp: 'AppleTV' },
-        { name: 'Safari', iconLocation: 'Safari.webp', comp: 'Safari'},
+        { name: 'Safari', iconLocation: 'Safari.webp', comp: 'Safari' },
         { name: 'AppStore', iconLocation: 'AppStore.webp', comp: 'AppStore' },
         { name: '地图', iconLocation: 'Map.webp', comp: 'Map' },
-        { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator'},
-        { name: '天气', iconLocation: 'Weather.webp', comp: 'Weather'},
+        { name: '计算机', iconLocation: 'Calculator.webp', comp: 'Calculator' },
+        { name: '天气', iconLocation: 'Weather.webp', comp: 'Weather' }
       ],
-      activeComp: 'desktop',
+      activeComp: 'desktop'
     }
   },
 
@@ -51,8 +51,7 @@ export const useAppStore = defineStore('appStore', {
     },
     getActiveComp(): string {
       return this.activeComp
-    },
-
+    }
   },
 
   actions: {
@@ -70,7 +69,6 @@ export const useAppStore = defineStore('appStore', {
 
     mountAppBar(applist: AppProps[]) {
       this.appBar.push(...applist)
-    },
-
-  },
+    }
+  }
 })

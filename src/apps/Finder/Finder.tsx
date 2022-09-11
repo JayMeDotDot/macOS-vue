@@ -1,9 +1,4 @@
-import {
-  defineComponent,
-  inject,
-  onMounted,
-  onUnmounted,
-} from 'vue'
+import { defineComponent, inject, onMounted, onUnmounted } from 'vue'
 
 import type { AppMenu } from '@/components/Menu'
 import { JProfile } from '@/components/Profile'
@@ -18,16 +13,14 @@ export default defineComponent({
     const menuList: AppMenu[] = [
       {
         title: '访达',
-        options: [
-          { title: '关于访达', },
-        ]
+        options: [{ title: '关于访达' }]
       },
-      { title: '文件', }, 
-      { title: '编辑', }, 
-      { title: '显示', }, 
-      { title: '前往', }, 
-      { title: '窗口', }, 
-      { title: '帮助', },
+      { title: '文件' },
+      { title: '编辑' },
+      { title: '显示' },
+      { title: '前往' },
+      { title: '窗口' },
+      { title: '帮助' }
     ]
 
     const appStore = useAppStore()
@@ -48,5 +41,5 @@ export default defineComponent({
         <JProfile></JProfile>
       </div>
     )
-  },
+  }
 })

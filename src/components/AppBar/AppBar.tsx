@@ -14,35 +14,39 @@ export const appBarProps = {
       {
         name: '访达',
         iconLocation: 'Finder.webp',
-        comp: 'Finder',
+        comp: 'Finder'
       },
       {
         name: '信息',
         iconLocation: 'Message.webp',
-        comp: 'Message',
+        comp: 'Message'
       },
       {
         name: 'FaceTime',
         iconLocation: 'FaceTime.webp',
-        comp: 'FaceTime',
-      },{
+        comp: 'FaceTime'
+      },
+      {
         name: '音乐',
         iconLocation: 'Music.webp',
-        comp: 'Music',
-      },{
+        comp: 'Music'
+      },
+      {
         name: '浏览器',
         iconLocation: 'Safari.webp',
-        comp: 'Safari',
-      },{
+        comp: 'Safari'
+      },
+      {
         name: '计算器',
         iconLocation: 'Calculator.webp',
-        comp: 'Calculator',
-      },{
+        comp: 'Calculator'
+      },
+      {
         name: 'App Store',
         iconLocation: 'AppStore.webp',
-        comp: 'AppStore',
-      },
-    ],
+        comp: 'AppStore'
+      }
+    ]
   }
 }
 
@@ -53,7 +57,6 @@ export default defineComponent({
   props: appBarProps,
   emits: ['openApp'],
   setup(_, ctx) {
-
     function openApp(e: MouseEvent) {
       const element = e.target as HTMLElement
       const comp = element.getAttribute('comp')
@@ -62,25 +65,23 @@ export default defineComponent({
     }
 
     return {
-      openApp,
+      openApp
     }
   },
   render() {
-    const {
-      appList,
-      openApp,
-    } = this
+    const { appList, openApp } = this
 
     return (
-      <div id='app-bar' class="app-bar dark:app-bar-dark theme-transition">
-        {appList.map((item) => {
+      <div id="app-bar" class="app-bar dark:app-bar-dark theme-transition">
+        {appList.map(item => {
           return (
             <div class="app-bar-item scale-transition hover:app-scale">
-              <img 
+              <img
                 id={item.comp + 'Appbar'}
                 comp={item.comp}
                 class="w-13"
-                src={"/appicon/" + item.iconLocation} alt={item.name} 
+                src={'/appicon/' + item.iconLocation}
+                alt={item.name}
                 onClick={openApp}
               />
             </div>
@@ -88,5 +89,5 @@ export default defineComponent({
         })}
       </div>
     )
-  },
+  }
 })

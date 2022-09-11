@@ -1,4 +1,4 @@
-import areaDetective from "./areaDetective"
+import areaDetective from './areaDetective'
 
 export interface resizeType {
   install: () => void
@@ -6,7 +6,6 @@ export interface resizeType {
 }
 
 export default function resize(target: HTMLElement): resizeType {
-
   let resize = false
   let position = ''
   // const left = target.offsetLeft
@@ -60,7 +59,7 @@ export default function resize(target: HTMLElement): resizeType {
 
       // const driftX = event.clientX - startX
       const driftY = event.clientY - startY
-      
+
       if (position === 'top') {
         // remain to refactor
         target.style.height = height + driftY + 'px'
@@ -98,6 +97,6 @@ export default function resize(target: HTMLElement): resizeType {
 
   return {
     install,
-    uninstall,
+    uninstall
   }
 }

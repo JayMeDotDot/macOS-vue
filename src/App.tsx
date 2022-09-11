@@ -1,6 +1,6 @@
-import { defineComponent, onMounted, onUnmounted } from "vue"
+import { defineComponent, onMounted, onUnmounted } from 'vue'
 
-import { RouterView } from "vue-router"
+import { RouterView } from 'vue-router'
 
 export default defineComponent({
   name: 'App',
@@ -24,8 +24,6 @@ export default defineComponent({
     })
   },
   render() {
-    return (
-      <RouterView></RouterView>
-    )
-  },
+    return <RouterView></RouterView>
+  }
 })

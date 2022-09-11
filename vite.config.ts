@@ -12,20 +12,12 @@ import { shortcuts, rules } from './src/theme'
 export default defineConfig({
   plugins: [
     Unocss({
-      presets: [
-        presetUno(),
-        presetAttributify(),
-        presetIcons(),
-      ],
-      shortcuts: [
-        {...shortcuts}
-      ],
-      rules: [
-        ...rules as Rule<Record<string, unknown>>[]
-      ]
+      presets: [presetUno(), presetAttributify(), presetIcons()],
+      shortcuts: [{ ...shortcuts }],
+      rules: [...(rules as Rule<Record<string, unknown>>[])]
     }),
     vue(),
-    vueJsx(), 
+    vueJsx()
   ],
   resolve: {
     alias: {
@@ -33,6 +25,6 @@ export default defineConfig({
     }
   },
   server: {
-    hmr: true,
+    hmr: true
   }
 })

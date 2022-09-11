@@ -1,18 +1,18 @@
-import { 
+import {
   h,
-  defineComponent, 
+  defineComponent,
   onMounted,
   reactive,
   ref,
   onUnmounted,
-  provide,
-} from "vue"
+  provide
+} from 'vue'
 
-import { storeToRefs } from "pinia"
-import { useAppStore } from "@/store/appStore"
+import { storeToRefs } from 'pinia'
+import { useAppStore } from '@/store/appStore'
 
 import { gSC } from '@/utils'
-import type { gSCTypes } from "@/utils"
+import type { gSCTypes } from '@/utils'
 
 import { JMenuBar } from '@/components/MenuBar'
 import { JAppBar } from '@/components/AppBar'
@@ -27,7 +27,7 @@ export interface CompInfoType {
   id: string
   title: string
   display: boolean
-  iconPosition?: {left: number, top: number, width: number, height: number}
+  iconPosition?: { left: number; top: number; width: number; height: number }
 }
 
 export interface CompStateProvideType {
@@ -43,28 +43,30 @@ export interface RightMenuProvideType {
 export default defineComponent({
   name: 'JHome',
   setup() {
-    let gSCInstance : gSCTypes
-    let appIntance : HTMLElement
+    let gSCInstance: gSCTypes
+    let appIntance: HTMLElement
 
     let darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
     const themeIcon = ref('i-ic-baseline-light-mode')
 
     const searchbar = reactive({
-      display: false,
+      display: false
     })
 
     const appStore = useAppStore()
-    const { getAppBar, getActiveAppMenu, } = storeToRefs(appStore)
+    const { getAppBar, getActiveAppMenu } = storeToRefs(appStore)
 
     const compState: { [key: string]: CompInfoType } = reactive({})
     provide('compState', { compState, handleCloseWin })
     const rightMenu = reactive({ show: false, x: 0, y: 0 })
-    function toggleRightMenu(): void { rightMenu.show = false }
+    function toggleRightMenu(): void {
+      rightMenu.show = false
+    }
     function updateRMPosition(x: number, y: number): void {
       rightMenu.x = x
       rightMenu.y = y
     }
-    provide('rightMenu', { toggleRightMenu, updateRMPosition } )
+    provide('rightMenu', { toggleRightMenu, updateRMPosition })
 
     function toggleTheme() {
       if (!darkTheme) {
@@ -83,7 +85,9 @@ export default defineComponent({
     }
 
     function initComp(comp: string, name: string) {
-      const iconRect = document.querySelector(`#${comp}Appbar`)?.getBoundingClientRect()
+      const iconRect = document
+        .querySelector(`#${comp}Appbar`)
+        ?.getBoundingClientRect()
       compState[comp] = {
         id: comp,
         title: name,
@@ -92,7 +96,7 @@ export default defineComponent({
           left: iconRect?.left || 0,
           top: iconRect?.top || 0,
           width: iconRect?.width || 0,
-          height: iconRect?.height || 0,
+          height: iconRect?.height || 0
         }
       }
     }
@@ -139,7 +143,7 @@ export default defineComponent({
       handleOpenApp,
       handleCloseWin,
       handleClick,
-      toggleTheme,
+      toggleTheme
     }
   },
   render() {
@@ -153,18 +157,14 @@ export default defineComponent({
       handleOpenApp,
       handleCloseWin,
       handleClick,
-      toggleTheme,
+      toggleTheme
     } = this
 
-    function renderComp(comp: CompInfoType ) {
+    function renderComp(comp: CompInfoType) {
       const { id, title, display } = comp
       if (display) {
         return (
-          <JWindow
-            id={id}
-            title={title}
-            onCloseWin={handleCloseWin}
-          >
+          <JWindow id={id} title={title} onCloseWin={handleCloseWin}>
             {h(apps[`J${id}`])}
           </JWindow>
         )
@@ -174,11 +174,9 @@ export default defineComponent({
     return (
       <div>
         <div class="desktop" onMouseup={handleClick}></div>
-        {
-          rightMenu.show 
-            ? <JRightMenu x={rightMenu.x} y={rightMenu.y}></JRightMenu> 
-            : null
-        }
+        {rightMenu.show ? (
+          <JRightMenu x={rightMenu.x} y={rightMenu.y}></JRightMenu>
+        ) : null}
 
         <JMenuBar app-menu={getActiveAppMenu}></JMenuBar>
 
@@ -201,8 +199,7 @@ export default defineComponent({
           const value = compState[key]
           return renderComp(value)
         })}
-
       </div>
     )
-  },
+  }
 })

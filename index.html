@@ -20,30 +20,38 @@
   body {
     height: 100vh;
     overflow: hidden;
-    background-image: linear-gradient(to right top, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68);
+    background-image: linear-gradient(
+      to right top,
+      #38438b,
+      #944b94,
+      #d75a88,
+      #ff7e71,
+      #ffb25f,
+      #ffeb68
+    );
     font-family: system-ui, -apple-system, Arial, sans-serif;
   }
 
   #app {
     height: 100%;
-    background-image: url("wallpaper/Mojave Day.webp");
+    background-image: url('wallpaper/Mojave Day.webp');
     background-size: cover;
     transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark #app {
-    background-image: url("wallpaper/Mojave Night.webp");
+    background-image: url('wallpaper/Mojave Night.webp');
     transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* 临时解决办法，写在 rules 里面会被转换为 __VITE_PUBLIC_ASSET__ */
-  .juejin-icon { 
-          mask: url("/tmpicon/juejin.svg");
-          -webkit-mask: url("/tmpicon/juejin.svg");
-          mask-size: 100% 100%;
-          -webkit-mask-size: 100% 100%;
-          background-color: currentColor;
-          width: 1em;
-          height: 1em;
-         }
+  .juejin-icon {
+    mask: url('/tmpicon/juejin.svg');
+    -webkit-mask: url('/tmpicon/juejin.svg');
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    background-color: currentColor;
+    width: 1em;
+    height: 1em;
+  }
 </style>

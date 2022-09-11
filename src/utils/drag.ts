@@ -5,8 +5,10 @@ export interface dragType {
   uninstall: () => void
 }
 
-export default function drag(target: HTMLElement, exclude?: HTMLElement[]): dragType {
-
+export default function drag(
+  target: HTMLElement,
+  exclude?: HTMLElement[]
+): dragType {
   const state = {
     moving: false,
     left: 0,
@@ -14,7 +16,7 @@ export default function drag(target: HTMLElement, exclude?: HTMLElement[]): drag
     startX: 0,
     startY: 0,
     width: 0,
-    height: 0,
+    height: 0
   }
 
   const targetDetective = areaDetective(target, 4)
@@ -22,7 +24,6 @@ export default function drag(target: HTMLElement, exclude?: HTMLElement[]): drag
 
   function setPosition(event: MouseEvent) {
     if (state.moving) {
-
       const driftX = event.clientX - state.startX
       const driftY = event.clientY - state.startY
       const left = state.left + driftX
@@ -48,26 +49,26 @@ export default function drag(target: HTMLElement, exclude?: HTMLElement[]): drag
     }
   }
 
-  function setFalse() { 
+  function setFalse() {
     state.moving = false
     state.left = target.offsetLeft
     state.top = target.offsetTop
   }
 
   function install() {
-    target.addEventListener('mousedown', setTrue )
-    document.addEventListener('mouseup', setFalse )
+    target.addEventListener('mousedown', setTrue)
+    document.addEventListener('mouseup', setFalse)
     document.addEventListener('mousemove', setPosition)
   }
 
   function uninstall() {
-    target.removeEventListener('mousedown', setTrue )
-    document.removeEventListener('mouseup', setFalse )
+    target.removeEventListener('mousedown', setTrue)
+    document.removeEventListener('mouseup', setFalse)
     document.removeEventListener('mousemove', setPosition)
   }
 
   return {
     install,
-    uninstall,
+    uninstall
   }
 }

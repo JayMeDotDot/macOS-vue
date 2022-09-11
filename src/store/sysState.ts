@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useSysState = defineStore('sysState', {
   state: () => {
     return {
-      logged: false,
+      logged: false
     }
   },
 
@@ -14,7 +14,11 @@ export const useSysState = defineStore('sysState', {
   },
 
   actions: {
-    login(): void { this.logged = true },
-    logout(): void { this.logged = false },
+    login(): void {
+      this.logged = true
+    },
+    logout(): void {
+      this.logged = false
+    }
   }
 })

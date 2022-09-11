@@ -7,7 +7,7 @@ interface Password {
 export const usePassword = defineStore('password', {
   state: (): Password => {
     return {
-      login: '123456',
+      login: '123456'
     }
   },
 
@@ -21,8 +21,8 @@ export const usePassword = defineStore('password', {
     checkpassword(pw: string, name: string): boolean {
       return this[name] === pw
     },
-    setpassword(pw:string, name: string): void {
+    setpassword(pw: string, name: string): void {
       this[name] = pw
-    },
+    }
   }
 })

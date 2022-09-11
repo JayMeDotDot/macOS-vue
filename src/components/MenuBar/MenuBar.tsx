@@ -1,5 +1,5 @@
-import { defineComponent, onUnmounted, reactive, ref, } from 'vue'
-import type {  ExtractPropTypes, PropType } from 'vue'
+import { defineComponent, onUnmounted, reactive, ref } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 import router from '@/router'
 import { useSysState } from '@/store/sysState'
@@ -13,14 +13,14 @@ export const menuBarProps = {
   appMenu: {
     type: Array as PropType<Array<AppMenu>>,
     default: () => [
-      { title: '访达', },
-      { title: '文件', }, 
-      { title: '编辑', }, 
-      { title: '显示', }, 
-      { title: '前往', }, 
-      { title: '窗口', }, 
-      { title: '帮助', },
-    ],
+      { title: '访达' },
+      { title: '文件' },
+      { title: '编辑' },
+      { title: '显示' },
+      { title: '前往' },
+      { title: '窗口' },
+      { title: '帮助' }
+    ]
   },
   systemState: {
     type: Array as PropType<Array<string>>,
@@ -28,9 +28,9 @@ export const menuBarProps = {
       'i-ic-round-volume-up',
       'i-ic-baseline-bluetooth',
       'i-ic-outline-battery-charging-90 rotate-90',
-      'i-ic-baseline-wifi',
-    ],
-  },
+      'i-ic-baseline-wifi'
+    ]
+  }
 } as const
 
 export type MenuBarProps = ExtractPropTypes<typeof menuBarProps>
@@ -43,28 +43,43 @@ export default defineComponent({
     const currentTime = ref(formatDay())
     const trigger = ref('click')
     const showMenu: { [key: string]: boolean } = reactive({})
-    const position: {x: number, y: number} = reactive({x: 0, y: 0})
+    const position: { x: number; y: number } = reactive({ x: 0, y: 0 })
     let preActiveMenu = ''
 
     const logoMenu: AppMenu[] = [
-      { title: '关于本机', },
-      { title: '系统偏好', },
-      { title: '最近使用', },
-      { title: '锁定屏幕', fn: () => { logoutAndRoutTo('login') }, },
-      { title: '升级系统', fn: () => { logoutAndRoutTo('update') }, },
-      { title: '退出登录', fn: () => { logoutAndRoutTo('login') }, },
+      { title: '关于本机' },
+      { title: '系统偏好' },
+      { title: '最近使用' },
+      {
+        title: '锁定屏幕',
+        fn: () => {
+          logoutAndRoutTo('login')
+        }
+      },
+      {
+        title: '升级系统',
+        fn: () => {
+          logoutAndRoutTo('update')
+        }
+      },
+      {
+        title: '退出登录',
+        fn: () => {
+          logoutAndRoutTo('login')
+        }
+      }
     ]
 
     function logoutAndRoutTo(target: string) {
       sysState.logout
-      router.replace({ path: `/${target}`})
+      router.replace({ path: `/${target}` })
     }
 
     function handleClick(e: MouseEvent) {
       if (trigger.value === 'hover') {
         trigger.value = 'click'
         showMenu[preActiveMenu] = false
-        return 
+        return
       }
       trigger.value = 'hover'
       handleMouseEnter(e)
@@ -97,7 +112,7 @@ export default defineComponent({
       position,
       showMenu,
       handleClick,
-      handleMouseEnter,
+      handleMouseEnter
     }
   },
   render() {
@@ -109,43 +124,38 @@ export default defineComponent({
       showMenu,
       systemState,
       handleClick,
-      handleMouseEnter,
+      handleMouseEnter
     } = this
 
-    function renderMenu(menulist: AppMenu[], position: {x: number, y: number}) {
-      return(
+    function renderMenu(
+      menulist: AppMenu[],
+      position: { x: number; y: number }
+    ) {
+      return (
         <div class="absolute left-0">
-          <JMenu
-            menu-lists={menulist}
-            x={position.x}
-            y={position.y}
-          ></JMenu>
+          <JMenu menu-lists={menulist} x={position.x} y={position.y}></JMenu>
         </div>
       )
     }
 
     return (
       <div id="menu-bar" class="menu-bar">
-        <div 
-          class="menu-subbar"
-          onClick={handleClick}
-        >
-
+        <div class="menu-subbar" onClick={handleClick}>
           <div>
-            <div 
+            <div
               class="menu-subbar-item i-ic-baseline-apple"
               onMouseenter={handleMouseEnter}
-              data-key='logo'
+              data-key="logo"
             ></div>
             {showMenu.logo ? renderMenu(logoMenu, position) : null}
           </div>
 
-          {appMenu.map((item) => {
+          {appMenu.map(item => {
             if (item.options) {
               if (showMenu[item.title]) {
                 return (
                   <div>
-                    <div 
+                    <div
                       class="menu-subbar-item"
                       data-key={item.title}
                       onMouseenter={handleMouseEnter}
@@ -158,31 +168,27 @@ export default defineComponent({
               }
               return (
                 <div>
-                  <div 
-                    class="menu-subbar-item" 
+                  <div
+                    class="menu-subbar-item"
                     data-key={item.title}
                     onMouseenter={handleMouseEnter}
-                  >{item.title}</div>
+                  >
+                    {item.title}
+                  </div>
                 </div>
               )
             }
-            return (
-              <div class="menu-subbar-item">{item.title}</div>
-            )
+            return <div class="menu-subbar-item">{item.title}</div>
           })}
         </div>
 
         <div class="menu-subbar">
-          {systemState.map((item) => {
-            return (
-              <div class={item + " menu-subbar-item"}></div>
-            )
+          {systemState.map(item => {
+            return <div class={item + ' menu-subbar-item'}></div>
           })}
-          <div
-            class="menu-subbar-item"
-          >{currentTime}</div>
+          <div class="menu-subbar-item">{currentTime}</div>
         </div>
       </div>
     )
-  },
+  }
 })

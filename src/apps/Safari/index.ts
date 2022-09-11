@@ -1,1 +1,1 @@
-export { default as JSafari } from  './Safari'
+export { default as JSafari } from './Safari'

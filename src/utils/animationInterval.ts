@@ -1,8 +1,14 @@
-export default function animationInterval(ms: number, signal: AbortSignal, callback: (time: number) => void) {
-  const start = document.timeline ? document.timeline.currentTime || performance.now() : performance.now()
+export default function animationInterval(
+  ms: number,
+  signal: AbortSignal,
+  callback: (time: number) => void
+) {
+  const start = document.timeline
+    ? document.timeline.currentTime || performance.now()
+    : performance.now()
 
   function frame(time: number) {
-    if (signal.aborted) return 
+    if (signal.aborted) return
     callback(time)
     scheduleFrame(time)
   }
@@ -14,7 +20,7 @@ export default function animationInterval(ms: number, signal: AbortSignal, callb
     const delay = targetNext - performance.now()
     setTimeout(() => {
       requestAnimationFrame(frame)
-    }, delay);
+    }, delay)
   }
 
   scheduleFrame(start)

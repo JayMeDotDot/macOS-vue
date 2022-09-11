@@ -3,10 +3,10 @@ import type { ExtractPropTypes, PropType, SetupContext } from 'vue'
 
 export const buttonProps = {
   circle: {
-    type: Boolean as PropType<boolean>,
+    type: Boolean as PropType<boolean>
   },
   icon: {
-    type: String as PropType<string>,
+    type: String as PropType<string>
   }
 }
 
@@ -16,41 +16,31 @@ export default defineComponent({
   name: 'JButton',
   props: buttonProps,
   setup(props, ctx) {
-
     const buttonStyle = computed(() => {
       const isCircle = props.circle ? 'rounded-1/2' : ''
       return `jbutton ${isCircle} p-1`
     })
 
     const IsIcon = computed(() => {
-      return (icon: string|undefined, ctx: SetupContext) => {
+      return (icon: string | undefined, ctx: SetupContext) => {
         if (icon) {
           return <div class={icon}></div>
         }
         if (ctx.slots.default) {
-          return h('div', {class: 'flex'}, ctx.slots.default())
+          return h('div', { class: 'flex' }, ctx.slots.default())
         }
       }
     })
-    
+
     return {
       buttonStyle,
       ctx,
-      IsIcon,
+      IsIcon
     }
   },
   render() {
-    const {
-      buttonStyle,
-      ctx,
-      icon,
-      IsIcon,
-    } = this
+    const { buttonStyle, ctx, icon, IsIcon } = this
 
-    return (
-      <button class={buttonStyle}>
-        {IsIcon(icon, ctx)}
-      </button>
-    )
-  },
+    return <button class={buttonStyle}>{IsIcon(icon, ctx)}</button>
+  }
 })

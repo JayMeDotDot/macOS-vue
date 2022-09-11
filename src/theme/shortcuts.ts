@@ -1,12 +1,12 @@
 export default {
-  'avatar': `w-25 h-25
+  avatar: `w-25 h-25
              bg-white rounded-50%`,
 
-  'desktop': `absolute w-100% h-100%`,
+  desktop: `absolute w-100% h-100%`,
   'back-layer': `absolute top-0 left-0
                  w-100vw h-100vh z-2`,
 
-  'menu': `min-w-10rem w-fit
+  menu: `min-w-10rem w-fit
            bg-white
            bg-opacity-70
            backdrop-blur-20
@@ -25,19 +25,19 @@ export default {
   'item-hover': `bg-[rgba(255,160,0,.6)]
                  text-white`,
 
-  'apptv': `w-fit text-center`,
-  'appstore': `w-fit text-center`,
-  'book': `w-fit text-center`,
-  'facetime': `w-fit text-center`,
-  'finder': `w-fit text-center`,
-  'music': `w-fit text-center`,
-  'map': `w-fit text-center`,
+  apptv: `w-fit text-center`,
+  appstore: `w-fit text-center`,
+  book: `w-fit text-center`,
+  facetime: `w-fit text-center`,
+  finder: `w-fit text-center`,
+  music: `w-fit text-center`,
+  map: `w-fit text-center`,
 
-  'profile': `flex justify-evenly
+  profile: `flex justify-evenly
               w-100 m-6
               text-6`,
 
-  'calculator': `w-100% h-100%
+  calculator: `w-100% h-100%
                  flex flex-col`,
   'calculator-result': `w-100% h-100% min-h-12 
                         text-xl leading-12 text-end
@@ -59,7 +59,7 @@ export default {
   'calculator-key-active': `bg-slate-100`,
   'calculator-key-dark-active': `bg-slate-800`,
 
-  'window': `w-fit
+  window: `w-fit
              bg-white
              bg-opacity-50
              backdrop-blur-20
@@ -125,7 +125,7 @@ export default {
                    ml-0
                    mr-0`,
 
-  'jbutton': `bg-white
+  jbutton: `bg-white
               bg-opacity-30
               backdrop-blur-20
               border-none
@@ -145,5 +145,5 @@ export default {
   'item-center': `absolute
                   top-50% left-50%
                   translate-x--50% translate-y--50%`,
-  'text-disabled': `opacity-50`,
+  'text-disabled': `opacity-50`
 }

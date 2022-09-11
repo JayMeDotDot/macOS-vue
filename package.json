@@ -49,6 +49,9 @@
     "vue-tsc": "^0.38.8"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown --ignore-path ./.gitignore"
+    "**/*": [
+      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+      "prettier . --write --ignore-unknown --ignore-path .gitignore"
+    ]
   }
 }

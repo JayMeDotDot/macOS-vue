@@ -7,8 +7,8 @@ import type { dragType } from '../../utils'
 export const searchBarProps = {
   placeholder: {
     type: String as PropType<string>,
-    default: '搜索',
-  },
+    default: '搜索'
+  }
 } as const
 
 export type SearchBarProps = ExtractPropTypes<typeof searchBarProps>
@@ -17,13 +17,15 @@ export default defineComponent({
   name: 'JSearchBar',
   props: searchBarProps,
   setup(props) {
-    let searchBar : HTMLElement
-    let inputEL : HTMLElement
-    let dragSbar : dragType
+    let searchBar: HTMLElement
+    let inputEL: HTMLElement
+    let dragSbar: dragType
 
     const inputVal = ref('')
     const inputLen = computed(() => {
-      const len = inputVal.value ? inputVal.value.length : props.placeholder.length
+      const len = inputVal.value
+        ? inputVal.value.length
+        : props.placeholder.length
       return `width: ${len}em`
     })
     function handleInput(e: Event) {
@@ -43,27 +45,27 @@ export default defineComponent({
 
     return {
       inputLen,
-      handleInput,
+      handleInput
     }
   },
   render() {
-    const {
-      placeholder,
-      inputLen,
-      handleInput,
-    } = this
+    const { placeholder, inputLen, handleInput } = this
 
     return (
-      <div id="search-bar" class="search-bar-container item-center dark:search-bar-container-dark theme-transition search-bar-shadow">
-        <div class='i-ic-search'></div>
-        <input class="search-bar dark:search-bar-dark focus:outline-none"
-               type="text"
-               placeholder={placeholder}
-               autofocus
-               style={inputLen}
-               onInput={handleInput}
+      <div
+        id="search-bar"
+        class="search-bar-container item-center dark:search-bar-container-dark theme-transition search-bar-shadow"
+      >
+        <div class="i-ic-search"></div>
+        <input
+          class="search-bar dark:search-bar-dark focus:outline-none"
+          type="text"
+          placeholder={placeholder}
+          autofocus
+          style={inputLen}
+          onInput={handleInput}
         />
       </div>
     )
-  },
+  }
 })

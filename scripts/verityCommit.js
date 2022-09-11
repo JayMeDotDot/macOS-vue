@@ -3,11 +3,10 @@
 const chalk = require('chalk')
 const msgPath = '.git/COMMIT_EDITMSG'
 console.log(msgPath)
-const msg = require('fs')
-  .readFileSync(msgPath, 'utf-8')
-  .trim()
+const msg = require('fs').readFileSync(msgPath, 'utf-8').trim()
 
-const commitRE = /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
+const commitRE =
+  /^(revert: )?(feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?: .{1,50}/
 
 if (!commitRE.test(msg)) {
   console.log()

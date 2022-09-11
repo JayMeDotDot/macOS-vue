@@ -1,10 +1,8 @@
-import { defineComponent } from "vue"
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "JScientific",
+  name: 'JScientific',
   render() {
-    return (
-      <div>Need to be implemented, PR welcome!</div>
-    )
-  },
+    return <div>Need to be implemented, PR welcome!</div>
+  }
 })

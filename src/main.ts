@@ -6,7 +6,4 @@ import App from './App'
 
 import 'uno.css'
 
-createApp(App)
-  .use(createPinia())
-  .use(router)
-  .mount('#app')
+createApp(App).use(createPinia()).use(router).mount('#app')

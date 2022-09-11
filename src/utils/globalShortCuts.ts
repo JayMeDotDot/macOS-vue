@@ -1,5 +1,4 @@
 export default function gSC(target: HTMLElement) {
-
   function searchApp(e: KeyboardEvent): void {
     if (e.shiftKey) {
       if (e.key === 'F') {
@@ -16,23 +15,19 @@ export default function gSC(target: HTMLElement) {
     }
   }
 
-  const scList = [
-    searchApp,
-    lockScreen,
-  ]
+  const scList = [searchApp, lockScreen]
 
   return {
     install: (): void => {
       scList.forEach(fn => {
-          window.addEventListener('keydown', fn)
-        }
-      )
+        window.addEventListener('keydown', fn)
+      })
     },
     uninstall: (): void => {
       scList.forEach(fn => {
         window.removeEventListener('keydown', fn)
       })
-    },
+    }
   }
 }
 

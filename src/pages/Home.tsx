@@ -10,6 +10,9 @@ import {
 
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/store/appStore'
+import { useSysState } from '@/store/sysState'
+
+import router from '@/router'
 
 import { gSC } from '@/utils'
 import type { gSCTypes } from '@/utils'
@@ -54,6 +57,7 @@ export default defineComponent({
     })
 
     const appStore = useAppStore()
+    const sysState = useSysState()
     const { getAppBar, getActiveAppMenu } = storeToRefs(appStore)
 
     const compState: { [key: string]: CompInfoType } = reactive({})
@@ -124,7 +128,12 @@ export default defineComponent({
     onMounted(() => {
       appIntance = document.querySelector('#app') as HTMLElement
       gSCInstance = gSC(appIntance)
+      // 后面需要重构 快捷键注册方式，暂时用这个写死的
       appIntance.addEventListener('search-bar-toggle', toggleSearchBar)
+      appIntance.addEventListener('lock-screen-toggle', () => {
+        sysState.logout
+        router.replace({ path: 'login' })
+      })
       gSCInstance.install()
     })
 

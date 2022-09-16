@@ -20,12 +20,12 @@ export default function gSC(target: HTMLElement) {
   return {
     install: (): void => {
       scList.forEach(fn => {
-        window.addEventListener('keydown', fn)
+        window.addEventListener('keyup', fn)
       })
     },
     uninstall: (): void => {
       scList.forEach(fn => {
-        window.removeEventListener('keydown', fn)
+        window.removeEventListener('keyup', fn)
       })
     }
   }

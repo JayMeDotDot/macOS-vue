@@ -168,6 +168,7 @@ export default defineComponent({
             <div class="m-3 text-size-4.5 font-bold">JayMe DotDot</div>
             <div class="m-3 h-28px">{renderInput()}</div>
             <div class="m-3 text-size-3">使用触控 ID 或输入密码</div>
+            <div class="m-3 text-size-3">默认为：123456</div>
           </div>
           <div class="absolute bottom-10 flex flex-col justify-center items-center text-white">
             <JButton

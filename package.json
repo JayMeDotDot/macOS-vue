@@ -13,7 +13,9 @@
   "author": "JayMeDotDot",
   "license": "MIT",
   "dependencies": {
+    "@vueuse/core": "^9.2.0",
     "animate.css": "^4.1.1",
+    "axios": "^0.27.2",
     "dayjs": "^1.11.4",
     "pinia": "^2.0.20",
     "vue": "^3.2.37",
@@ -49,7 +51,7 @@
     "vue-tsc": "^0.38.8"
   },
   "lint-staged": {
-    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint . --ignore-path .gitignore",
+    "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint . --fix --ignore-path .gitignore",
     "*": [
       "prettier . --write --ignore-unknown --ignore-path .gitignore"
     ]

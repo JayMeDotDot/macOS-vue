@@ -18,7 +18,7 @@ export default defineComponent({
   setup(props, ctx) {
     const buttonStyle = computed(() => {
       const isCircle = props.circle ? 'rounded-1/2' : ''
-      return `jbutton ${isCircle} p-1`
+      return `jbutton ${isCircle} p-1 theme-transition`
     })
 
     const IsIcon = computed(() => {

@@ -1,27 +1,19 @@
-import { defineComponent, onMounted, onUnmounted } from 'vue'
+import { defineComponent } from 'vue'
 
 import { RouterView } from 'vue-router'
+
+import { usePreferredDark } from '@vueuse/core'
 
 export default defineComponent({
   name: 'App',
   setup() {
-    const themeMedia = window.matchMedia('(prefers-color-scheme: dark)')
+    const isDark = usePreferredDark()
 
-    function switchTheme() {
-      if (themeMedia.matches) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
     }
-
-    onMounted(() => {
-      switchTheme()
-      themeMedia.addEventListener('change', switchTheme)
-    })
-    onUnmounted(() => {
-      themeMedia.removeEventListener('change', switchTheme)
-    })
   },
   render() {
     return <RouterView></RouterView>

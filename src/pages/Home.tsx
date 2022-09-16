@@ -5,8 +5,10 @@ import {
   reactive,
   ref,
   onUnmounted,
-  provide
+  provide,
+  computed
 } from 'vue'
+import { useFullscreen } from '@vueuse/core'
 
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/store/appStore'
@@ -49,8 +51,28 @@ export default defineComponent({
     let gSCInstance: gSCTypes
     let appIntance: HTMLElement
 
-    let darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const themeIcon = ref('i-ic-baseline-light-mode')
+    const darkModel = ref(document.documentElement.className.includes('dark'))
+    const themeIcon = computed(() => {
+      return darkModel.value
+        ? 'i-ic-baseline-dark-mode'
+        : 'i-ic-baseline-light-mode'
+    })
+    function toggleTheme() {
+      if (darkModel.value) {
+        document.documentElement.classList.remove('dark')
+        darkModel.value = !darkModel.value
+      } else {
+        document.documentElement.classList.add('dark')
+        darkModel.value = !darkModel.value
+      }
+    }
+
+    const { isFullscreen, toggle } = useFullscreen()
+    const fullscreenIcon = computed(() => {
+      return isFullscreen.value
+        ? 'i-ic-outline-fullscreen-exit'
+        : 'i-ic-outline-fullscreen'
+    })
 
     const searchbar = reactive({
       display: false
@@ -71,18 +93,6 @@ export default defineComponent({
       rightMenu.y = y
     }
     provide('rightMenu', { toggleRightMenu, updateRMPosition })
-
-    function toggleTheme() {
-      if (!darkTheme) {
-        document.documentElement.classList.add('dark')
-        themeIcon.value = 'i-ic-baseline-dark-mode color-warmgray-200'
-        darkTheme = !darkTheme
-      } else {
-        document.documentElement.classList.remove('dark')
-        themeIcon.value = 'i-ic-baseline-light-mode'
-        darkTheme = !darkTheme
-      }
-    }
 
     function toggleSearchBar() {
       searchbar.display = !searchbar.display
@@ -148,11 +158,13 @@ export default defineComponent({
       getAppBar,
       searchbar,
       rightMenu,
+      fullscreenIcon,
       themeIcon,
       handleOpenApp,
       handleCloseWin,
       handleClick,
-      toggleTheme
+      toggleTheme,
+      toggle
     }
   },
   render() {
@@ -162,11 +174,13 @@ export default defineComponent({
       getAppBar,
       searchbar,
       rightMenu,
+      fullscreenIcon,
       themeIcon,
       handleOpenApp,
       handleCloseWin,
       handleClick,
-      toggleTheme
+      toggleTheme,
+      toggle
     } = this
 
     function renderComp(comp: CompInfoType) {
@@ -196,7 +210,14 @@ export default defineComponent({
         ></JAppBar>
 
         <JButton
-          class="fixed bottom-10 right-10"
+          class="fixed bottom-10 right-20 color-warmgray-200"
+          circle
+          onClick={toggle}
+          icon={fullscreenIcon}
+        ></JButton>
+
+        <JButton
+          class="fixed bottom-10 right-10 color-warmgray-200"
           circle
           onClick={toggleTheme}
           icon={themeIcon}

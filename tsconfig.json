@@ -11,6 +11,5 @@
       "path": "./tsconfig.vitest.json"
     }
   ],
-  "jsx": "preserve",
-  "lib": ["dom.iterable"]
+  "jsx": "preserve"
 }

@@ -29,5 +29,6 @@ jobs:
           endpoint: oss-cn-shanghai.aliyuncs.com
           access-key-id: ${{ secrets.ALICLOUDOSS_KEY_ID }}
           access-key-secret: ${{ secrets.ALICLOUDOSS_KEY_SECRET }}
+          secure: true
       - name: cp files to alioss
         run: ossutil cp -rf dist/ oss://dd-blog-bucket

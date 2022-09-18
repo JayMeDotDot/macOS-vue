@@ -80,7 +80,7 @@ export default defineComponent({
                 id={item.comp + 'Appbar'}
                 comp={item.comp}
                 class="w-13"
-                src={'/appicon/' + item.iconLocation}
+                src={'/appIcon/' + item.iconLocation}
                 alt={item.name}
                 onClick={openApp}
               />

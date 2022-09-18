@@ -7,8 +7,8 @@ export default [
     }
   ]
   // ['juejin-icon', {
-  //   'mask': 'url("/tmpicon/juejin.svg")',
-  //   '-webkit-mask': 'url("/tmpicon/juejin.svg")',
+  //   'mask': 'url("/tmpIcon/juejin.svg")',
+  //   '-webkit-mask': 'url("/tmpIcon/juejin.svg")',
   //   'mask-size': '100% 100%',
   //   '-webkit-mask-size': '100% 100%',
   //   'background-color': 'currentColor',

@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
@@ -17,18 +17,15 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 7
-
       - run: pnpm install
-
       - name: Run build
         run: pnpm run build
 
       - name: Run deploy
-        uses: manyuanrong/setup-ossutil@v2.0
+        uses: JayMeDotDot/aliyun-OSS-deployer@v1.0.0
         with:
-          endpoint: oss-cn-shanghai.aliyuncs.com
           access-key-id: ${{ secrets.ALICLOUDOSS_KEY_ID }}
           access-key-secret: ${{ secrets.ALICLOUDOSS_KEY_SECRET }}
+          region: 'oss-cn-shanghai'
+          bucket: 'dd-blog-bucket'
           secure: true
-      - name: cp files to alioss
-        run: ossutil cp -rf dist/ oss://dd-blog-bucket

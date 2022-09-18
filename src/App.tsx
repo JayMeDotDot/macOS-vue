@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 
 import { RouterView } from 'vue-router'
 
@@ -9,11 +9,13 @@ export default defineComponent({
   setup() {
     const isDark = usePreferredDark()
 
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
+    onMounted(() => {
+      if (isDark.value) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    })
   },
   render() {
     return <RouterView></RouterView>

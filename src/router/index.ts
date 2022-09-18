@@ -9,13 +9,13 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: JHome,
-    beforeEnter: () => {
-      const sysState = useSysState()
-      if (!sysState.isLogged) {
-        return { name: 'Login' }
-      }
-    }
+    component: JHome
+    // beforeEnter: () => {
+    //   const sysState = useSysState()
+    //   if (!sysState.isLogged) {
+    //     return { name: 'Login' }
+    //   }
+    // }
   },
   {
     path: '/login',

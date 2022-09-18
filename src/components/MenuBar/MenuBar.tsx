@@ -6,6 +6,7 @@ import { useSysState } from '@/store/sysState'
 
 import JMenu from '../Menu/Menu'
 import type { AppMenu } from '../Menu/Menu'
+import { JBattery } from '@/components/WrapIcon'
 
 import { formatDay } from '@/utils'
 
@@ -22,12 +23,11 @@ export const menuBarProps = {
       { title: '帮助' }
     ]
   },
-  systemState: {
+  staticIcon: {
     type: Array as PropType<Array<string>>,
     default: () => [
       'i-ic-round-volume-up',
       'i-ic-baseline-bluetooth',
-      'i-ic-outline-battery-charging-90 rotate-90',
       'i-ic-baseline-wifi'
     ]
   }
@@ -122,7 +122,7 @@ export default defineComponent({
       logoMenu,
       position,
       showMenu,
-      systemState,
+      staticIcon,
       handleClick,
       handleMouseEnter
     } = this
@@ -183,9 +183,10 @@ export default defineComponent({
         </div>
 
         <div class="menu-subbar">
-          {systemState.map(item => {
+          {staticIcon.map(item => {
             return <div class={item + ' menu-subbar-item'}></div>
           })}
+          <JBattery class="menu-subbar-item"></JBattery>
           <div class="menu-subbar-item">{currentTime}</div>
         </div>
       </div>

@@ -19,7 +19,11 @@ export default defineComponent({
         >
           <div class="i-simple-icons-bilibili"></div>
         </a>
-        <a class="text-current" href="https://juejin.cn/user/4108244301656632">
+        <a
+          class="text-current"
+          href="https://juejin.cn/user/4108244301656632"
+          target="_blank"
+        >
           <div class="juejin-icon"></div>
         </a>
       </div>

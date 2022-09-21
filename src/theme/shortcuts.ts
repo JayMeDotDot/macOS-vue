@@ -28,7 +28,8 @@ export default {
   apptv: `w-fit text-center`,
   appstore: `w-fit text-center`,
   book: `w-fit text-center`,
-  facetime: `w-fit text-center`,
+  facetime: `w-100% text-center h-100%
+             flex flex-col justify-around`,
   finder: `w-fit text-center`,
   music: `w-fit text-center`,
   map: `w-fit text-center`,

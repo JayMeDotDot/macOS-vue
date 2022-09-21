@@ -112,7 +112,10 @@ export default defineComponent({
       const appbarRect = appbar.getBoundingClientRect()
       const menubarRect = menubar.getBoundingClientRect()
       const winRect = winElement.getBoundingClientRect()
-      const scale = (appbarRect.top - menubarRect.height) / winRect.height
+      const scale = Math.min(
+        (appbarRect.top - menubarRect.height) / winRect.height,
+        window.innerWidth / winRect.width
+      )
       winState.fullPosition = {
         width: winRect.width * scale,
         height: winRect.height * scale,
